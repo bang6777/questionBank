@@ -3,20 +3,35 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@blowstack/ckeditor5-full-free-build": "^23.0.0",
+    "@ckeditor/ckeditor5-build-classic": "^23.0.0",
+    "@ckeditor/ckeditor5-react": "^2.1.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@tinymce/tinymce-react": "^3.8.1",
+    "@wiris/mathtype-ckeditor4": "^7.24.1",
+    "@wiris/mathtype-ckeditor5": "^7.24.1",
     "bootstrap": "^4.5.2",
+    "ckeditor4-react": "^1.2.0",
+    "ckeditor5-build-classic-mathtype": "^1.0.0",
+    "ckeditor5-classic-with-mathtype": "^1.0.0",
+    "draft-js": "^0.11.7",
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-draft-wysiwyg": "^1.14.5",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3"
+    "react-scripts": "^3.4.4",
+    "sequelize": "^6.3.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "nodemon server.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -32,5 +47,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "devDependencies": {
+    "@ckeditor/ckeditor5-alignment": "^23.0.0",
+    "sequelize-cli": "^6.2.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
