@@ -10,6 +10,7 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "@tinymce/tinymce-react": "^3.8.1",
+    "@wiris/mathtype-ckeditor4": "^7.24.1",
     "@wiris/mathtype-ckeditor5": "^7.24.1",
     "bootstrap": "^4.5.2",
     "ckeditor4-react": "^1.2.0",
