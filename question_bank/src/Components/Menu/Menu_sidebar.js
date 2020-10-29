@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 class Menu_sidebar extends Component {
     render() {
         return (
-            <div className="col-md-2 menu-left col-sm-12">
+            <div className="col-md-3 menu-left col-sm-12 col-lg-3 ">
 
                 <ul className="main-menu">
                     <li className="menu-tp active"><a href="# ">Quản Lý Đề Thi<span className="caret"> </span></a>
