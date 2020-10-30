@@ -14,12 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Grade.init({
-    Id_Grade: {
-      type: DataTypes.STRING,
+    Id_grade: {
       allowNull: false,
-      primaryKey: true
-
-    },
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    }, 
     Name: DataTypes.STRING
   }, {
     sequelize,

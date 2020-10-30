@@ -1,0 +1,19 @@
+npx sequelize-cli model:generate --name Grade --attributes Id_grade:string,Name:string
+npx sequelize-cli model:generate --name Class --attributes Id_class:string,Name:string,Id_Grade:string
+npx sequelize-cli model:generate --name Student --attributes Id_student:string,Name:string,Dob:date,Gender:string,Address:string,Phone:string,Password:string
+npx sequelize-cli model:generate --name	Subject --attributes Id_subject:string,Name_subject:string
+npx sequelize-cli model:generate --name Exam_Subject --attributes Id_es:string,Name_es:string
+npx sequelize-cli model:generate --name Topic --attributes Id_topic:string,Name_topic:string,Content_topic:string
+npx sequelize-cli model:generate --name Image --attributes --attributes Id_image:string,Url_image
+npx sequelize-cli model:generate --name Level --attributes Id_level:string,content:string
+npx sequelize-cli model:generate --name Position --attributes --attributes Id_position:string,Name_possition:string
+npx sequelize-cli model:generate --name Teacher --attributes Id_teacher:string,Name:string,Dob:date,Gender:string,Address:string,Phone:string,Password:string
+npx sequelize-cli model:generate --name Position_Teacher --attributes Id_pt:string,Id_position:string,Id_teacher:string
+npx sequelize-cli model:generate --name Quesstion --attributes Id_quesstion:string,Id_teacher:string,Id_level:string,title:string,Date_create:date,Date_update:date,Name_quesstion:string
+npx sequelize-cli model:generate --name Image_Quesstion --attributes id_iq:string,Id_image:string,Id_quesstion
+npx sequelize-cli model:generate --name Answer --attributes Id_answer:string,Id_quesstion:string,Diem:string
+npx sequelize-cli model:generate --name Term --attributes Id_Term:string,Name_term:string
+npx sequelize-cli model:generate --name Test --attributes Id_Test:string,Id_teacher:string,Time:date,Note:string,Password:string,Date_create:date,Date_update:date
+npx sequelize-cli model:generate --name Test_Quesstion --attributes Id_tq:string,Id_quessiton:string,Id_test:string
+npx sequelize-cli model:generate --name Exam_Test --attributes
+

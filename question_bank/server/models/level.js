@@ -15,11 +15,11 @@ module.exports = (sequelize, DataTypes) => {
   };
   Level.init({
     Id_level: {
-      type: DataTypes.STRING,
       allowNull: false,
-      primaryKey: true
-
-    },
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    }, 
     content: DataTypes.STRING
   }, {
     sequelize,

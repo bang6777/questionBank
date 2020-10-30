@@ -15,11 +15,10 @@ module.exports = (sequelize, DataTypes) => {
   };
   Quesstion.init({
     Id_quesstion: {
-      type: DataTypes.STRING,
       allowNull: false,
-      primaryKey: true
+      type: DataTypes.STRING
 
-    },
+    }, 
     Id_teacher: DataTypes.STRING,
     Id_level: DataTypes.STRING,
     title: DataTypes.STRING,

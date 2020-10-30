@@ -14,12 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Answer.init({
-    Id_answer:{
-      type: DataTypes.STRING,
+    Id_answer: {
       allowNull: false,
-      primaryKey: true
-
-    },
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },  
     Id_quesstion: DataTypes.STRING,
     Diem: DataTypes.STRING
   }, {

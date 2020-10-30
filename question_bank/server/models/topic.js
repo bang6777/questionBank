@@ -14,12 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Topic.init({
-    Id_topic: {
-      type: DataTypes.STRING,
-      allowNull:false,
-      primaryKey: true
-
-    },
+    Id_topic:{
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    }, 
     Name_topic: DataTypes.STRING,
     Content_topic: DataTypes.STRING
   }, {

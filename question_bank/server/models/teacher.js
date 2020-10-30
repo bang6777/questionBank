@@ -14,18 +14,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Teacher.init({
-    Id_teacher: {
-      type: DataTypes.STRING,
-      allowNull:false,
-      primaryKey: true
-
-    },
+    Id_teacher:{
+      allowNull: false,
+      type: DataTypes.STRING
+    }, 
     Name: DataTypes.STRING,
     Dob: DataTypes.DATE,
     Gender: DataTypes.STRING,
     Address: DataTypes.STRING,
     Phone: DataTypes.STRING,
-    Password: DataTypes.STRING,
+    Password: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Teacher',

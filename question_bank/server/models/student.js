@@ -14,26 +14,19 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Student.init({
-    Id_student: {
-      type: DataTypes.STRING,
+    Id_student:{
       allowNull: false,
-      primaryKey: true
-
-    },
-    Id_Test: DataTypes.STRING,
-    Id_Class: DataTypes.STRING,
+      type: DataTypes.STRING
+    }, 
     Name: DataTypes.STRING,
     Dob: DataTypes.DATE,
     Gender: DataTypes.STRING,
     Address: DataTypes.STRING,
     Phone: DataTypes.STRING,
-    Password: DataTypes.STRING,
-  },
-
-    {
-      sequelize,
-      modelName: 'Student',
-    });
-  // Student.belongsToMany(Role, { through: 'Test', foreignKey: 'Id_Test' });
+    Password: DataTypes.STRING
+  }, {
+    sequelize,
+    modelName: 'Student',
+  });
   return Student;
 };
