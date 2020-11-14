@@ -20,11 +20,24 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     }, 
-    Id_position: DataTypes.STRING,
-    Id_teacher: DataTypes.STRING
+    Id_position: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      primaryKey: true
+    },
+    Id_teacher: {
+      primaryKey: true,
+      allowNull: false,
+      type: DataTypes.STRING
+    }
   }, {
     sequelize,
     modelName: 'Position_Teacher',
   });
+  Position_Teacher.associate=function(models){
+    Position_Teacher.belongsTo(models.Teacher,{as: 'Id_Teacher', foreignKey :  'Id_teacher'});
+    Position_Teacher.belongsTo(models.Position,{as: 'Id_Position', foreignKey :  'Id_position'});
+    
+};
   return Position_Teacher;
 };

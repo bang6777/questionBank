@@ -1,4 +1,6 @@
 import React,{Component} from 'react';
+import {Link } from 'react-router-dom';
+
 class Header extends Component{
     render(){
         return (
@@ -11,7 +13,7 @@ class Header extends Component{
                 <span className="icon-bar" />
                 <span className="icon-bar" />
               </button>
-                <a href="# " className="navbar-brand"> <i className="fas fa-home" /> Hệ Thống Quản Lý Đề Thi</a>
+                <Link to="/" className="navbar-brand"> <i className="fas fa-home" /> Hệ Thống Quản Lý Đề Thi </Link>
             </div>
             {/* Collect the nav links, forms, and other content for toggling */}
             <div className="collapse navbar-collapse navbar-ex1-collapse">

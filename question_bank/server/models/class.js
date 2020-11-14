@@ -19,12 +19,19 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER
+    
     }, 
     Name: DataTypes.STRING,
-    Id_Grade: DataTypes.STRING
+    Id_Grade:{
+      type: DataTypes.INTEGER,
+    } 
+    
   }, {
     sequelize,
     modelName: 'Class',
   });
+   Class.associate = function(models) {
+    Class.hasMany(models.Student, {as: 'Id_Class',foreignKey : 'Id_class'})
+  };
   return Class;
 };

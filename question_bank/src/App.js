@@ -1,16 +1,17 @@
 import React from 'react';
-import Header from './Components/Header';
-import Sidebar from './Components/Menu/Sidebar';
-import Formlogin from './Components/Login/Formlogin';
-
+import PageMain from './Components/PageMain';
+import  Formlogin from './Components/Login/Formlogin';
+import {BrowserRouter as Router, Switch, Route  } from 'react-router-dom';
 function App() {
-  
   return (
-    <div className="wrapper">
-        <Header />
-        <Sidebar />
-        {/* <Formlogin /> */}
-    </div>
+    <Router>
+        <div className="wrapper">
+            <Switch>
+                <Route path="/"  component={PageMain} />
+                <Route  path="/sign-up" exact component={Formlogin} />
+            </Switch>
+        </div>
+    </Router>
   );
 }
 
