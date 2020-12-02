@@ -14,3 +14,15 @@ exports.get_List_Position_Teacher = function (req, res) {
         })
     });
 };
+exports.add_Position_Teacher=function(req,res){
+    db_position_teacher.create({
+        Id_position:  req.body.Id_position,
+        Id_teacher: req.body.Id_teacher
+
+    }).then(details=>{
+        res.status(200).json({
+            code:   '200',
+            details:    details
+        })
+    });
+}

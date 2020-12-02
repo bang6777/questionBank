@@ -14,3 +14,13 @@ exports.get_List_Level= function (req, res) {
         })
     });
 };
+exports.add_Level=function(req,res){
+    db_level.create({
+        content:    req.body.content
+    }).then(details=>{
+        res.status(200).json({
+            code:   '200',
+            details:    details
+        })
+    })
+}

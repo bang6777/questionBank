@@ -14,17 +14,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Answer.init({
-    Id_answer: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
-    },  
-    Id_quesstion: DataTypes.STRING,
+    Id_quesstion: DataTypes.INTEGER,
+    Content:DataTypes.TEXT,
     Diem: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Answer',
   });
+  Answer.associate=function(models){
+    Answer.belongsTo(models.Quesstion,{as: 'Id_Quesstion', foreignKey :  'Id_quesstion'});
+  }
   return Answer;
 };

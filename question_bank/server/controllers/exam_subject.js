@@ -14,3 +14,13 @@ exports.get_List_Exam_Subject = function (req, res) {
         })
     });
 };
+exports.add_Exam_Subject=function(req,res){
+    db_exam_subject.create({
+        Name_es:    req.body.Name_es
+    }).then(details=>{
+        res.status(200).json({
+            code:   '200',
+            details:    details
+        })
+    })
+}

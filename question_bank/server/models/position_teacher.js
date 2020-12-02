@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     Id_teacher: {
       primaryKey: true,
       allowNull: false,
-      type: DataTypes.STRING
+      type: DataTypes.INTEGER
     }
   }, {
     sequelize,

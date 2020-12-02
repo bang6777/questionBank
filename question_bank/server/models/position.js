@@ -19,8 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Position',
   });
-  // Position.associate=function(models){
-  //     Position.hasMany(models.Position_Teacher,{as: 'Id_Position', foreignKey :  'Id_position'});
-  // };
+  Position.associate=function(models){
+      Position.hasMany(models.Position_Teacher,{as: 'Id_Position', foreignKey :  'Id_position'});
+  };
   return Position;
 };

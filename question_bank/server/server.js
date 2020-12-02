@@ -23,22 +23,33 @@ let	test_quesstion =require('./routes/test_quesstion');
 let	test =require('./routes/test');
 let	topic =require('./routes/topic');
 let	answer =require('./routes/answer');
-
-app.use("/v1/answer",answer);
+let	exam =require('./routes/exam');
+let	uploadfile =require('./routes/uploadfile');
+let	user  =require('./routes/user');
+let	pagination  =require('./routes/pagination');
+app.use("/v1/pagination",pagination);
+app.use("/v1/class",uploadfile);
 app.use("/v1/class",Class);
+app.use("/v1/subject",subject);
 app.use("/v1/exam_subject",exam_subject);
 app.use("/v1/grade",grade);
 app.use("/v1/level",level);
-app.use("/v1/position_teacher",position_teacher);
 app.use("/v1/position",position);
-app.use("/v1/quesstion",quesstion);
-app.use("/v1/student",student);
-app.use("/v1/subject",subject);
 app.use("/v1/teacher",teacher);
-app.use("/v1/term",term);
-app.use("/v1/test_quesstion",test_quesstion);
-app.use("/v1/test",test);
+app.use("/v1/position_teacher",position_teacher);
+app.use("/v1/student",student);
+
 app.use("/v1/topic",topic);
+app.use("/v1/term",term);
+app.use("/v1/quesstion",quesstion);
+app.use("/v1/test_quesstion",test_quesstion);
+app.use("/v1/answer",answer);
+app.use("/v1/test",test);
+app.use("/v1/exam",exam);
+app.use("/v1/user",user);
+global.__basedir = __dirname;
+const initRoutes = require("./routes/tutorial.routes");
+app.use("/v1/excel",initRoutes);
 db.sequelize.sync().then (() => {
     app.listen(PORT, ()=> {
         console.log('listening on: http://localhost:'+PORT);

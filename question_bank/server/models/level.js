@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Level.init({
-    Id_level: {
+    Id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
@@ -25,5 +25,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Level',
   });
+  Level.associate=function(models){
+    Level.hasMany(models.Quesstion, {as: 'Id_Level',foreignKey : 'Id_level'})
+  }
   return Level;
 };

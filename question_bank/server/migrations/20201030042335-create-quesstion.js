@@ -16,12 +16,6 @@ module.exports = {
       title: {
         type: Sequelize.STRING
       },
-      Date_create: {
-        type: Sequelize.DATE
-      },
-      Date_update: {
-        type: Sequelize.DATE
-      },
       Name_quesstion: {
         type: Sequelize.STRING
       },

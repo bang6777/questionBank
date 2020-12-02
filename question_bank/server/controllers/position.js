@@ -14,3 +14,13 @@ exports.get_List_Position= function (req, res) {
         })
     });
 };
+exports.add_Possition=function(req,res){
+    db_position.create({
+        Name_position:  req.body.Name_position
+    }).then(details=>{
+        res.status(200).json({
+            code:   '200',
+            details:    details
+        })
+    });
+}

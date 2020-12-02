@@ -14,3 +14,16 @@ exports.get_List_Topic= function (req, res) {
         })
     });
 };
+exports.add_Topic=function(req,res){
+
+    db_topic.create({
+        Id_es:    req.body.Id_es,
+        Name_topic: req.body.Name_topic,
+        Content_topic:     req.body.Content_topic
+    }).then(details=>{
+        res.status(200).json({
+            code:   '200',
+            details:    details
+        })
+    })
+}

@@ -14,16 +14,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Teacher.init({
-    id:{
-      allowNull: false,
-      primaryKey: true,
-      type: DataTypes.STRING,
-    },
-    // Id_teacher:{
-    //   allowNull: false,
-    //   primaryKey: true,
-    //   type: DataTypes.STRING,
-    // }, 
     Id_subject: DataTypes.INTEGER,
     Name: DataTypes.STRING,
     Dob: DataTypes.DATE,
@@ -38,6 +28,8 @@ module.exports = (sequelize, DataTypes) => {
   Teacher.associate=function(models){
     Teacher.belongsTo(models.Subject,{as: 'Id_Subject', foreignKey :  'Id_subject'});
     Teacher.hasMany(models.Position_Teacher,{as:  'Id_Position', foreignKey:  'Id_position'});
+    Teacher.hasMany(models.Quesstion,{as: 'Id_Teacher', foreignKey:  'Id_teacher'});
+    
   };
   return Teacher;
 }
