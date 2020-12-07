@@ -32,7 +32,7 @@ export default class ItemExam extends Component{
                 <tr>
                     <td scope="row">{index+1}</td>
                     <td className="content-cover">
-                        <span>{exams.Time}</span>
+                        <span>Mã Đề: 0{index+1}</span>
                         <div className="content-action">
                             <a href>Edit</a> | <a href className="color-red">Delete</a> | <span onClick={()=>this.showdetails(exams.id)} > View</span>
                         </div>

@@ -4,8 +4,9 @@ import {Link } from 'react-router-dom';
 class Header extends Component{
     render(){
         return (
-          <div>
-            <nav className="navbar navbar-default backgroup" role="navigation">
+            <header>
+              <div className="container">
+              <nav className="navbar navbar-default backgroup" role="navigation">
             {/* Brand and toggle get grouped for better mobile display */}
             <div className="navbar-header">
               <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -32,15 +33,17 @@ class Header extends Component{
                   <a href="# " className="dropdown-toggle color" data-toggle="dropdown">Admin<b className="caret" /></a>
                   <ul className="dropdown-menu">
                     <li><Link to="/logout">
-                    <i class="fas fa-sign-in-alt"></i> Log Out
+                    <i className="fas fa-sign-in-alt"></i> Log Out
                     </Link></li>
-                    <li><a href="# "> <i class="fas fa-user-circle"></i> Profile</a></li>
+                    <li><a href="# "> <i className="fas fa-user-circle"></i> Profile</a></li>
                   </ul>
                 </li>
               </ul>
             </div>{/* /.navbar-collapse */}
           </nav>
-          </div>
+        
+            </div>
+            </header>
         )};
 }
 export default Header;

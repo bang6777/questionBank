@@ -6,7 +6,7 @@ import CKEditor from '@ckeditor/ckeditor5-react';
 export default class AddNewQuesstion extends Component{
     render(){
         return(
-            <div className="col-md-10 menu-right col-sm-12">
+            <div className="col-md-19 menu-right col-sm-9">
                 <div className="form-quesstion">
                     <div className="title-quesstion">
                     <div className="form-group title-qs">Thêm Câu Hỏi Mới

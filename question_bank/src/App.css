@@ -1,20 +1,52 @@
 
-body {
-    background:#f3f3f3;
-    font-family: 'Muli', sans-serif;
-    font-size: 14px;
+/*HEADER*/
+html,body{
+  background: #f3f3f3;
 }
-
-p {
-    margin: 0;
-    color: #777;
-    font-size: 14px;
-    line-height: 1.8;
+section.header{
+  background-color: rgba(0,0,0,0.8);
 }
-
-/* Z */
+section.header header {
+  background: linear-gradient(140deg,#416bbe 10%,#385898 60%);
+}
+.wrapper div header{
+  background: linear-gradient(140deg,#416bbe 10%,#385898 60%);
+}
+section.header nav h1 a{
+  font-family: 'Pacifico', cursive;
+  font-size: 28px;
+  letter-spacing: 1px;
+  color: #fff;
+}
+.navbar-default{
+  background: linear-gradient(140deg,#416bbe 10%,#385898 60%) !important;
+}
+.navbar {
+  border:none !important;
+}
+section.header .navbar{
+  margin: 0.5em !important;
+}
+section.header ul.navbar-nav{
+  float: right;
+  margin: 0;
+  padding-right: 40px;
+}
+section.header ul li a{
+  color: #ffffff;
+  text-transform: capitalize;
+}
+section.header ul li.active a{
+  color: #fff;
+}
+section.header ul li.active a:hover{
+  color: #000;
+}
+section.header ul li a:hover{
+  color: #000;
+}
 .banner{
-    /* background: url("../img/baner.jpg") no-repeat 0px 0px; */
+    background: url("/img/baner.jpg") no-repeat 0px 0px;
     background-size: cover;
     background-position: center;
     position: relative;
@@ -125,7 +157,7 @@ p {
     color: #000;
 }
 section.about{
-    /* background: url("../image/cntt-min.jpg") no-repeat center; */
+    /* background: url("./img/cntt-min.jpg") no-repeat center; */
     padding: 4em 0;
     background-attachment: fixed;
 }
@@ -578,7 +610,7 @@ body {
   .menu-right {
     padding-left: 0;
   
-    background: #f2f2f2;
+    background-color: white;
     padding-right: 0;
   }
   .navbar-default .navbar-brand {
@@ -623,7 +655,7 @@ body {
   }
   @media (min-width: 320px) and (max-width: 768px) {
     .menu-left {
-     
+     height: auto;
       width: 100%;
     }
     ul.main-menu {
@@ -738,6 +770,9 @@ body {
   }
   .back-link a {
     color: #000000;
+  }
+  .navbar-nav{
+    float:  right !important;
   }
   .back-link {
     padding: 10px;

@@ -4,6 +4,7 @@ import CKEditor from '@ckeditor/ckeditor5-react';
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
     import ItemExam from './ItemExam';
     import CallApi from '../../../utils/apiCaller';
+    import {Link} from 'react-router-dom';
 export default class ListExam extends Component{
   constructor(props){
     super(props);
@@ -27,9 +28,7 @@ render(){
         <span>
           Quản Lý Đề Thi
         </span>
-        <span className="add-new">
-          Add New
-        </span>
+        <Link to="/admin/add-exam" className="add-new">Thêm Mới</Link>
         <span className="add-new">
           Import
         </span>

@@ -1,35 +1,19 @@
-import React from 'react';
-const Item=({item,index})=>{
-    if(index){
-        return <h2>...</h2>
+import React,{Component} from 'react';
+export default class Item extends Component{
+    render(){
+      var {item}=this.props;
+        return(
+              this.showitem(item)
+        )
+    };
+    showitem(item){
+  return(
+                <div className="answer">
+                    <label>A. {item[0].Content}</label>
+                    <label>B. {item[1].Content}</label>
+                    <label>C. {item[2].Content}</label>
+                    <label>D. {item[3].Content}</label>
+                </div>
+            )
     }
-   const Items=(item)=>{
-      
-        var result=[];
-        var str=null;
-        item.map((qs,index)=>{
-            if(index===0){
-               str="A";
-            }
-            if(index===1){
-                str="B";
-             }
-             if(index===2){
-                str="C";
-             }
-             if(index===3){
-                str="D";
-             }
-            result.push(str+". "+qs.Content+".");
-            result.push(<br/>);
-        })
-        return result;
-    }
- 
-    return (
-        <span>
-         {Items(item)}
-      </span>
-    );
-}
-export default Item;
+  }
