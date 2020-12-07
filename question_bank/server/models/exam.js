@@ -22,6 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Exam',
   });
-  
+    Exam.associate=function(models) {
+      Exam.hasMany(models.Exam_Question, {as: 'Id_Exam',foreignKey : 'Id_exam'})
+    }
   return Exam;
 };

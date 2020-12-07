@@ -51,6 +51,7 @@ const ListQuesstion=()=>{
             <th>Ngày tạo</th>
           </tr>
         </thead>
+        {console.log(currentPosts)}
         <ItemQuesstion posts={currentPosts} loading={loading}/>
       </table>
       <Paginations page={page} paginate={paginate}/>

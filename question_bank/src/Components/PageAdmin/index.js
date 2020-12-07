@@ -12,6 +12,7 @@ import SelectQuiz from './SelectQuiz';
 import Header from '../Header';
 import Menu from '../Menu';
 import AdminRoute from '../AdminRoute/AdminRoutes';
+import ExamDetails from './ExamTest/ExamDetails';
 
 class PageAdmin extends Component{
     render(){
@@ -28,6 +29,7 @@ class PageAdmin extends Component{
                     <AdminRoute  path="/admin/add-student" component={AddStudent} />
                     <AdminRoute  path="/admin/list-grade" component={Grade} />
                     <AdminRoute  path="/admin/select-quiz" component={SelectQuiz} />
+                    <AdminRoute  path='/admin/examdetails' component={ExamDetails} />
                     
                 </div>
                 <div className="clearfix"></div>

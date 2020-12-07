@@ -6,9 +6,9 @@ var db_exam_quesstion=db.Exam_Question;
 //get list
 exports.get_List_Exam= function (req, res) {
     db_exam.findAll({
-        // include: [{
-        //     model: db.Class, as: "Id_Grade"
-        // }]
+        include: [{
+            model: db.Exam_Question, as: "Id_Exam"
+        }]
     }).then(details => {
         res.status(200).json({
             success: 'true',

@@ -4,6 +4,7 @@ import  Formlogin from './Components/Login/Formlogin';
 import {BrowserRouter as Router, Switch, Route  } from 'react-router-dom';
 import Page_Main from './Components/Page_Main';
 import AdminRoute from './Components/AdminRoute/AdminRoutes';
+import './App.css';
 function App() {
   return (
 

@@ -2,11 +2,7 @@ var db = require("../models");
 var db_answer = db.Answer;
 //get list
 exports.get_List_Answer = function (req, res) {
-    db_answer.findAll({
-        include: [{
-            model: db.Quesstion, as: "Id_answer"
-        }]
-    }).then(details => {
+    db_answer.findAll().then(details => {
         res.status(200).json({
             success: 'true',
             details

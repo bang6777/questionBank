@@ -5,6 +5,8 @@ import CKEditor from '@ckeditor/ckeditor5-react';
 // import ClassicEditor from '@blowstack/ckeditor5-full-free-build';
 export default class AddNewQuesstion extends Component{
     render(){
+        var {id}=this.props;
+        console.log("aaaaaaaaaaaaaaaaaaa"+id);
         return(
             <div className="col-md-9 menu-right  col-sm-12 col-lg-9 ">
                 <div className="form-quesstion">

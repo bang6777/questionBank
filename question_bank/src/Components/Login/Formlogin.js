@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
-import '../../public/css/style.css';
+
 import CallApi from "../../utils/apiCaller";
 class Formlogin extends Component  {
   constructor(props){

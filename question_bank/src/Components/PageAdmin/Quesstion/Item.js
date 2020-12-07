@@ -4,7 +4,7 @@ const Item=({item,index})=>{
         return <h2>...</h2>
     }
    const Items=(item)=>{
-        console.log(item);
+      
         var result=[];
         var str=null;
         item.map((qs,index)=>{

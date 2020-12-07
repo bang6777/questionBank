@@ -14,6 +14,20 @@ exports.get_List_Quesstion = function (req, res) {
         })
     });
 };
+exports.get_Quesstion_ById = function (req, res) {
+    
+    db_quesstion.findAll({
+        include: [{
+            model: db.Answer, as: "Id_Quesstion"
+        }],
+        where: { id:  req.body.Id_quesstion}
+    }).then(details => {
+        res.status(200).json({
+            success: 'true',
+            details
+        })
+    });
+};
 exports.add_Quesstion=function(req,res){
     var data=req.body;
     data.forEach(dt=>{

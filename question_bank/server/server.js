@@ -27,6 +27,7 @@ let	exam =require('./routes/exam');
 let	uploadfile =require('./routes/uploadfile');
 let	user  =require('./routes/user');
 let	pagination  =require('./routes/pagination');
+let	exam_question =require('./routes/exam_question');
 app.use("/v1/pagination",pagination);
 app.use("/v1/class",uploadfile);
 app.use("/v1/class",Class);
@@ -38,6 +39,8 @@ app.use("/v1/position",position);
 app.use("/v1/teacher",teacher);
 app.use("/v1/position_teacher",position_teacher);
 app.use("/v1/student",student);
+
+app.use("/v1/exam_question",exam_question);
 
 app.use("/v1/topic",topic);
 app.use("/v1/term",term);
