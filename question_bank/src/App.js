@@ -15,7 +15,6 @@ function App() {
                 <Route exact path="/"  component={Page_Main} />
                 <Route exact path="/login" component={Formlogin} />
                 <AdminRoute  path="/admin" component={PageAdmin} />
-               
             </Switch>
         </div>
         

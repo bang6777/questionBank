@@ -494,9 +494,11 @@ section.slider{
     border-radius: 0.125rem;
     color: #fff;
 }
-.panel-title{
-    background-color: white;
-    padding: 0 20px;
+.panel-title {
+  color: #385898;
+  font-size: 20px;
+  padding: 0 20px;
+  font-weight: 600;
 }
 .panel-body{
     margin: auto;
@@ -727,7 +729,7 @@ body {
     align-items: center;
   }
   .form-login {
-    /* background: url(../img/undraw_book_lover_mkck.png) no-repeat 70px 170px; */
+    background: url(/img/undraw_book_lover_mkck.png) no-repeat 70px 170px;
     background-size: 45%;
     height: 100vh;
   }
@@ -969,4 +971,19 @@ label{
 }
 .answer {
   margin-bottom: 20px;
+}
+.form-exam{
+  padding: 26px;
+}
+.exam-file{
+  justify-items: center;
+    display: flex;
+    justify-content: center;
+}
+.exam-file input, .exam-file label {
+  margin: 14px 35px;
+  font-size: 18px;
+}
+.exam-file button {
+  margin: 10px 36px;
 }

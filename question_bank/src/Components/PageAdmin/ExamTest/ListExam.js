@@ -29,9 +29,9 @@ render(){
           Quản Lý Đề Thi
         </span>
         <Link to="/admin/add-exam" className="add-new">Thêm Mới</Link>
-        <span className="add-new">
-          Import
-        </span>
+        <Link to="/admin/file-import" className="add-new">
+        Import
+      </Link>
       </div>
       <div className="back-link" style={{backgroundColor: '#ffff', margin: 0}}><i className="fas fa-home"> </i> <a href="#">Trang chủ/ </a><a href="#">Địa lý/ </a><a href="#">Đề Thi</a></div>
       <div className="link1">

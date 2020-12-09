@@ -30,7 +30,12 @@ exports.add_Exam= function (req, res){
         id_exam=details.id;
         data.forEach(dt=>{
             var id_topic=dt.Id_topic;
-            var sl=dt.sl;
+            var sl=[
+                {"de": dt.de},
+                {"tb": dt.tb},
+                {"kho": dt.kho}
+            ];
+           console.log(sl);
                 db_topic.findAll({
                         where: { Id:  id_topic},
                         include: [{
@@ -38,6 +43,7 @@ exports.add_Exam= function (req, res){
                     }]
                 })
                 .then(details=>{
+                    console.log(sl);
                     var Array=createIdQuestion(details);
                     var index=cutArray(checkRandom(Array,sl));
                     index.forEach(idx=>{
@@ -54,10 +60,12 @@ exports.add_Exam= function (req, res){
 }
 function checkRandom(Array,sl){
     var result=[[],[],[]];
+    console.log(sl[0].de);
     var level=[sl[0].de,sl[1].tb,sl[2].kho];
     var i=0;
     var kq=null;
     var num=0;
+   
     while(i< sl.length){
         for(num;num<sl.length;num++){
             if(i===num){

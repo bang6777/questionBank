@@ -4,9 +4,9 @@ var db_topic = db.Topic;
 //get list
 exports.get_List_Topic= function (req, res) {
     db_topic.findAll({
-        // include: [{
-        //     model: db.Class, as: "Id_Grade"
-        // }]
+        include: [{
+            model: db.Quesstion, as: "Id_Topic"
+        }]
     }).then(details => {
         res.status(200).json({
             success: 'true',

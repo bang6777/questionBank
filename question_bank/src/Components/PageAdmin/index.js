@@ -15,6 +15,7 @@ import AdminRoute from '../AdminRoute/AdminRoutes';
 import ExamDetails from './ExamTest/ExamDetails';
 import Footer from '../Footer';
 import FormImport from './ExamTest/FormImport';
+import Form from './ExamTest/Form';
 class PageAdmin extends Component{
     render(){
         return(
@@ -25,14 +26,13 @@ class PageAdmin extends Component{
                 <AdminRoute  path='/admin/add-quesstion' component={AddNewQuesstion} />
                 <AdminRoute  path='/admin/list-quesstion' component={ListQuesstion} />
                 <AdminRoute  path='/admin/list-exam' component={ListExam} />
-                <AdminRoute  path='/admin/add-exam' component={AddNewExam} />
+                <AdminRoute  path='/admin/file-import' component={Form} />
                 <AdminRoute  path='/admin/list-student' component={Student} />
                 <AdminRoute  path="/admin/add-student" component={AddStudent} />
                 <AdminRoute  path="/admin/list-grade" component={Grade} />
                 <AdminRoute  path="/admin/select-quiz" component={SelectQuiz} />
                 <AdminRoute  path='/admin/examdetails' component={ExamDetails} />
-                
-                
+                <AdminRoute  path='/admin/add-exam' component={FormImport} />
                 </div>
                 <div className="clearfix"></div>
                 <Footer />

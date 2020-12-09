@@ -20,6 +20,7 @@ const ExamDetails=()=>{
       let obj={
         id: currentPath.id
       }
+      console.log(obj);
       setLoading(true);
       await CallApi("v1/exam_question","POST",obj).then(res=>{
              
@@ -29,12 +30,13 @@ const ExamDetails=()=>{
               }
               if(res){
                 res.data.exam_question.map(id=>{
-                    obj.Id_quesstion.push(id.id);
+               
+                    obj.Id_quesstion.push(id.Id_quesstion);
                 })
               }
               console.log(obj);
               CallApi("v1/quesstion/id","POST",obj).then(ress=>{
-                console.log(ress.data);
+              
                 setPosts(ress.data.details);
               
                })
@@ -69,7 +71,7 @@ const ExamDetails=()=>{
               <th  className="text-center">Dề Thi</th>
             </tr>
           </thead>
-           <PostsExam posts={currentPosts} loading={loading} />
+           <PostsExam posts={currentPosts} loading={loading} currentPage={currentPage}/>
            <Paginations page={page} paginate={paginate}/>
       
         </table>

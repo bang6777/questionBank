@@ -1,12 +1,12 @@
 import React,{Component} from 'react';
 export default class AnsewerQuestion extends Component{
   render(){
-    var {item}=this.props;
+    var {item,index}=this.props;
       return(
-            this.showitem(item)
+            this.showitem(item,index)
       )
   };
-  showitem(item){
+  showitem(item,index){
 return(
               <div className="answer">
                   <label>A. {item[0].Content}</label>
