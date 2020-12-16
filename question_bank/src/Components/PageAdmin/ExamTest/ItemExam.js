@@ -1,10 +1,14 @@
 import React,{Component} from 'react';
 import {  Redirect } from "react-router-dom";
-import CKEditor from '@ckeditor/ckeditor5-react';
-// import CKEditor from '@ckeditor/ckeditor5-react';
-    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Link } from 'react-router-dom';
+import CallApi from '../../../utils/apiCaller';
+import ShowTeacherCreate from '../Quesstion/ShowTeacherCreate';
 export default class ItemExam extends Component{
+    formatter = new Intl.DateTimeFormat("vn", {
+        year: "numeric",
+        month: "long",
+        day: "2-digit"
+      });
     constructor(props){
         super(props);
         this.state={
@@ -18,6 +22,7 @@ export default class ItemExam extends Component{
             id: id
         })
     }
+   
     render(){
         if(this.state.redirect!==0){
           return <Redirect
@@ -32,15 +37,20 @@ export default class ItemExam extends Component{
                 <tr>
                     <td scope="row">{index+1}</td>
                     <td className="content-cover">
-                        <span>Mã Đề: 0{index+1}</span>
+                        <span>Mã Đề: 0{exams.id}</span>
                         <div className="content-action">
                             <a href>Edit</a> | <a href className="color-red">Delete</a> | <span onClick={()=>this.showdetails(exams.id)} > View</span>
                         </div>
                     </td>
-                    <td>{exams.createdAt}</td>
-                        
+                    <td>{this.showTeacher(exams.Id_teacher)}</td>
+                    <td>{this.formatter.format(Date.parse(exams.createdAt))}</td>
+                   <td className="text-center">
+                   </td>
                 </tr>
         )
     };
+    showTeacher(Id_teacher){
+        return <ShowTeacherCreate Id_teacher={Id_teacher} />
+    }
    
 }

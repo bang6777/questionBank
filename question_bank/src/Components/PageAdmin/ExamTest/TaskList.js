@@ -1,15 +1,18 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 const TaskList = (props) =>{
+   const [de,Setde]=useState("");
+   const [tb,Settb]=useState("");
+   const [kho,Setkho]=useState("");
     return(
         props.Id_exam.map((val,idx)=>{
             let de = `de-${idx}`, tb= `tb-${idx}`, kho = `kho-${idx}`, Id_topic = `Id_topic-${idx}`
             return (
                 <tr key={val.index}>
                      <td>
-                        <select name="Id_topic" id={Id_topic} data-id={idx} className="form-control">
+                        <select name="Id_topic" id={Id_topic} data-id={idx} className="form-control" >
                             <option value={0}></option>
                             {props.topic.map((tp,index1)=>(
-                                <option key={index1} value={tp.Id}>{tp.Name_topic}</option>
+                                <option key={index1} value={tp.Id}>{tp.Name_topic}: {tp.Content_topic}</option>
                             ))}
                         </select>
                     </td>

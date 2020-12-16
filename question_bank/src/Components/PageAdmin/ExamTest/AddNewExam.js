@@ -1,11 +1,11 @@
 import React,{Component} from 'react';
-
 import CKEditor from '@ckeditor/ckeditor5-react';
-    import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+    // import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 // import ClassicEditor from '@blowstack/ckeditor5-full-free-build';
 export default class AddNewQuesstion extends Component{
     render(){
         var {id}=this.props;
+        console.log("123")
         console.log("aaaaaaaaaaaaaaaaaaa"+id);
         return(
             <div className="col-md-9 menu-right  col-sm-12 col-lg-9 ">
@@ -28,7 +28,7 @@ export default class AddNewQuesstion extends Component{
                             <option>Chuong 3</option>
                         </select>
                     </div>
-                    <div className="form-group">
+                    {/* <div className="form-group">
                         <label >Đáp Án A</label>
                         <CKEditor
                         editor={ClassicEditor}
@@ -67,7 +67,7 @@ export default class AddNewQuesstion extends Component{
                             // console.log( 'Editor is ready to use!', editor );
                         }}
                         />
-                    </div>
+                    </div> */}
                     <div className="form-group">
                         <button type="submit" className="btn btn-primary">
                            Thêm Mới

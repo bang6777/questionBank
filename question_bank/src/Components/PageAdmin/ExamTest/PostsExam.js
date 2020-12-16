@@ -1,9 +1,7 @@
 import React,{Component,useState,useEffect} from 'react';
 import CallApi from '../../../utils/apiCaller';
 import AnsewerQuestion from './AnsewerQuestion';
-
 const PostsExam = ({posts,loading, currentPage}) => {
-    {console.log(currentPage)}
     if(loading){
         return <h2>Loading.....</h2>
     }
@@ -12,7 +10,6 @@ const PostsExam = ({posts,loading, currentPage}) => {
            {posts ? posts.map((post,index)=>{
                var item=post.Id_Quesstion;
                return(
-
                 <tbody>
                     <div className="question"> Câu {showIndex(index,currentPage)}: {post.Name_quesstion}</div>
                     <AnsewerQuestion item={item} key={index} index={index}/>

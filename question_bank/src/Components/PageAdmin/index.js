@@ -16,6 +16,12 @@ import ExamDetails from './ExamTest/ExamDetails';
 import Footer from '../Footer';
 import FormImport from './ExamTest/FormImport';
 import Form from './ExamTest/Form';
+import GardeQuesstion from './Quesstion/GradeQuesstion';
+import FormQuestion from './Quesstion/FormQuestion';
+// import QuestionShow from './Quesstion/QuestionShow';
+import ShowExam from './ExamTest/ShowExam';
+import MarkExam from './ExamTest/MarkExam';
+
 class PageAdmin extends Component{
     render(){
         return(
@@ -23,9 +29,11 @@ class PageAdmin extends Component{
                 <Header />
                 <div className="container">
                 <Menu />
-                <AdminRoute  path='/admin/add-quesstion' component={AddNewQuesstion} />
+                <AdminRoute  path='/admin/add-question' component={GardeQuesstion} />
+                <AdminRoute  path='/admin/add-new-question' component={AddNewQuesstion} />
                 <AdminRoute  path='/admin/list-quesstion' component={ListQuesstion} />
-                <AdminRoute  path='/admin/list-exam' component={ListExam} />
+                {/* <AdminRoute  path='/admin/list' component={QuestionShow} /> */}
+                <AdminRoute  path='/admin/list' component={ShowExam} />
                 <AdminRoute  path='/admin/file-import' component={Form} />
                 <AdminRoute  path='/admin/list-student' component={Student} />
                 <AdminRoute  path="/admin/add-student" component={AddStudent} />
@@ -33,6 +41,10 @@ class PageAdmin extends Component{
                 <AdminRoute  path="/admin/select-quiz" component={SelectQuiz} />
                 <AdminRoute  path='/admin/examdetails' component={ExamDetails} />
                 <AdminRoute  path='/admin/add-exam' component={FormImport} />
+                <AdminRoute  path='/admin/list-exam' component={ListExam} />
+                <AdminRoute  path='/admin/import-question' component={FormQuestion} />
+                <AdminRoute  path='/admin/mark-exam' component={MarkExam} />
+                
                 </div>
                 <div className="clearfix"></div>
                 <Footer />

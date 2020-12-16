@@ -15,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   };
   Exam.init({
     Id_teacher: DataTypes.INTEGER,
+    Id_exam_subject: DataTypes.INTEGER,
+    Id_grade: DataTypes.INTEGER,
     Time: DataTypes.DATE,
     Pass: DataTypes.STRING,
     Note: DataTypes.STRING

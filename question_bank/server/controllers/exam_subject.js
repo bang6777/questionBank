@@ -4,9 +4,9 @@ var db_exam_subject = db.Exam_Subject;
 //get list
 exports.get_List_Exam_Subject = function (req, res) {
     db_exam_subject.findAll({
-        // include: [{
-        //     model: db.Class, as: "Id_Grade"
-        // }]
+        include: [{
+            model: db.Topic, as: "Id_Es"
+        }]
     }).then(details => {
         res.status(200).json({
             success: 'true',
@@ -15,6 +15,7 @@ exports.get_List_Exam_Subject = function (req, res) {
     });
 };
 exports.add_Exam_Subject=function(req,res){
+    console.log( req.body.Name_es);
     db_exam_subject.create({
         Name_es:    req.body.Name_es
     }).then(details=>{

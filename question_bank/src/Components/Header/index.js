@@ -1,7 +1,11 @@
 import React,{Component} from 'react';
-import {Link } from 'react-router-dom';
+import {Link,Redirect } from 'react-router-dom';
 
 class Header extends Component{
+    logOut=()=>{
+      localStorage.clear();
+      return <Redirect to="/" />
+    }
     render(){
         return (
             <header>
@@ -21,18 +25,18 @@ class Header extends Component{
             <div className="collapse navbar-collapse navbar-ex1-collapse">
               <ul className="nav navbar-nav navbar-right navbar-color">
                 <li className="dropdown">
-                     <a href="# " className="dropdown-toggle color" data-toggle="dropdown">Thông Tin</a>
+                     <a href="# " className="dropdown-toggle color" data-toggle="dropdown">Khối 10</a>
                 </li>
                 <li className="dropdown ">
-                     <a href="# " className="dropdown-toggle color" data-toggle="dropdown">File</a>
+                     <a href="# " className="dropdown-toggle color" data-toggle="dropdown">Khối 11</a>
                 </li>
                 <li className="dropdown ">
-                     <a href="# " className="dropdown-toggle color" data-toggle="dropdown">Export</a>
+                     <a href="# " className="dropdown-toggle color" data-toggle="dropdown">Khối 12</a>
                 </li>
                 <li className="dropdown">
                   <a href="# " className="dropdown-toggle color" data-toggle="dropdown">Admin<b className="caret" /></a>
                   <ul className="dropdown-menu">
-                    <li><Link to="/logout">
+                    <li><Link to="/" onClick={this.logOut}>
                     <i className="fas fa-sign-in-alt"></i> Log Out
                     </Link></li>
                     <li><a href="# "> <i className="fas fa-user-circle"></i> Profile</a></li>

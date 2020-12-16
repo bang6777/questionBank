@@ -4,7 +4,8 @@ import Pagination from '../../Pagination';
 import Paginations from '../../Pagination/Paginations';
 import Posts from '../../Pagination/Posts';
 import ItemQuesstion from './ItemQuesstion';
-const ListQuesstion=()=>{
+import {Link} from 'react-router-dom';
+const ListQuesstion=(props)=>{
   const [posts,setPosts]=useState([]);
   const [loading,setLoading]=useState(false);
   const [currentPage,setCurrentPage]=useState(1);
@@ -15,11 +16,28 @@ const ListQuesstion=()=>{
   useEffect(()=>{
     const fetchPosts= async()=>{
       setLoading(true);
-      await CallApi("v1/pagination?collection=question&limit=10","GET",null).then(res=>{
-          setPosts(res.data.post);
-          setPage(res.data.page);
-          setLoading(false);
+      var x = localStorage.getItem("admin");
+      let obj={
+            id: x,
+          }
+      await CallApi("v1/teacher/id","POST",obj).then(res=>{
+        
+            let ob={
+              Id_exam_subject: res.data.details.Id_exam_subject
+            }
+              CallApi("v1/teacher/listtc/1","POST",ob).then(res1=>{
+                      let obt={
+                        id: res1.data.details,
+                        Id_grade: props.location.state.id
+                      }
+                  CallApi("v1/pagination?collection=question&limit=10","POST",obt).then(res=>{
+                      setPosts(res.data.post);
+                      setPage(res.data.page);
+                      setLoading(false);
+                  });
+              })
       });
+      
     }
     fetchPosts();
   },[]);
@@ -33,12 +51,10 @@ const ListQuesstion=()=>{
       <span>
         NGÂN HÀNG CÂU HỎI
       </span>
-      <span className="add-new">
-        Add New
-      </span>
-      <span className="add-new">
+      <Link to="add-question" className="add-new">Thêm Mới</Link>
+        <Link to="/admin/import-question" className="add-new">
         Import
-      </span>
+      </Link>
     </div>
     <div className="back-link" style={{backgroundColor: '#ffff', margin: 0}}><i className="fas fa-home"> </i> <a href="#">Trang chủ/ </a><a href="#">Địa lý/ </a> <a href="#">Lớp 10/ </a> <a href="#">Chương 1</a></div>
     <div className="link1">
@@ -48,10 +64,11 @@ const ListQuesstion=()=>{
             <th>STT</th>
             <th>Câu hỏi</th>
             <th>Câu trả lời</th>
-            <th>Ngày tạo</th>
+            <th>Cấp độ</th>
+            <th>Người tạo</th>
           </tr>
         </thead>
-        <ItemQuesstion posts={currentPosts} loading={loading}/>
+        <ItemQuesstion posts={currentPosts} loading={loading} currentPage={currentPage}/>
       </table>
       <Paginations page={page} paginate={paginate}/>
     </div>

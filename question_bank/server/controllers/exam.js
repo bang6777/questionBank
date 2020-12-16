@@ -2,6 +2,8 @@ var db = require("../models");
 var db_topic = db.Topic;
 var db_exam=db.Exam;
 var db_exam_quesstion=db.Exam_Question;
+var db_examdetails=db.ExamDetails;
+var db_edq=db.ExamDetails_Quesstion;
 // var db_class=db.Class;
 //get list
 exports.get_List_Exam= function (req, res) {
@@ -16,6 +18,24 @@ exports.get_List_Exam= function (req, res) {
         })
     });
 };
+exports.post_List_Exam_ById=function(req,res){
+    console.log(req.body.Id_exam_subject);
+    db_exam.findAll({
+        include: [{
+            model: db.Exam_Question, as: "Id_Exam"
+        }],
+        where: { Id_exam_subject:  req.body.Id_exam_subject,
+            Id_grade: req.body.Id_grade
+        }
+
+            
+    }).then(details => {
+        res.status(200).json({
+            success: 'true',
+            details
+        })
+    });
+}
 exports.add_Exam= function (req, res){
     var data=req.body.Id_exam;
     var result=[];
@@ -108,3 +128,61 @@ function cutArray(result){
     })
     return index;
 }
+exports.Create_Exam=function(req,res){
+    var data=req.body;
+    console.log(data);
+    db_exam.findOne({
+        include: [{
+            model: db.Exam_Question, as: "Id_Exam"
+        }],
+        where: {id: data.id}
+    }).then(details => {
+        if(details){
+           let arrData=details.Id_Exam;
+            for(let i=1;i<=data.number;i++){
+                db_examdetails.create({
+                    Id_exam: data.id,
+                    Content: null
+                }).then(res1=>{
+                        var id=res1.id;
+                        var ar=ranDomExam(arrData);
+                        ar.forEach(ix=>{{
+                            db_edq.create({
+                                Id_examdetails: id,
+                                Id_quesstion : ix
+                            }).then(details=>{
+                                res.status(200).json({
+                                    code: "200",
+                                    details:  details
+                                })
+                            })
+                        }})
+                })
+            }
+        }   
+    });
+}
+function ranDomExam(details){
+  
+    var Array=[];
+    var result=[];
+    details.forEach(item=>{
+       Array.push(item.id);
+    });
+    result=shuffle(Array);
+    return result;
+}
+//swap ques
+function shuffle(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+    while (currentIndex !== 0 ) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+    return array;
+  }

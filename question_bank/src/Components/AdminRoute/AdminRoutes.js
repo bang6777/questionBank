@@ -7,7 +7,7 @@ const AdminRoute = ({ component: Component, ...rest }) => (
       isLoggedAdmin !== null ? (
         <Component {...props} />
       ) : (
-        <Redirect to="/admin/signin" />
+        <Redirect to="/" />
       )
     }
   />

@@ -18,6 +18,7 @@ export default class FormImport extends React.Component {
     redirect: false
 
   }
+  
   handleChange=(e)=>{
     if (["de", "tb", "kho", "Id_topic"].includes(e.target.name)) {
       let Id_exam = [...this.state.Id_exam]
@@ -45,7 +46,6 @@ handleSubmit=e=>{
         redirect: true
       })
   })
- 
 }
 clickOnDelete(record) {
     this.setState({
@@ -53,14 +53,21 @@ clickOnDelete(record) {
     });
   }
   componentDidMount(){
-    CallApi("v1/topic","GET",null).then(res=>{
-         this.setState({
-             topic: res.data.details
-         });
-     })
+    let obj={
+      Id_es: this.props.location.state.Id_es,
+      Id_grade: this.props.location.state.Id_grade
+    }
+    console.log(obj);
+    CallApi("v1/topic/1","POST",obj).then(res=>{
+      this.setState({
+          topic: res.data.details
+      });
+  })
  }
     render(){
       let {Id_exam,topic}=this.state;
+  
+      console.log(Id_exam);
       if(this.state.redirect){
         return <Redirect to="/admin/list-exam" />;
       }
@@ -101,7 +108,7 @@ clickOnDelete(record) {
               </table>
               <div><button type="submit" onClick={this.handleSubmit} className="btn btn-primary text-center">Submit</button></div>
               </form>
-        </div>
+        </div>  
       )
     }
 }

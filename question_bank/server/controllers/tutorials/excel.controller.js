@@ -5,8 +5,8 @@ var db_exam_quesstion = db.Exam_Question;
 var db_answer = db.Answer;
 const readXlsxFile = require("read-excel-file/node");
 const upload = function (req, res) {
-  try {
-    if (req.file == undefined) {
+    try {
+    if (req.file === undefined) {
       return res.status(400).send("Please upload an excel file!");
     }
     let path =
@@ -14,38 +14,79 @@ const upload = function (req, res) {
     readXlsxFile(path).then((rows) => {
       rows.shift();
       db_exam.create({
-        Id_teacher: req.Id_teacher,
-        Time: req.Time,
-        Pass: req.Pass,
-        Note: req.Note
+        Id_teacher: req.body.Id_teacher,
+        Id_exam_subject: req.body.Id_exam_subject,
+        Id_grade: req.body.Id_grade,
+        Time: req.body.Time,
+        Pass: req.body.Pass,
+        Note: req.body.Note,
+        
       }).then(exam => {
         id_exam = exam.id;
         rows.forEach((row) => {
           db_quesstion.create({
+            Id_grade: req.body.Id_grade,
             Name_quesstion: row[1],
             Id_teacher: req.body.Id_teacher,
+            Id_topic : row[7],
+            Id_level : row[8],
+        
           }).then(qs => {
             var id_quesstion = qs.id;
-            let tutorial = {
-              Id_quesstion: id_quesstion,
-              Content: row[2],
-              Diem: row[6],
-            };
-            let tutorial1 = {
-              Id_quesstion: id_quesstion,
-              Content: row[3],
-              Diem: row[6],
-            };
-            let tutorial2 = {
-              Id_quesstion: id_quesstion,
-              Content: row[4],
-              Diem: row[6],
-            };
-            let tutorial3 = {
-              Id_quesstion: id_quesstion,
-              Content: row[5],
-              Diem: row[6],
-            };
+            let tutorial,tutorial1,tutorial2,tutorial3;
+            if(row[6]===1){
+              tutorial = {
+                Id_quesstion: id_quesstion,
+                Content: row[2],
+                Diem: 1,
+              }
+            }else{
+              tutorial = {
+                Id_quesstion: id_quesstion,
+                Content: row[2],
+                Diem: 0,
+              };
+            }
+            if(row[6]===2){
+              tutorial1 = {
+                Id_quesstion: id_quesstion,
+                Content: row[3],
+                Diem: 1,
+              }
+            }else{
+              tutorial1 = {
+                Id_quesstion: id_quesstion,
+                Content: row[3],
+                Diem: 0,
+              };
+            }
+            if(row[6]===3){
+              tutorial2 = {
+                Id_quesstion: id_quesstion,
+                Content: row[4],
+                Diem: 1,
+              }
+            }else{
+              tutorial2 = {
+                Id_quesstion: id_quesstion,
+                Content: row[4],
+                Diem: 0,
+              };
+            }
+            if(row[6]===4){
+              tutorial3 = {
+                Id_quesstion: id_quesstion,
+                Content: row[5],
+                Diem: 1,
+              }
+            }else{
+              tutorial3 = {
+                Id_quesstion: id_quesstion,
+                Content: row[5],
+                Diem: 0,
+              };
+            }
+           
             let tutorials = [];
             tutorials.push(tutorial, tutorial1, tutorial2, tutorial3);
             db_answer.bulkCreate((tutorials)).then(ans => {

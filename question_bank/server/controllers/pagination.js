@@ -12,6 +12,10 @@ exports.get_Pagination=function(req,res){
                 include: [{
                     model: db.Answer, as: "Id_Quesstion"
                 }],
+                 where: { 
+                     Id_teacher:  req.body.id,
+                    Id_grade: req.body.Id_grade
+                },
                 order: [["createdAt", "DESC"]],
             }).then(item=>{
                 res.json({

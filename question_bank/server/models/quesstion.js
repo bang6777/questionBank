@@ -17,8 +17,9 @@ module.exports = (sequelize, DataTypes) => {
     Id_topic: DataTypes.INTEGER,
     Id_teacher: DataTypes.INTEGER,
     Id_level: DataTypes.INTEGER,
+    Id_grade: DataTypes.INTEGER,
     Name_quesstion: DataTypes.STRING,
-    Id_grade: DataTypes.INTEGER
+  
   }, {
     sequelize,
     modelName: 'Quesstion',

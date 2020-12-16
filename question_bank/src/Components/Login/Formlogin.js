@@ -59,11 +59,9 @@ class Formlogin extends Component  {
   }
  render(){
    if(this.state.redirect===1){
-     alert("Đăng nhập thành công");
     return <Redirect to="/admin" />;
    }
    else if(this.state.redirect===2){
-    alert("Đăng nhập thành công");
    return <Redirect to="/student" />;
    }
   

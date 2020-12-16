@@ -36,7 +36,6 @@ exports.add_Quesstion=function(req,res){
             Id_teacher: dt.Id_teacher,
             Id_level:   dt.Id_level,
             Name_quesstion: dt.Name_quesstion,
-            Id_grade:   dt.Id_grade
         }).then(details=>{
             res.status(200).json({
                 code:   '200',

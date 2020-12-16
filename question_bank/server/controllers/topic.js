@@ -26,4 +26,19 @@ exports.add_Topic=function(req,res){
             details:    details
         })
     })
+   
 }
+exports.get_Topic_ByID= function (req, res) {
+    db_topic.findAll({
+        include: [{
+            model: db.Quesstion, as: "Id_Topic"
+        }],
+        where: {Id_grade: req.body.Id_grade,
+        Id_es: req.body.Id_es}
+    }).then(details => {
+        res.status(200).json({
+            success: 'true',
+            details
+        })
+    });
+};
