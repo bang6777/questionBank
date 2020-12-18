@@ -27,11 +27,12 @@ class Formlogin extends Component  {
     if(this.state.student===true){
       CallApi('v1/user/login','Post',this.state).then(res=>{
         
-        if(res.data.user!== undefined){
+        if(res!== undefined){
           localStorage.setItem("user", res.data.jwt);
           this.setState({
             redirect: 2
           })
+          alert("Đăng Nhập Thành Công");
         }
         else{
           this.setState({
@@ -48,6 +49,7 @@ class Formlogin extends Component  {
           this.setState({
             redirect: 1
           })
+          alert("Đăng Nhập Thành Công");
         }
         else{
           this.setState({

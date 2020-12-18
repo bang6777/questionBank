@@ -52,5 +52,4 @@ export default class ItemExam extends Component{
     showTeacher(Id_teacher){
         return <ShowTeacherCreate Id_teacher={Id_teacher} />
     }
-   
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
-let isLoggedAdmin=localStorage.getItem("admin");
-const AdminRoute = ({ component: Component, ...rest }) => (
+let isLoggedAdmin=localStorage.getItem("user");
+const StudentRouter = ({ component: Component, ...rest }) => (
     <Route {...rest}  
     render={props =>
-      localStorage.getItem("admin") !== null ? (
+      localStorage.getItem("user") !== null ? (
         <Component {...props} />
       ) : (
         <Redirect to="/login" />
@@ -13,4 +13,4 @@ const AdminRoute = ({ component: Component, ...rest }) => (
   />
 );
 
-export default AdminRoute;
+export default StudentRouter;

@@ -142,7 +142,8 @@ exports.Create_Exam=function(req,res){
             for(let i=1;i<=data.number;i++){
                 db_examdetails.create({
                     Id_exam: data.id,
-                    Content: null
+                    Content: 0,
+                    Stt_exam: i
                 }).then(res1=>{
                         var id=res1.id;
                         var ar=ranDomExam(arrData);
@@ -186,3 +187,75 @@ function shuffle(array) {
     }
     return array;
   }
+exports.LoadExamDetails=function(req,res){
+    db.ExamDetails.findAll({
+        where: {Content: 0}
+    }).then(details=>{
+      if(details){
+          var ar=[];
+          details.forEach(dt=>{
+              ar.push(dt.id);
+          })
+          var random=Math.floor(Math.random() * ar.length);
+          var id=ar[random];
+          res.status(200).json({
+            code: "200",
+            data: id
+        })
+      }
+    })
+}
+
+exports.show_Exam=function(req,res){
+    db_exam.findOne({
+        where: {id: req.body.Id_exam}   
+    }).then(item=>{
+        
+            if(!item){
+                res.status(500).json({
+                    message: "Error ID"
+                })
+            }
+            else if(item){
+                console.log(req.body.password);
+                console.log(item.Pass);
+                // let isCorrectPassWord=bcrypt.compareSync(req.body.Password,item.Password);
+                // console.log(isCorrectPassWord);
+                if(req.body.password===item.Pass){
+                    db_examdetails.findOne({
+                        where: {Id_exam: req.body.Id_exam}
+                    }).then(data=>{
+                        if(!data){
+                            res.status(500).json({
+                                message: "Error ID"
+                            })
+                        }
+                        else if(data){
+                              if(Number(req.body.Stt_exam)===Number(data.Stt_exam)){
+                                res.json({ user: data, jwt: `${data.id}` }); 
+                              }
+                              else{
+                                res.status(500).json({
+                                    code:   '500',
+                                    details:    "Error user..."
+                                })
+                              }
+                        }
+                    })
+                }
+                else{
+                    res.status(500).json({
+                        code:   '500',
+                        details:    "Error user..."
+                    })
+                }
+            }
+    }).catch(res=>{
+        res.status(501).json({
+            code: "501",
+            message: "Error"
+        })
+    })
+}
+
+

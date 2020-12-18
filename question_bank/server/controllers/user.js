@@ -21,7 +21,10 @@ exports.get_UserByid=function(req,res){
                 res.json({ user: item, jwt: `${item.id}` });        
             }
             else{
-                    res.json({ user: null, jwt: null });
+                res.status(500).json({
+                    code:   '500',
+                    details:    "Error user..."
+                })
             }
         }
     }).catch((err)=>{
@@ -47,7 +50,10 @@ exports.get_TeacherByid=function(req,res){
                 res.json({ user: item, jwt: `${item.id}` });        
             }
             else{
-                    res.json({ user: null, jwt: null });
+                res.status(500).json({
+                    code:   '500',
+                    details:    "Error user..."
+                })
             }
         }
     }).catch((err)=>{

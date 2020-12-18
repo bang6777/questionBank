@@ -4,6 +4,7 @@ const TaskList = (props) =>{
    const [tb,Settb]=useState("");
    const [kho,Setkho]=useState("");
     return(
+        
         props.Id_exam.map((val,idx)=>{
             let de = `de-${idx}`, tb= `tb-${idx}`, kho = `kho-${idx}`, Id_topic = `Id_topic-${idx}`
             return (
