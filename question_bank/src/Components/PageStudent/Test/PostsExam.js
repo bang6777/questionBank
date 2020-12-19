@@ -1,4 +1,3 @@
-
 import React,{Component,useState,useEffect} from 'react';
 import CallApi from '../../../utils/apiCaller';
 import AnsewerQuestion from './AnsewerQuestion';
@@ -7,56 +6,63 @@ class PostsExam extends Component{
     constructor(props){
         super(props);
         this.state={
-            quesstions: [{Id_quesstion: "",answer: ""}],
+            questions:  [],
+            Data: [],
+            Id_answer: [],
         }
     }
     handleSubmit=(e)=>{
+        let data=this.handleSave();
+        console.log(data);
+        // Map id answer 
         e.preventDefault();
-        console.log(this.state);
+    }
+    handleSave=()=>{
+        // //fillter trung
+        function uniqByKeepLast(question, key) {
+            return [
+                ...new Map(
+                    question.map(x => [key(x), x])
+                ).values()
+            ]
+        }
+        let data=uniqByKeepLast(this.state.questions, it => it.question);
+        let dataN=[];
+        data.map(dt=>{
+            dataN.push(dt.answer);
+        });
+        this.setState({
+            Id_answer: dataN,
+        });
+        return data;
     }
     handleInputChange=(e)=>{
-        var isChecked = e.target.checked;
-        if (["Id_quesstion","answer"].includes(e.target.name)) {
-            let  quesstions= [...this.state.quesstions]
-            // quesstions[e.target.dataset.id][e.target.name] = e.target.value;
-       
-          } else {
-            this.setState({ [e.target.name]: e.target.value })
-          }
+        if(e.target.checked !==undefined){
+        this.setState({
+            questions: this.state.questions.concat({ question: e.target.name, answer: e.target.value })
+        })
     }
-        
-//   handleChange(event) {
-//     var isChecked = event.target.checked;
-//     var item = event.target.value;
-     
-//     this.setState(prevState => ({ checkedItems: prevState.checkedItems.set(item, isChecked) }));
-// }
-    componentDidMount(){
-        for(var i=0;i<=40;i++){
-            this.setState((prevState) => ({
-                quesstions: [...prevState.quesstions, {Id_quesstion: "",answer: ""}],
-              }));
-        }
-        
     }
-    
     render(){
-        let {posts,currentPage,obj}=this.props;
-        
+        let {posts,currentPage,index}=this.props;
+        let {Id_answer}=this.state;
         return (
             <ul className="list-group mb-4">
-                <form onSubmit={this.handleSubmit} onChange={this.handleInputChange}>
+                <form onSubmit={this.handleSubmit}  onClick={this.handleInputChange} >
                    {posts ? posts.map((post,index)=>{
                        var item=post.Id_Quesstion;
+                        var item2=post.id;
                        return(
                         <tbody>
                             <div className="question" id=""> Câu {this.showIndex(index,currentPage)}: {post.Name_quesstion}</div>
-                            <AnsewerQuestion item={item} key={index} index={index} currentPage={currentPage}  />
+                            <AnsewerQuestion item2={item2} item={item} key={post.id} index={index} currentPage={currentPage} id_quesstion={post.id} Id_answer={Id_answer}/>
                         </tbody>
                     );
                    }): <h2>Loading.....</h2>}   
                    <button className="btn btn-primary" onClick={this.handleSubmit}>Nộp Bài</button>
+                   
                    </form>
+                   <button className="btn btn-primary" onClick={this.handleSave}>Lưu Bài</button>
                 </ul>
             );  
         }
@@ -73,5 +79,4 @@ class PostsExam extends Component{
 
     }
    
-
 export default PostsExam;

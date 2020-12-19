@@ -29,7 +29,6 @@ const TaskList = (props) =>{
                    
                     <td>
                        <button onClick={()=>props.add()} type="button" className="btn btn-primary text-center">+</button>
-                       
                     </td>
                     </tr >
                 )

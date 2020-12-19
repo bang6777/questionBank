@@ -58,7 +58,7 @@ const Test=(props)=>{
               <th  className="text-center">Bắt Đầu Kiểm Tra</th>
             </tr>
           </thead>
-           <PostsExam posts={currentPosts} loading={loading} currentPage={currentPage} obj={ch}/>
+           <PostsExam key={paginate} posts={currentPosts} loading={loading} currentPage={currentPage} index={currentPage}/>
            <Paginations page={page} paginate={paginate}/>
         </table>
       </div>
