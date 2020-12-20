@@ -2,6 +2,7 @@ import React,{useState,useEffect} from 'react';
 import CallApi from '../../../utils/apiCaller';
 import Item from './Item';
 import ShowTeacherCreate from './ShowTeacherCreate';
+import MathJax from 'react-mathjax-preview';
 const ItemQuesstion=({posts,loading,currentPage})=>{
     const [teacher,setTeacher]=useState('');
     if(loading){
@@ -15,7 +16,7 @@ const ItemQuesstion=({posts,loading,currentPage})=>{
                 <tr key={index}>
                     <td scope="row">{showIndex(index,currentPage)}</td>
                     <td className="content-cover">
-                        <span>{post.Name_quesstion}</span>
+                        <span>{ <MathJax math={post.Name_quesstion} />}</span>
                         <div className="content-action">
                             <a href>Edit</a> | <a href className="color-red">Delete</a> | <a href="#">View</a>
                         </div>

@@ -28,6 +28,8 @@ let	uploadfile =require('./routes/uploadfile');
 let	user  =require('./routes/user');
 let	pagination  =require('./routes/pagination');
 let	exam_question =require('./routes/exam_question');
+let	grade_exam =require('./routes/grade_exam');
+app.use("/v1/grade_exam",grade_exam);
 app.use("/v1/test",test);
 app.use("/v1/exam_subject",exam_subject);
 app.use("/v1/pagination",pagination );
@@ -38,17 +40,12 @@ app.use("/v1/position_teacher",position_teacher);
 app.use("/v1/position",position);
 app.use("/v1/grade",grade);
 app.use("/v1/level",level);
-
 app.use("/v1/teacher",teacher);
-
 app.use("/v1/student",student);
-
 app.use("/v1/exam_question",exam_question);
-
 app.use("/v1/topic",topic);
 app.use("/v1/term",term);
 app.use("/v1/quesstion",quesstion);
-
 app.use("/v1/answer",answer);
 app.use("/v1/test",test);
 app.use("/v1/exam",exam);

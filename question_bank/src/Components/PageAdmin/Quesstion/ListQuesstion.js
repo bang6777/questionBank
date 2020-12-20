@@ -63,9 +63,9 @@ const ListQuesstion=(props)=>{
           <tr>
             <th>STT</th>
             <th>Câu hỏi</th>
+            <th>Giáo Viên</th>
             <th>Câu trả lời</th>
             <th>Cấp độ</th>
-            <th>Người tạo</th>
           </tr>
         </thead>
         <ItemQuesstion posts={currentPosts} loading={loading} currentPage={currentPage}/>

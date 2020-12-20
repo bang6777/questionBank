@@ -1,5 +1,6 @@
 var db = require("../models");
 var db_quesstion = db.Quesstion;
+var db_answer=db.Answer;
 // var db_class=db.Class;
 //get list
 exports.get_List_Quesstion = function (req, res) {
@@ -43,4 +44,35 @@ exports.add_Quesstion=function(req,res){
             })
         });
     })
+}
+exports.add_Question_Answer=function(req,res){
+    var data=req.body;
+        db_quesstion.create({
+            Id_topic:   data.Id_topic,
+            Id_teacher: data.Id_teacher,
+            Id_level:   data.Id_level,
+            Name_quesstion: data.Name_quesstion,
+        }).then(details=>{
+            var Id_quesstion= details.id;
+            db_answer.create({
+                Id_quesstion:   Id_quesstion,
+                Content:    data.Content,
+                Diem:   data.Diem
+            })
+            db_answer.create({
+                Id_quesstion:   Id_quesstion,
+                Content:    data.Content,
+                Diem:   data.Diem
+            })
+            db_answer.create({
+                Id_quesstion:   Id_quesstion,
+                Content:    data.Content,
+                Diem:   data.Diem
+            })
+            db_answer.create({
+                Id_quesstion:   Id_quesstion,
+                Content:    data.Content,
+                Diem:   data.Diem
+            })
+        });
 }

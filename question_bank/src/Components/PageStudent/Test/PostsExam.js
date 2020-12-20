@@ -9,11 +9,17 @@ class PostsExam extends Component{
             questions:  [],
             Data: [],
             Id_answer: [],
+            grade_exam:[]
         }
     }
     handleSubmit=(e)=>{
         let data=this.handleSave();
         console.log(data);
+        CallApi("v1/grade_exam","POST",data).then(res=>{
+            if(res!==undefined){
+               alert("Điểm của bạn là:" +res.data.data);
+            }
+        })
         // Map id answer 
         e.preventDefault();
     }
@@ -39,9 +45,24 @@ class PostsExam extends Component{
     handleInputChange=(e)=>{
         if(e.target.checked !==undefined){
         this.setState({
-            questions: this.state.questions.concat({ question: e.target.name, answer: e.target.value })
+            questions: this.state.questions.concat({ question: Number(e.target.name), answer: Number(e.target.value) })
         })
     }
+     function uniqByKeepLast(question, key) {
+            return [
+                ...new Map(
+                    question.map(x => [key(x), x])
+                ).values()
+            ]
+        }
+        let data=uniqByKeepLast(this.state.questions, it => it.question);
+        let dataN=[];
+        data.map(dt=>{
+            dataN.push(dt.answer);
+        });
+        this.setState({
+            Id_answer: dataN,
+        });
     }
     render(){
         let {posts,currentPage,index}=this.props;
@@ -60,9 +81,9 @@ class PostsExam extends Component{
                     );
                    }): <h2>Loading.....</h2>}   
                    <button className="btn btn-primary" onClick={this.handleSubmit}>Nộp Bài</button>
-                   
-                   </form>
                    <button className="btn btn-primary" onClick={this.handleSave}>Lưu Bài</button>
+                   </form>
+                  
                 </ul>
             );  
         }

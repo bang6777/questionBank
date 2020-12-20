@@ -5,6 +5,7 @@ const db = require("../controllers/Quesstion");
 router.get("/", db.get_List_Quesstion);
 router.post("/id", db.get_Quesstion_ById);
 router.post("/", db.add_Quesstion);
+router.post("/question_anser",db.add_Question_Answer);
 // router.get("/:id", db.get_Quesstion_ById);
 // 
 // router.post("/update/",db.update_Quesstion);
