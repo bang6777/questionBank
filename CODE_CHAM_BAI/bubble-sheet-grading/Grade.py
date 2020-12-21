@@ -20,45 +20,7 @@ class App():
         self.dsmail = []
         self.date = datetime.datetime.now()
         self.date.strftime("%Y%m%d %H:%M:%S")
-    def chamnhieu(self):
-        self.file1 = []
-        self.dsddd = tkFileDialog.askdirectory(initialdir="/home/hieu/PycharmProjects", title="Select Folder", )
-        #print self.dsddd
-        for f in os.listdir(self.dsddd):
-            self.file1.append(self.dsddd+"/"+f)
-        print (self.file1)
-        self.img1 = cv2.imread(self.file1[len(self.file1) - 1])
-        self.img1 = cv2.cvtColor(self.img1, cv2.COLOR_BGR2RGB)
-        self.can = Canvas(self.root, width=2000, height=1000)
-        self.can.place(x=230, y=80)
-        self.img1 = imutils.resize(self.img1, height=800)
-        self.img = PIL.ImageTk.PhotoImage(image=PIL.Image.fromarray(self.img1))
-        self.can.create_image(5, 5, anchor=NW, image=self.img)
-
-    def addlist(self):
-        self.dssv = tkFileDialog.askopenfilename(initialdir="C:/Users/hieu/Documents/questionBank/CODE_CHAM_BAI/bubble-sheet-gradingTest", title="Add list",filetypes=(("file", ".txt"), ("all file", "*.*")))
-        self.list = []
-        self.coutar = 0
-        f = open(self.dssv, "r")
-        for i in f:
-            self.list.append(i)
-            self.coutar = self.coutar + 1
-        f.close()
-        for i in range(self.coutar):
-            self.list[i] = self.list[i].split()
-        #print self.list
-    # cham 1 bai
-    # def openfile(self):
-    #     self.file1 = ["C:/Users/hieu/Documents/questionBank/CODE_CHAM_BAI/bubble-sheet-grading/img/02.jpg"]
-    #     # self.filee = tkFileDialog.askopenfilename(initialdir="C:/Users/hieu/Documents/questionBank/CODE_CHAM_BAI/bubble-sheet-gradingTest", title="Choose Test", filetypes=(("pictuue",".jpg"),("all file","*.*")))
-    #     # self.file1.append(self.filee)
-    #     self.img1= cv2.imread(self.file1[len(self.file1)-1])
-    #     self.img1 = cv2.cvtColor(self.img1, cv2.COLOR_BGR2RGB)
-    #     self.img1 = imutils.resize(self.img1, height=800)
-    #     # self.img = PIL.ImageTk.PhotoImage(image = PIL.Image.fromarray(self.img1))
-    #     # self.can.create_image(5,5, anchor = NW, image = self.img)
     def nhapdapan(self):
-        # self.dapan = tkFileDialog.askopenfilename(initialdir="C:/Users/hieu/Documents/questionBank/CODE_CHAM_BAI/bubble-sheet-gradingTest", title="Import answers", filetypes=(("file",".txt"),("all file","*.*")))
         self.dapan="C:/Users/hieu/Documents/questionBank/CODE_CHAM_BAI/bubble-sheet-grading/answers.txt"
         self.ANSWER_KEY = {0:0,1:0}
         j=0
@@ -73,18 +35,6 @@ class App():
         f = open("C:/Users/hieu/Documents/questionBank/CODE_CHAM_BAI/bubble-sheet-grading/Ketqua/result.txt", "w")
         f.write(str(tenn)+"         "+str(diemm)+"          "+str(self.date.strftime("%Y%m%d %H:%M:%S")+"\n"))
         f.close()
-
-    def luubangdiem(self):
-        duongdan = "C:/Users/hieu/Documents/questionBank/CODE_CHAM_BAI/bubble-sheet-grading"+str(self.date.strftime("%Y%m%d %H:%M:%S"))
-        with open("C:/Users/hieu/Documents/questionBank/CODE_CHAM_BAI/bubble-sheet-grading/Ketqua/result.txt","r") as rf:
-            with open(duongdan,"w+") as wf:
-                wf.write("MSSV            Score        Graded at\n")
-                for line in rf:
-                    wf.write(line)
-        f = open("C:/Users/hieu/Documents/questionBank/CODE_CHAM_BAI/bubble-sheet-grading/Ketqua/result.txt", "w")
-        f.write("")
-        f.close()
-
     def timkhung(self, khungbt):
         khung = None
         if len(khungbt) > 0:
@@ -128,9 +78,6 @@ class App():
         khungdang = cv2.findContours(nhandangcanh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
         khungdang = imutils.grab_contours(khungdang)
         return khungdang
-
-
-
     def tam(self, tlkhung0, thresh0):
         made = []
         n=0
@@ -157,72 +104,13 @@ class App():
     def luubaikt(self,fileluuu, tenluuu):
         self.baiin = cv2.cvtColor(fileluuu, cv2.COLOR_BGR2RGB)
         self.tenbailuu = str(tenluuu)+"-"+str(self.date.strftime("%Y%m%d-%H:%M:%S"))
-        cv2.imwrite("C:/Users/hieu/Documents/questionBank/CODE_CHAM_BAI/bubble-sheet-grading/Ketqua/{0}.jpg".format(self.tenbailuu), self.baiin)
-
-    def openwindow(self):
-        top = Toplevel()
-
-    def guimaildi(self):
-
-        f = open("C:/Users/hieu/Documents/questionBank/CODE_CHAM_BAI/bubble-sheet-gradin\gresult.txt", "r")
-        for i in f:
-            self.dsmail.append(i)
-        for i in range(len(self.dsmail)):
-            self.dsmail[i] = self.dsmail[i].split()
-        print (self.dsmail)
-        for i in range(len(self.dsmail)):
-            for j in range(len(self.list)):
-                if(self.dsmail[i][0] == self.list[j][0]):
-                    tomail = self.list[j][1]
-                    duongdan = "C:/Users/hieu/Documents/questionBank/CODE_CHAM_BAI/bubble-sheet-grading"+self.list[j][0]+"-"+self.dsmail[j][2] +"-"+self.dsmail[j][3] + ".jpg"
-                    self.sendmail(tomail, self.dsmail[i][1], duongdan)
-                    print("Result was sent to "+tomail)
-                    break
-        f = open("C:/Users/hieu/Documents/questionBank/CODE_CHAM_BAI/bubble-sheet-gradingresult.txt", "w")
-        f.write("")
-        f.close()
-
-    def sendmail(self,tomail, diem,duongdan):
-        email_user = 'congdoanit98@gmail.com'
-        email_send = tomail
-        subject = 'Score of your test!'
-
-        msg = MIMEMultipart()
-        msg['From'] = email_user
-        msg['To'] = email_send
-        msg['Subject'] = subject
-
-        body = 'Your score is '+diem+'. And your test was graded in below!'
-        msg.attach(MIMEText(body, 'plain'))
-
-        filename = duongdan
-        attachement = open(filename, 'rb')
-        namefile = os.path.basename(filename)
-
-        part = MIMEBase('application', 'octet-stream')
-        part.set_payload((attachement).read())
-        encoders.encode_base64(part)
-        part.add_header('Content-Disposition', "attachment; filename= " + namefile)
-
-        msg.attach(part)
-        text = msg.as_string()
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls()
-        server.login(email_user, 'congdoan')
-
-        server.sendmail(email_user, email_send, text)
-        server.quit()
-
-
-
+        cv2.imwrite(r'{0}.jpg'.format(self.tenbailuu), self.baiin)
     def chambai(self):
         self.file1=['./img/02.jpg']
         print (self.file1)
         for i in range(len(self.file1)):
             self.anh = self.file1[i]
             print (self.anh)
-            # self.can1 = Canvas(self.root, width=2000, height=2000)
-            # self.can1.place(x=870, y=80)
             self.mn = cv2.imread(self.anh)
             self.hx = cv2.cvtColor(self.mn, cv2.COLOR_BGR2GRAY)
             self.hm = cv2.GaussianBlur(self.hx, (5,5),0)
@@ -467,14 +355,13 @@ class App():
             cv2.putText(self.baithi, "{:.2f}".format(self.diem),(int(self.baithi.shape[0]/2.5),int(self.baithi.shape[1]/2.5)), cv2.FONT_HERSHEY_SIMPLEX,4,(255,0,0),6)
             cv2.putText(self.baithi, "{:}".format(self.msv), (int(self.baithi.shape[0] / 4.5), int(self.baithi.shape[1] / 5.2)),cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 3)
 
-            #self.nhandang = imutils.resize(self.nhandang, height=50)
+            self.nhandang = imutils.resize(self.nhandang, height=50)
             self.baithi = imutils.resize(self.baithi, height=800)
-            #self.o2 = imutils.resize(self.o2, height=800)
+            self.o2 = imutils.resize(self.o2, height=800)
             # self.im = PIL.ImageTk.PhotoImage(image=PIL.Image.fromarray(self.baithi))
             # self.can1.create_image(5, 5, anchor=NW, image=self.im)
-
-            print(self.baithi);
-            self.luubaikt(self.baithi, self.msv)
+            print(self.baithi)
+            self.luubaikt(self.baithi, self.msv)    
             f = open("C:/Users/hieu/Documents/questionBank/CODE_CHAM_BAI/Ketqua/result.txt", "a")
             f.write(
                 str(self.msv) + "         " + str(self.diem) + "          " + str(self.date.strftime("%Y%m%d %H:%M:%S") + "\n"))
