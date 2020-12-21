@@ -14,25 +14,27 @@ const Test=(props)=>{
   const [collection,setCollection]=useState("question");
   const [limit,setLimit]=useState(10);
   const [ch,setCh]=useState(0);
+  const [len,setLen]=useState(0);
   useEffect(()=>{
     const currentPath = location.state;
     const fetchPosts= async()=>{
       let obj={
-        id: currentPath.Id_exam
+        id: currentPath.Id_test
       }
       setLoading(true);
-      await CallApi("v1/exam_question","POST",obj).then(res=>{
+      await CallApi("v1/exam_question/add-examdetails/question","POST",obj).then(res=>{
               var str="";
               obj={
                 Id_quesstion: []
               }
               if(res){
-                res.data.exam_question.map(id=>{
+                res.data.examdetails_question.map(id=>{
+                  setCh(id.Stt_answer);
                     obj.Id_quesstion.push(id.Id_quesstion);
                 })
               }
-              setCh(res.data.exam_question);
               CallApi("v1/quesstion/id","POST",obj).then(ress=>{
+                setLen(ress.data.details.length);
                 setPosts(ress.data.details);
                })
                setLoading(false);
@@ -45,6 +47,7 @@ const Test=(props)=>{
   const first=last-postsPerPage;
   const currentPosts=posts.slice(first,last);
   const paginate= pageNumber => setCurrentPage(pageNumber);
+
   return (
       
     <div className="class-backgroup">
@@ -58,7 +61,7 @@ const Test=(props)=>{
               <th  className="text-center">Bắt Đầu Kiểm Tra</th>
             </tr>
           </thead>
-           <PostsExam key={paginate} posts={currentPosts} loading={loading} currentPage={currentPage} index={currentPage}/>
+           <PostsExam key={paginate} posts={currentPosts} loading={loading} currentPage={currentPage} index={currentPage} len={len} ch={ch} />
            <Paginations page={page} paginate={paginate}/>
         </table>
       </div>

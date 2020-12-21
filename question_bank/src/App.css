@@ -1023,3 +1023,6 @@ h1.ck-placeholder {
   color: #141414 !important;
   background-color: #ffff !important;
 }
+.ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-blurred h1 {
+  display: none !important;
+}

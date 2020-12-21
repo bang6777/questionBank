@@ -5,14 +5,28 @@ export default class AnsewerQuestion extends Component{
     
   }
   render(){
-    var {item,index,currentPage,item2,id_quesstion,Id_answer}=this.props;
+    var {item,index,currentPage,item2,id_quesstion,Id_answer,ch}=this.props;
       return(
           <div>
-             {this.showitem(item,index,currentPage,item2,id_quesstion,Id_answer)}
+             {this.showitem(item,index,currentPage,item2,id_quesstion,Id_answer,ch)}
             </div>
       )
   };
-  showitem(item,index,currentPage,item2,id_quesstion,Id_answer){
+  showitem(item,index,currentPage,item2,id_quesstion,Id_answer,ch){
+         if(ch===1){
+          item.sort((a, b) => (a.Content > b.Content) ? 1 : (a.Content === b.Content) ? ((a.id > b.id) ? 1 : -1) : -1 )
+         }
+         if(ch===0){
+          item.sort((a, b) => (a.id < b.id) ? 1 : -1)
+         }
+         if(ch===2){
+          item.sort((a, b) => (a.id > b.id) ? 1 : -1)
+         }
+         if(ch===4){
+
+         }
+
+         
           var result=null;
           if(currentPage===1){
             result=index*currentPage;

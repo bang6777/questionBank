@@ -57,7 +57,7 @@ class IndexTest extends Component{
               pathname: "/student/test-start",
               state: { Id_user: localStorage.getItem('user'),
                         Id_exam: this.state.Id_exam,
-                        Id_test: this.state. Id_test
+                        Id_test: this.state.Id_test
             }
             }}
            />;

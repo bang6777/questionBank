@@ -15,7 +15,9 @@ module.exports = (sequelize, DataTypes) => {
   };
   ExamDetails_Quesstion.init({
     Id_examdetails: DataTypes.INTEGER,
-    Id_quesstion: DataTypes.INTEGER
+    Id_quesstion: DataTypes.INTEGER,
+    Stt_answer: DataTypes.INTEGER
+
   }, {
     sequelize,
     modelName: 'ExamDetails_Quesstion',

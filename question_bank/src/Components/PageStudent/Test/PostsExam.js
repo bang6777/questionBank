@@ -9,13 +9,20 @@ class PostsExam extends Component{
             questions:  [],
             Data: [],
             Id_answer: [],
-            grade_exam:[]
+            grade_exam:[],
+           
         }
     }
+
     handleSubmit=(e)=>{
         let data=this.handleSave();
         console.log(data);
-        CallApi("v1/grade_exam","POST",data).then(res=>{
+        let obj={
+            len: this.props.len,
+            question: data
+        }
+        console.log(obj);
+        CallApi("v1/grade_exam","POST",obj).then(res=>{
             if(res!==undefined){
                alert("Điểm của bạn là:" +res.data.data);
             }
@@ -65,18 +72,19 @@ class PostsExam extends Component{
         });
     }
     render(){
-        let {posts,currentPage,index}=this.props;
+        let {posts,currentPage,index,len,ch}=this.props;
         let {Id_answer}=this.state;
         return (
             <ul className="list-group mb-4">
                 <form onSubmit={this.handleSubmit}  onClick={this.handleInputChange} >
                    {posts ? posts.map((post,index)=>{
+                       console.log(post)
                        var item=post.Id_Quesstion;
                         var item2=post.id;
                        return(
                         <tbody>
                             <div className="question" id=""> Câu {this.showIndex(index,currentPage)}: {post.Name_quesstion}</div>
-                            <AnsewerQuestion item2={item2} item={item} key={post.id} index={index} currentPage={currentPage} id_quesstion={post.id} Id_answer={Id_answer}/>
+                            <AnsewerQuestion item2={item2} item={item} key={post.id} index={index} currentPage={currentPage} id_quesstion={post.id} Id_answer={Id_answer} ch={ch}/>
                         </tbody>
                     );
                    }): <h2>Loading.....</h2>}   

@@ -20,7 +20,7 @@ class  Sidebar extends Component {
                             <li><a href="# ">Sửa Câu Hỏi</a></li>
                         </ul>
                     </li>
-                  
+                    <li className="menu-tp"><Link><i className="fas fa-user-graduate"></i>Quản Lý Điểm Sinh Viên</Link> </li>
                     <li className="menu-tp"><Link to="/admin/list-student" ><i className="fas fa-user-graduate"></i> Học Sinh</Link>
                        
                     </li>

@@ -1,5 +1,4 @@
 import React,{Component} from 'react';
-
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@blowstack/ckeditor5-full-free-build';
 import { useLocation } from 'react-router-dom';
@@ -12,17 +11,18 @@ export default class AddNewQuesstion extends Component{
         this.state={
             Id_grade:this.props.location.state.id,
             Id_teacher: localStorage.getItem("admin"),
-            dt: "",
             topics: [],
             levels: [],
             answer: 'op1',
-            level: "",
             dt1: "",
             dt2: "",
             dt3: "",
             Name_quesstion:"",
             Id_es: "",
-            Id_topic:""
+            Id_topic:"",
+            Id_level: "",
+            massage: "",
+
         }
     }
     handleCkeditorName=(e,editor)=>{
@@ -89,7 +89,14 @@ export default class AddNewQuesstion extends Component{
     }
     handleSubmit=(e)=>{
         e.preventDefault();
-        console.log(this.state);
+        CallApi("quesstion/question_answer","POST",this.state).then(res=>{
+            if(res!==undefined){
+                this.setState({
+                    massage: res.data.massage
+                })
+                alert("ok...!");
+            }
+        })
     }
     render(){
         let obj=this.props.location.state.id;
@@ -106,7 +113,7 @@ export default class AddNewQuesstion extends Component{
                     <div className="space">
                     </div>
                     <div className="form-group">
-                       <div>{ <MathJax math={this.state.dt} />}</div>
+                       {/* <div>{ <MathJax math={this.state.dt} />}</div> */}
                         <label >Tên Câu Hỏi </label> 
                         <CKEditor
                         editor={ClassicEditor}
@@ -118,7 +125,8 @@ export default class AddNewQuesstion extends Component{
                     </div>
                     <div className="form-group">
                         Cấp độ
-                        <select  name="level"  value={this.state.level} className="form-control" >
+                        <select  name="Id_level"  value={this.state.Id_level} className="form-control" >
+                            <option value=""></option>
                         {levels.map(level=>(
                              <option value={level.id}>{level.content}</option>
                            ))}
@@ -126,7 +134,9 @@ export default class AddNewQuesstion extends Component{
                     </div>
                     <div className="form-group">
                         <label >Chọn Chương</label>
+                       
                         <select className="form-control" name="Id_topic" value={this.state.Id_topic}>
+                        <option value=""></option>
                            {topics.map(topic=>(
                              <option value={topic.id}>{topic.Name_topic}: {topic.Content_topic}</option>
                            ))}
@@ -134,7 +144,7 @@ export default class AddNewQuesstion extends Component{
                     </div>
                     <div className="form-group">
                         <label >Đáp Án A</label>
-                        <input type="radio" value="op1" checked={this.state.answer === 'op1'} />
+                        <input type="radio" value="op1"  name="answer" checked={this.state.answer === 'op1'} />
                         <CKEditor
                         editor={ClassicEditor}
                         onInit={editor => {
@@ -145,7 +155,7 @@ export default class AddNewQuesstion extends Component{
                     </div>
                     <div className="form-group">
                         <label >Đáp Án B</label>
-                        <input type="radio" value="op2" checked={this.state.answer === 'op2'} />
+                        <input type="radio"  name="answer" value="op2" checked={this.state.answer === 'op2'} />
                         <CKEditor
                     editor={ClassicEditor}
                     onInit={editor => {
@@ -157,7 +167,7 @@ export default class AddNewQuesstion extends Component{
                     <div className="form-group">
                    
                         <label >Đáp Án C</label>
-                        <input type="radio"  value="op3" checked={this.state.answer === 'op3'} />
+                        <input type="radio"  name="answer" value="op3" checked={this.state.answer === 'op3'} />
                         <CKEditor
                         editor={ClassicEditor}
                         onInit={editor => {
@@ -168,7 +178,7 @@ export default class AddNewQuesstion extends Component{
                     </div>
                     <div className="form-group">
                         <label >Đáp Án D</label>
-                        <input type="radio"  value="op4" checked={this.state.answer === 'op4'}/>
+                        <input type="radio"  name="answer" value="op4" checked={this.state.answer === 'op4'}/>
                         <CKEditor
                         readOnly = {true}
                         editor={ClassicEditor}

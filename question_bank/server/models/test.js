@@ -14,18 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Test.init({
-    Id_Test: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
-    }, 
-    Id_teacher: DataTypes.STRING,
-    Time: DataTypes.DATE,
-    Note: DataTypes.STRING,
-    Password: DataTypes.STRING,
-    Date_create: DataTypes.DATE,
-    Date_update: DataTypes.DATE
+    Id_student: DataTypes.INTEGER,
+    Id_question: DataTypes.INTEGER,
+    Id_answer: DataTypes.INTEGER,
+    Point: DataTypes.FLOAT
   }, {
     sequelize,
     modelName: 'Test',

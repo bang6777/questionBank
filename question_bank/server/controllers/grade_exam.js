@@ -1,7 +1,7 @@
 var db=require('../models');
 var db_chamdiem=db.Quesstion;
 exports.get_Grade_Exam=function(req,res){
-    var data=req.body;
+    var data=req.body.question;
     var Arr=[];
     data.map(dt=>{
         Arr.push(dt.question);
@@ -25,18 +25,32 @@ exports.get_Grade_Exam=function(req,res){
            })
         })
         console.log(req.body.question);
-        len=req.body.length;
+        console.log(arr2);
+        len=req.body.len;
         let diem=10/len;
-        var array1=req.body;
+        console.log(diem);
+        var array1=req.body.question;
         const array3=array1.concat(arr2);
         let result=uniqByKeepLast(array3, it => it.answer);
+        console.log(result);
         len_kq=result.length;
         var result_kq=0;
-        if(len_kq>len){
-            result_kq=10-(len_kq-len)*diem;
+        var lenIndex=req.body.question.length;
+        if(lenIndex===len){
+            if(len_kq >len){
+                result_kq=10-(len_kq-len)*diem;
+            }
+            else{
+                result_kq=10;
+            }
         }
         else{
-            result_kq=10;
+            if(len_kq >lenIndex){
+                result_kq=(lenIndex-(len_kq-lenIndex))*diem;
+            }
+            else{
+                result_kq=lenIndex*diem
+            }
         }
         res.status(200).json({
             data:result_kq

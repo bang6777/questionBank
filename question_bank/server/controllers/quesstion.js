@@ -52,27 +52,72 @@ exports.add_Question_Answer=function(req,res){
             Id_teacher: data.Id_teacher,
             Id_level:   data.Id_level,
             Name_quesstion: data.Name_quesstion,
+            Id_grade: data.Id_grade
         }).then(details=>{
             var Id_quesstion= details.id;
-            db_answer.create({
-                Id_quesstion:   Id_quesstion,
-                Content:    data.Content,
-                Diem:   data.Diem
-            })
-            db_answer.create({
-                Id_quesstion:   Id_quesstion,
-                Content:    data.Content,
-                Diem:   data.Diem
-            })
-            db_answer.create({
-                Id_quesstion:   Id_quesstion,
-                Content:    data.Content,
-                Diem:   data.Diem
-            })
-            db_answer.create({
-                Id_quesstion:   Id_quesstion,
-                Content:    data.Content,
-                Diem:   data.Diem
-            })
+            var diem=req.body.answer;
+            if(diem==='op1'){
+                tutorial = {
+                  Id_quesstion: Id_quesstion,
+                  Content: req.body.dt,
+                  Diem: 1,
+                }
+              }else{
+                tutorial = {
+                  Id_quesstion: Id_quesstion,
+                  Content: req.body.dt,
+                  Diem: 0,
+                };
+              }
+              if(diem==='op2'){
+                tutorial1 = {
+                  Id_quesstion: Id_quesstion,
+                  Content: req.body.dt1,
+                  Diem: 1,
+                }
+              }else{
+                tutorial1 = {
+                  Id_quesstion: Id_quesstion,
+                  Content: req.body.dt1,
+                  Diem: 0,
+                };
+              }
+              if(diem==='op3'){
+                tutorial2 = {
+                  Id_quesstion: Id_quesstion,
+                  Content: req.body.dt2,
+                  Diem: 1,
+                }
+              }else{
+                tutorial2 = {
+                  Id_quesstion: Id_quesstion,
+                  Content: req.body.dt2,
+                  Diem: 0,
+                };
+              }
+              if(diem==='op4'){
+                tutorial3 = {
+                  Id_quesstion: Id_quesstion,
+                  Content: req.body.dt3,
+                  Diem: 1,
+                }
+              }else{
+                tutorial3 = {
+                  Id_quesstion: Id_quesstion,
+                  Content: req.body.dt3,
+                  Diem: 0,
+                };
+              }
+             
+              let tutorials = [];
+              tutorials.push(tutorial, tutorial1, tutorial2, tutorial3);
+              db_answer.bulkCreate((tutorials)).then(details=>{
+                      res.status(200).json({
+                          code: '200',
+                          massega: "Thêm thành công câu hỏi"
+                      })
+              })
+        }) .catch(err => {
+            console.log(err );
         });
 }
