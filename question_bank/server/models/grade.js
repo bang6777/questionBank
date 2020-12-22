@@ -20,10 +20,17 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     }, 
-    Name: DataTypes.STRING
+    Name: {
+      allowNull: false,
+      type: DataTypes.STRING
+    }
   }, {
     sequelize,
     modelName: 'Grade',
+    
   });
+  Grade.associate = function(models) {
+    Grade.hasMany(models.Class, {as: 'Id_Grade',foreignKey : 'Id_Grade'})
+  };
   return Grade;
 };

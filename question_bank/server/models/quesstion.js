@@ -14,20 +14,23 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Quesstion.init({
-    Id_quesstion: {
-      allowNull: false,
-      type: DataTypes.STRING
-
-    }, 
-    Id_teacher: DataTypes.STRING,
-    Id_level: DataTypes.STRING,
-    title: DataTypes.STRING,
-    Date_create: DataTypes.DATE,
-    Date_update: DataTypes.DATE,
-    Name_quesstion: DataTypes.STRING
+    Id_topic: DataTypes.INTEGER,
+    Id_teacher: DataTypes.INTEGER,
+    Id_level: DataTypes.INTEGER,
+    Id_grade: DataTypes.INTEGER,
+    Name_quesstion: DataTypes.STRING,
+  
   }, {
     sequelize,
     modelName: 'Quesstion',
   });
+  Quesstion.associate=function(models){
+    // Quesstion.belongsTo(models.Topic,{as: 'Id_Topic',foreignKey:  'Id_topic'});
+    // Quesstion.belongsTo(models.Image_Quesstion,{as: 'Id_Level', foreignKey :  'Id_level'});
+    // Quesstion.belongsTo(models.Teacher,{as: 'Id_Teacher', foreignKey :  'Id_teacher'});
+    // Quesstion.hasMany(models.Image_Quesstion,{as: 'Id_Quesstion', foreignKey :  'Id_Quesstion'});
+      Quesstion.hasMany(models.Answer,{as: 'Id_Quesstion', foreignKey :  'Id_quesstion'});
+
+  }
   return Quesstion;
 };

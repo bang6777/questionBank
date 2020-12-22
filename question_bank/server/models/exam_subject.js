@@ -1,3 +1,4 @@
+  
 'use strict';
 const {
   Model
@@ -14,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Exam_Subject.init({
-    Id_es:{
+    Id:{
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
@@ -25,5 +26,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Exam_Subject',
   });
+  Exam_Subject.associate=function(models){
+    Exam_Subject.hasMany(models.Topic,{as: 'Id_Es',foreignKey: 'Id_es'});
+  }
   return Exam_Subject;
 };

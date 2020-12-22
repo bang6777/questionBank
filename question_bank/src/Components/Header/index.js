@@ -1,8 +1,16 @@
 import React,{Component} from 'react';
+import {Link,Redirect } from 'react-router-dom';
+
 class Header extends Component{
+    logOut=()=>{
+      localStorage.clear();
+      return <Redirect to="/" />
+    }
     render(){
         return (
-            <nav className="navbar navbar-default" role="navigation">
+            <header>
+              <div className="container">
+              <nav className="navbar navbar-default backgroup" role="navigation">
             {/* Brand and toggle get grouped for better mobile display */}
             <div className="navbar-header">
               <button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -11,33 +19,35 @@ class Header extends Component{
                 <span className="icon-bar" />
                 <span className="icon-bar" />
               </button>
-                <a href="# " className="navbar-brand"> <i className="fas fa-home" /> Hệ Thống Quản Lý Đề Thi</a>
+                <Link to="/admin" className="navbar-brand"> <i className="fas fa-home" /> Hệ Thống Quản Lý Đề Thi </Link>
             </div>
             {/* Collect the nav links, forms, and other content for toggling */}
             <div className="collapse navbar-collapse navbar-ex1-collapse">
               <ul className="nav navbar-nav navbar-right navbar-color">
                 <li className="dropdown">
-                     <a href="# " className="dropdown-toggle color" data-toggle="dropdown">Thông Tin</a>
+                     <a href="# " className="dropdown-toggle color" data-toggle="dropdown">Khối 10</a>
                 </li>
                 <li className="dropdown ">
-                     <a href="# " className="dropdown-toggle color" data-toggle="dropdown">File</a>
+                     <a href="# " className="dropdown-toggle color" data-toggle="dropdown">Khối 11</a>
                 </li>
                 <li className="dropdown ">
-                     <a href="# " className="dropdown-toggle color" data-toggle="dropdown">Ngôn Ngữ</a>
-                </li>
-                <li className="dropdown ">
-                     <a href="# " className="dropdown-toggle color" data-toggle="dropdown">Export</a>
+                     <a href="# " className="dropdown-toggle color" data-toggle="dropdown">Khối 12</a>
                 </li>
                 <li className="dropdown">
                   <a href="# " className="dropdown-toggle color" data-toggle="dropdown">Admin<b className="caret" /></a>
                   <ul className="dropdown-menu">
-                    <li><a href="# ">Log Out</a></li>
-                    <li><a href="# ">Profile</a></li>
+                    <li><Link to="/" onClick={this.logOut}>
+                    <i className="fas fa-sign-in-alt"></i> Log Out
+                    </Link></li>
+                    <li><a href="# "> <i className="fas fa-user-circle"></i> Profile</a></li>
                   </ul>
                 </li>
               </ul>
             </div>{/* /.navbar-collapse */}
           </nav>
+        
+            </div>
+            </header>
         )};
 }
 export default Header;

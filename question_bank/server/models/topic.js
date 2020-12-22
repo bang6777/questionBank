@@ -1,3 +1,4 @@
+  
 'use strict';
 const {
   Model
@@ -14,17 +15,23 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Topic.init({
-    Id_topic:{
+    Id:{
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER
     }, 
+    Id_es: DataTypes.INTEGER,
     Name_topic: DataTypes.STRING,
     Content_topic: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Topic',
   });
+  Topic.associate=function(models){
+    Topic.belongsTo(models.Exam_Subject,{as: 'Id_Es',foreignKey: 'Id_es'});
+    Topic.hasMany(models.Quesstion,{as: 'Id_Topic',foreignKey: 'Id_topic'});
+  }
+
   return Topic;
 };

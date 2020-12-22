@@ -17,7 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     Id_student:{
       allowNull: false,
       type: DataTypes.STRING
-    }, 
+    },
+    Id_class: DataTypes.INTEGER,
     Name: DataTypes.STRING,
     Dob: DataTypes.DATE,
     Gender: DataTypes.STRING,
