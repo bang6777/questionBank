@@ -23,9 +23,9 @@ def luudiem(tenn, diemm):
     f.close()
 
 
-def luubangdiem(self):
+def luubangdiem():
         duongdan = "D:/questionBank/CODE_CHAM_BAI/CODE_CHAM_BAI/Luubangdiem" + \
-            str(self.date.strftime("%Y%m%d %H:%M:%S"))
+            str(date.strftime("%Y%m%d %H:%M:%S"))
         with open("D:/questionBank/CODE_CHAM_BAI/CODE_CHAM_BAI/Ketqua/result.txt", "r") as rf:
             with open(duongdan, "w+") as wf:
                 wf.write("MSSV            Score        Graded at\n")
@@ -35,11 +35,11 @@ def luubangdiem(self):
             "D:/questionBank/CODE_CHAM_BAI/CODE_CHAM_BAI/Luubangdiem/result.txt", "w")
         f.write("")
         f.close()
-        self.exportedpint = Label(
-            self.root, text="Export point sheet success!").place(x=30, y=585)
+        exportedpint = Label(
+            root, text="Export point sheet success!").place(x=30, y=585)
 
 
-def timkhung(self, khungbt):
+def timkhung(khungbt):
         khung = None
         if len(khungbt) > 0:
             khungbt = sorted(khungbt, key=cv2.contourArea, reverse=True)
@@ -53,7 +53,7 @@ def timkhung(self, khungbt):
                     break
         return khung
 
-def timkhungcham(self, baithi):
+def timkhungcham(baithi):
         btxam = cv2.cvtColor(baithi, cv2.COLOR_BGR2GRAY)
         btmo = cv2.GaussianBlur(btxam, (5, 5), 0)
         btcanh = cv2.Canny(btmo, 75, 200)
@@ -62,7 +62,7 @@ def timkhungcham(self, baithi):
         khungtl = imutils.grab_contours(khungtl)
         return khungtl
 
-def timo1(self, khungtl,x):
+def timo1(khungtl,x):
         khung1 = None
         if len(khungtl) > 0:
             khungtl = sorted(khungtl, key=cv2.contourArea, reverse=True)
@@ -75,7 +75,7 @@ def timo1(self, khungtl,x):
         return khung1
 
 
-def chuyendoi(self,nhandang):
+def chuyendoi(nhandang):
         nhandangxam = cv2.cvtColor(nhandang, cv2.COLOR_BGR2GRAY)
         nhandangmo = cv2.GaussianBlur(nhandangxam, (5, 5), 0)
         nhandangcanh = cv2.Canny(nhandangmo, 75, 200)
@@ -85,7 +85,7 @@ def chuyendoi(self,nhandang):
 
 
 
-def tam(self, tlkhung0, thresh0):
+def tam(tlkhung0, thresh0):
         made = []
         n=0
         for f in tlkhung0:
@@ -108,32 +108,32 @@ def tam(self, tlkhung0, thresh0):
                     bubbled0 = (tong0, j)
             n = bubbled0[1] + 1
         return n
-def luubaikt(self,fileluuu, tenluuu):
-        self.baiin = cv2.cvtColor(fileluuu, cv2.COLOR_BGR2RGB)
-        self.tenbailuu = str(tenluuu)+"-"+str(self.date.strftime("%Y%m%d-%H:%M:%S"))
-        cv2.imwrite("D:/questionBank/CODE_CHAM_BAI/CODE_CHAM_BAI/Luubangdiem/{0}.jpg".format(self.tenbailuu), self.baiin)
-def guimaildi(self):
+def luubaikt(fileluuu, tenluuu):
+        baiin = cv2.cvtColor(fileluuu, cv2.COLOR_BGR2RGB)
+        tenbailuu = str(tenluuu)+"-"+str(date.strftime("%Y%m%d-%H:%M:%S"))
+        cv2.imwrite("D:/questionBank/CODE_CHAM_BAI/CODE_CHAM_BAI/Luubangdiem/{0}.jpg".format(tenbailuu), baiin)
+def guimaildi():
   
         f = open("D:/questionBank/CODE_CHAM_BAI/CODE_CHAM_BAI/Luubangdiem/result.txt", "r")
         for i in f:
-            self.dsmail.append(i)
-        for i in range(len(self.dsmail)):
-            self.dsmail[i] = self.dsmail[i].split()
-        print(self.dsmail)
-        for i in range(len(self.dsmail)):
-            for j in range(len(self.list)):
-                if(self.dsmail[i][0] == self.list[j][0]):
-                    tomail = self.list[j][1]
-                    duongdan = "D:/questionBank/CODE_CHAM_BAI/CODE_CHAM_BAI/Luubangdiem/"+self.list[j][0]+"-"+self.dsmail[j][2] +"-"+self.dsmail[j][3] + ".jpg"
-                    self.sendmail(tomail, self.dsmail[i][1], duongdan)
+            dsmail.append(i)
+        for i in range(len(dsmail)):
+            dsmail[i] = dsmail[i].split()
+        print(dsmail)
+        for i in range(len(dsmail)):
+            for j in range(len(list)):
+                if(dsmail[i][0] == list[j][0]):
+                    tomail = list[j][1]
+                    duongdan = "D:/questionBank/CODE_CHAM_BAI/CODE_CHAM_BAI/Luubangdiem/"+list[j][0]+"-"+dsmail[j][2] +"-"+dsmail[j][3] + ".jpg"
+                    sendmail(tomail, dsmail[i][1], duongdan)
                     print("Result was sent to "+tomail)
                     break
         f = open("D:/questionBank/CODE_CHAM_BAI/CODE_CHAM_BAI/Luubangdiem/result.txt", "w")
         f.write("")
         f.close()
-        self.sentmail = Label(self.root, text="Mails Were Sent.").place(x=30, y=675)
+        sentmail = Label(root, text="Mails Were Sent.").place(x=30, y=675)
 
-def sendmail(self,tomail, diem,duongdan):
+def sendmail(tomail, diem,duongdan):
         email_user = 'bang98.2016@gmail.com'
         email_send = tomail
         subject = 'Score of your test!'
@@ -166,92 +166,93 @@ def sendmail(self,tomail, diem,duongdan):
 
 
 
-def chambai(self):
-        file1 = ""
-        for i in range(len(self.file1)):
-            self.anh = self.file1[i]
-            # self.hx = cv2.cvtColor(self.img1, cv2.COLOR_BGR2GRAY)
-            # self.hm = cv2.GaussianBlur(self.hx, (5,5),0)
-            # self.hc = cv2.Canny(self.hm, 75, 200)
+def chambai():
+        file1 = "D:/questionBank/CODE_CHAM_BAI/CODE_CHAM_BAI/Bubble-sheet-grading-using-OMR/bubble-sheet-grading/img/02.jpg"
+        img1= cv2.imread(file1[len(file1)-1])
+        for i in range(len(img1)):
+            anh = file1[i]
+            # hx = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
+            # hm = cv2.GaussianBlur(hx, (5,5),0)
+            # hc = cv2.Canny(hm, 75, 200)
 
-            self.can1 = Canvas(self.root, width=2000, height=2000)
-            self.can1.place(x=870, y=80)
-            self.mn = cv2.imread(self.anh)
+            can1 = Canvas(root, width=2000, height=2000)
+            can1.place(x=870, y=80)
+            mn = cv2.imread(anh)
 
-            self.hx = cv2.cvtColor(self.mn, cv2.COLOR_BGR2GRAY)
-            self.hm = cv2.GaussianBlur(self.hx, (5,5),0)
-            self.hc = cv2.Canny(self.hm, 75, 200)
+            hx = cv2.cvtColor(mn, cv2.COLOR_BGR2GRAY)
+            hm = cv2.GaussianBlur(hx, (5,5),0)
+            hc = cv2.Canny(hm, 75, 200)
 
-            self.khungbt = cv2.findContours(self.hc.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-            self.khungbt = imutils.grab_contours(self.khungbt)
-            self.khung = None
-            self.khung = self.timkhung(self.khungbt)
+            khungbt = cv2.findContours(hc.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            khungbt = imutils.grab_contours(khungbt)
+            khung = None
+            khung = timkhung(khungbt)
 # xoay anh. ngang doc 
-            self.baithi = four_point_transform(self.mn, self.khung.reshape(4, 2))
+            baithi = four_point_transform(mn, khung.reshape(4, 2))
             # ------
-            self.khungtln = self.timkhungcham(self.baithi)
-            self.khung1n = self.timo1(self.khungtln, 0)
-            self.baithi = four_point_transform(self.baithi, self.khung1n.reshape(4, 2))
+            khungtln = timkhungcham(baithi)
+            khung1n = timo1(khungtln, 0)
+            baithi = four_point_transform(baithi, khung1n.reshape(4, 2))
             # ---
-            self.baithi = self.baithi[20:self.baithi.shape[0] - 20, 20:self.baithi.shape[1] - 20]
+            baithi = baithi[20:baithi.shape[0] - 20, 20:baithi.shape[1] - 20]
 
             # XOAY BAI THI
-            self.phantren = self.baithi[0:self.baithi.shape[0]/34, 0:self.baithi.shape[1]]
-            self.row, self.col, self.cha = self.baithi.shape
+            phantren = baithi[0:baithi.shape[0]/34, 0:baithi.shape[1]]
+            row, col, cha = baithi.shape
 # show hinh cat
-            # cv2.imshow('img',self.phantren)
+            # cv2.imshow('img',phantren)
             cv2.waitKey(0)
-            self.dem1 = 0
-            for i in range(self.phantren.shape[0]):
-                for j in range(self.phantren.shape[1]):
-                    if self.phantren[i,j,0] <100:
-                        self.dem1 = self.dem1 +1
-            # print self.dem1
-            if self.dem1 < 1000:
-                self.dem2 = 0
-                self.benphai = self.baithi[0: self.baithi.shape[0], 0: self.baithi.shape[1]/34]
-                for i in range(self.benphai.shape[0]):
-                    for j in range(self.benphai.shape[1]):
-                        if self.benphai[i, j, 0] < 150:
-                            self.dem2 = self.dem2 + 1
-                # print self.dem2
-                if self.dem2 < 1000:
-                    self.dem3 = 0
-                    self.bentrai = self.baithi[0:self.baithi.shape[0], self.baithi.shape[1]-self.baithi.shape[1]/34: self.baithi.shape[1]]
-                    for i in range(self.bentrai.shape[0]):
-                        for j in range(self.bentrai.shape[1]):
-                            if self.bentrai[i, j, 0] < 50:
-                                self.dem3 = self.dem3 + 1
-                    # print self.dem3
-                    if self.dem3 <1000:
-                        self.r = cv2.getRotationMatrix2D((self.col/2, self.row/2),180,1)
-                        self.baithi = cv2.warpAffine(self.baithi, self.r, (self.col,self.row))
+            dem1 = 0
+            for i in range(phantren.shape[0]):
+                for j in range(phantren.shape[1]):
+                    if phantren[i,j,0] <100:
+                        dem1 = dem1 +1
+            # print dem1
+            if dem1 < 1000:
+                dem2 = 0
+                benphai = baithi[0: baithi.shape[0], 0: baithi.shape[1]/34]
+                for i in range(benphai.shape[0]):
+                    for j in range(benphai.shape[1]):
+                        if benphai[i, j, 0] < 150:
+                            dem2 = dem2 + 1
+                # print dem2
+                if dem2 < 1000:
+                    dem3 = 0
+                    bentrai = baithi[0:baithi.shape[0], baithi.shape[1]-baithi.shape[1]/34: baithi.shape[1]]
+                    for i in range(bentrai.shape[0]):
+                        for j in range(bentrai.shape[1]):
+                            if bentrai[i, j, 0] < 50:
+                                dem3 = dem3 + 1
+                    # print dem3
+                    if dem3 <1000:
+                        r = cv2.getRotationMatrix2D((col/2, row/2),180,1)
+                        baithi = cv2.warpAffine(baithi, r, (col,row))
                     else:
-                        self.r = cv2.getRotationMatrix2D((self.col / 2, self.row / 1.488), 90, 1)
-                        self.baithi = cv2.warpAffine(self.baithi, self.r, (self.row, self.col))
+                        r = cv2.getRotationMatrix2D((col / 2, row / 1.488), 90, 1)
+                        baithi = cv2.warpAffine(baithi, r, (row, col))
                 else:
-                    self.r = cv2.getRotationMatrix2D((self.col / 2.525, self.row / 2), -90, 1)
-                    self.baithi = cv2.warpAffine(self.baithi, self.r, (self.row, self.col))
+                    r = cv2.getRotationMatrix2D((col / 2.525, row / 2), -90, 1)
+                    baithi = cv2.warpAffine(baithi, r, (row, col))
 
             # NHAN DANG SO CAU HOI
 
-            self.nhandang = self.baithi[1:self.row/20, 0:self.col]
-            self.khungdang = self.chuyendoi(self.nhandang)
-            self.khungnhandang = self.timkhung(self.khungdang)
-            self.nhandang = four_point_transform(self.nhandang, self.khungnhandang.reshape(4,2))
-            self.nhandang = self.nhandang[6:self.nhandang.shape[0]-6,6:self.nhandang.shape[1]-6]
+            nhandang = baithi[1:row/20, 0:col]
+            khungdang = chuyendoi(nhandang)
+            khungnhandang = timkhung(khungdang)
+            nhandang = four_point_transform(nhandang, khungnhandang.reshape(4,2))
+            nhandang = nhandang[6:nhandang.shape[0]-6,6:nhandang.shape[1]-6]
 
-            self.phunhandang = cv2.cvtColor(self.nhandang, cv2.COLOR_BGR2GRAY)
-            self.thresh0 = cv2.threshold(self.phunhandang,0,255,cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
-            self.tlkhung0 = cv2.findContours(self.thresh0.copy(),cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-            self.tlkhung0 = imutils.grab_contours(self.tlkhung0)
-            self.n = self.tam(self.tlkhung0,self.thresh0)
+            phunhandang = cv2.cvtColor(nhandang, cv2.COLOR_BGR2GRAY)
+            thresh0 = cv2.threshold(phunhandang,0,255,cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
+            tlkhung0 = cv2.findContours(thresh0.copy(),cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            tlkhung0 = imutils.grab_contours(tlkhung0)
+            n = tam(tlkhung0,thresh0)
 
             p=0
-            if self.n == 1:
+            if n == 1:
                 p = 10
             else:
-                if self.n==2:
+                if n==2:
                     p = 15
                 else:
                     p = 20
@@ -260,43 +261,43 @@ def chambai(self):
             socauhoi = 0
             # ANSWER_KEY = {0:0,1:1,2:2,3:2,4:1,5:1,6:1,7:0,8:0,9:2,10: 0, 11: 0, 12: 1, 13: 2, 14: 2, 15: 1, 16: 1, 17: 1, 18: 1, 19: 1}
 
-            self.khungtl = self.timkhungcham(self.baithi)
-            self.khung1 = self.timo1(self.khungtl,0)
-            self.khung2 = self.timo1(self.khungtl, 2)
+            khungtl = timkhungcham(baithi)
+            khung1 = timo1(khungtl,0)
+            khung2 = timo1(khungtl, 2)
 
-            # self.o1 = four_point_transform(self.baithi, self.khung1.reshape(4, 2))
-            self.toado1 = self.khung1[0][0]
-            self.d1 = (self.toado1[0] + self.toado1[1]) / 2
+            # o1 = four_point_transform(baithi, khung1.reshape(4, 2))
+            toado1 = khung1[0][0]
+            d1 = (toado1[0] + toado1[1]) / 2
 
             for o in range(4):
-                if ((self.khung1[o][0][0] + self.khung1[o][0][1]) / 2 < self.d1):
-                    self.toado1 = self.khung1[o][0]
-                    self.d1 = (self.toado1[0] + self.toado1[1]) / 2
-            self.toado2 = self.khung2[0][0]
-            self.d2 = (self.toado2[0] + self.toado2[1]) / 2
+                if ((khung1[o][0][0] + khung1[o][0][1]) / 2 < d1):
+                    toado1 = khung1[o][0]
+                    d1 = (toado1[0] + toado1[1]) / 2
+            toado2 = khung2[0][0]
+            d2 = (toado2[0] + toado2[1]) / 2
             for o in range(4):
-                if ((self.khung2[o][0][0] + self.khung2[o][0][1]) / 2 < self.d2):
-                    self.toado2 = self.khung2[o][0]
-                    self.d2 = (self.toado2[0] + self.toado2[1]) / 2
-            if (self.d1 > self.d2 ):
-                self.tamp1 = self.khung1
-                self.tamp2 = self.khung2
-                self.toado = self.toado1
-                self.toado1 = self.toado2
-                self.toado2 = self.toado
+                if ((khung2[o][0][0] + khung2[o][0][1]) / 2 < d2):
+                    toado2 = khung2[o][0]
+                    d2 = (toado2[0] + toado2[1]) / 2
+            if (d1 > d2 ):
+                tamp1 = khung1
+                tamp2 = khung2
+                toado = toado1
+                toado1 = toado2
+                toado2 = toado
             else:
-                self.tamp1 = self.khung2
-                self.tamp2 = self.khung1
+                tamp1 = khung2
+                tamp2 = khung1
 
-            self.o1 = four_point_transform(self.baithi, self.tamp2.reshape(4,2))
-            self.o1 = self.o1[5:self.o1.shape[0] - 5, 5:self.o1.shape[1] - 5]
-            self.phukhung1 = cv2.cvtColor(self.o1, cv2.COLOR_BGR2GRAY)
-            self.thresh1 = cv2.threshold(self.phukhung1, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
-            self.tlkhung1 = cv2.findContours(self.thresh1.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-            self.tlkhung1 = imutils.grab_contours(self.tlkhung1)
+            o1 = four_point_transform(baithi, tamp2.reshape(4,2))
+            o1 = o1[5:o1.shape[0] - 5, 5:o1.shape[1] - 5]
+            phukhung1 = cv2.cvtColor(o1, cv2.COLOR_BGR2GRAY)
+            thresh1 = cv2.threshold(phukhung1, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
+            tlkhung1 = cv2.findContours(thresh1.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            tlkhung1 = imutils.grab_contours(tlkhung1)
 
             cautraloi1 = []
-            for f in self.tlkhung1:
+            for f in tlkhung1:
                 (x, y, w, h) = cv2.boundingRect(f)
                 ar = w / float(h)
                 if w >= 20 and h >= 20 and ar >= 0.9 and ar <= 1.1:
@@ -310,35 +311,35 @@ def chambai(self):
                 bubbled1 = None
 
                 for (j, c) in enumerate(cautraloisx1):
-                    matna1 = np.zeros(self.thresh1.shape, dtype="uint8")
+                    matna1 = np.zeros(thresh1.shape, dtype="uint8")
                     cv2.drawContours(matna1, [c], -1, 255, -1)
 
-                    matna1 = cv2.bitwise_and(self.thresh1, self.thresh1, mask=matna1)
+                    matna1 = cv2.bitwise_and(thresh1, thresh1, mask=matna1)
                     tong1 = cv2.countNonZero(matna1)
 
                     if bubbled1 is None or tong1 > bubbled1[0]:
                         bubbled1 = (tong1, j)
                 color = (255, 0, 0)
-                k = self.ANSWER_KEY[q]
+                k = ANSWER_KEY[q]
 
                 if k == bubbled1[1]:
                     color = (0, 255, 0)
                     dung += 1
 
-                cv2.drawContours(self.o1, [cautraloisx1[k]], -1, color, 3)
+                cv2.drawContours(o1, [cautraloisx1[k]], -1, color, 3)
 
-            self.baithi[self.toado1[1]+5:self.toado1[1]+self.o1.shape[0]+5, self.toado1[0]+5:self.toado1[0]+self.o1.shape[1]+5] = self.o1
+            baithi[toado1[1]+5:toado1[1]+o1.shape[0]+5, toado1[0]+5:toado1[0]+o1.shape[1]+5] = o1
 
 
-            self.o2 = four_point_transform(self.baithi, self.tamp1.reshape(4,2))
-            self.o2 = self.o2[5:self.o2.shape[0] - 5, 5:self.o2.shape[1] - 5]
-            self.phukhung2 = cv2.cvtColor(self.o2, cv2.COLOR_BGR2GRAY)
-            self.thresh2 = cv2.threshold(self.phukhung2, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
-            self.tlkhung2 = cv2.findContours(self.thresh2.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-            self.tlkhung2 = imutils.grab_contours(self.tlkhung2)
+            o2 = four_point_transform(baithi, tamp1.reshape(4,2))
+            o2 = o2[5:o2.shape[0] - 5, 5:o2.shape[1] - 5]
+            phukhung2 = cv2.cvtColor(o2, cv2.COLOR_BGR2GRAY)
+            thresh2 = cv2.threshold(phukhung2, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
+            tlkhung2 = cv2.findContours(thresh2.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            tlkhung2 = imutils.grab_contours(tlkhung2)
 
             cautraloi2 = []
-            for f in self.tlkhung2:
+            for f in tlkhung2:
                 (x, y, w, h) = cv2.boundingRect(f)
                 ar = w / float(h)
                 if w >= 20 and h >= 20 and ar >= 0.9 and ar <= 1.1:
@@ -351,39 +352,39 @@ def chambai(self):
                 bubbled2 = None
 
                 for (j, c) in enumerate(cautraloisx2):
-                    matna2 = np.zeros(self.thresh2.shape, dtype="uint8")
+                    matna2 = np.zeros(thresh2.shape, dtype="uint8")
                     cv2.drawContours(matna2, [c], -1, 255, -1)
 
-                    matna2 = cv2.bitwise_and(self.thresh2, self.thresh2, mask=matna2)
+                    matna2 = cv2.bitwise_and(thresh2, thresh2, mask=matna2)
                     tong2 = cv2.countNonZero(matna2)
 
                     if bubbled2 is None or tong2 > bubbled2[0]:
                         bubbled2 = (tong2, j)
                 color = (255, 0, 0)
-                k = self.ANSWER_KEY[p+q]
+                k = ANSWER_KEY[p+q]
 
                 if k == bubbled2[1]:
                     color = (0, 255, 0)
                     dung += 1
 
-                cv2.drawContours(self.o2, [cautraloisx2[k]], -1, color, 3)
+                cv2.drawContours(o2, [cautraloisx2[k]], -1, color, 3)
 
-            self.baithi[self.toado2[1]+5:self.toado2[1]+self.o2.shape[0]+5, self.toado2[0]+5:self.toado2[0]+self.o2.shape[1]+5] = self.o2
+            baithi[toado2[1]+5:toado2[1]+o2.shape[0]+5, toado2[0]+5:toado2[0]+o2.shape[1]+5] = o2
 
             # print dung
 
             # NHAN DANG MSSV
-            self.khung3 = self.timo1(self.khungtl,8)
-            self.o3 = four_point_transform(self.baithi, self.khung3.reshape(4, 2))
-            p = cv2.getRotationMatrix2D((self.o3.shape[0] / 2, self.o3.shape[1] / 1.52), -90, 1)
-            self.o3 = cv2.warpAffine(self.o3, p, (self.o3.shape[0], self.o3.shape[1]))
-            self.o3 = self.o3[5:self.o3.shape[0] - 5, 5:self.o3.shape[1] - 5]
-            self.phukhung3 = cv2.cvtColor(self.o3, cv2.COLOR_BGR2GRAY)
-            self.thresh3 = cv2.threshold(self.phukhung3, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
-            self.tlkhung3 = cv2.findContours(self.thresh3.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-            self.tlkhung3 = imutils.grab_contours(self.tlkhung3)
+            khung3 = timo1(khungtl,8)
+            o3 = four_point_transform(baithi, khung3.reshape(4, 2))
+            p = cv2.getRotationMatrix2D((o3.shape[0] / 2, o3.shape[1] / 1.52), -90, 1)
+            o3 = cv2.warpAffine(o3, p, (o3.shape[0], o3.shape[1]))
+            o3 = o3[5:o3.shape[0] - 5, 5:o3.shape[1] - 5]
+            phukhung3 = cv2.cvtColor(o3, cv2.COLOR_BGR2GRAY)
+            thresh3 = cv2.threshold(phukhung3, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
+            tlkhung3 = cv2.findContours(thresh3.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            tlkhung3 = imutils.grab_contours(tlkhung3)
             cautraloi3 = []
-            for f in self.tlkhung3:
+            for f in tlkhung3:
                 (x, y, w, h) = cv2.boundingRect(f)
                 ar = w / float(h)
                 if w >= 20 and h >= 20 and ar >= 0.9 and ar <= 1.1:
@@ -396,42 +397,42 @@ def chambai(self):
                 bubbled3 = None
 
                 for (j, c) in enumerate(cautraloisx3):
-                    matna3 = np.zeros(self.thresh3.shape, dtype="uint8")
+                    matna3 = np.zeros(thresh3.shape, dtype="uint8")
                     cv2.drawContours(matna3, [c], -1, 255, -1)
 
-                    matna3 = cv2.bitwise_and(self.thresh3, self.thresh3, mask=matna3)
+                    matna3 = cv2.bitwise_and(thresh3, thresh3, mask=matna3)
                     tong3 = cv2.countNonZero(matna3)
 
                     if bubbled3 is None or tong3 > bubbled3[0]:
                         bubbled3 = (tong3, j)
                 mssv[q] = 9 - bubbled3[1]
-            self.msv = mssv[0]
+            msv = mssv[0]
             for i in range(1, 7):
-                self.msv = (self.msv * 10) + mssv[i]
-            # print self.msv
+                msv = (msv * 10) + mssv[i]
+            # print msv
 
-            if self.n == 1:
+            if n == 1:
                 socauhoi = 20
             else:
-                if self.n==2:
+                if n==2:
                     socauhoi = 30
                 else:
                     socauhoi = 40
-            self.diem = float(dung*10)/socauhoi
-            # print self.diem
-            cv2.putText(self.baithi, "{:.2f}".format(self.diem),(int(self.baithi.shape[0]/2.5),int(self.baithi.shape[1]/2.5)), cv2.FONT_HERSHEY_SIMPLEX,4,(255,0,0),6)
-            cv2.putText(self.baithi, "{:}".format(self.msv), (int(self.baithi.shape[0] / 4.5), int(self.baithi.shape[1] / 5.2)),cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 3)
+            diem = float(dung*10)/socauhoi
+            # print diem
+            cv2.putText(baithi, "{:.2f}".format(diem),(int(baithi.shape[0]/2.5),int(baithi.shape[1]/2.5)), cv2.FONT_HERSHEY_SIMPLEX,4,(255,0,0),6)
+            cv2.putText(baithi, "{:}".format(msv), (int(baithi.shape[0] / 4.5), int(baithi.shape[1] / 5.2)),cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 3)
 
-            # self.nhandang = imutils.resize(self.nhandang, height=50)
-            self.baithi = imutils.resize(self.baithi, height=800)
-            # self.o2 = imutils.resize(self.o2, height=800)
-            self.im = PIL.ImageTk.PhotoImage(image=PIL.Image.fromarray(self.baithi))
-            self.can1.create_image(5, 5, anchor=NW, image=self.im)
+            # nhandang = imutils.resize(nhandang, height=50)
+            baithi = imutils.resize(baithi, height=800)
+            # o2 = imutils.resize(o2, height=800)
+            im = PIL.ImageTk.PhotoImage(image=PIL.Image.fromarray(baithi))
+            can1.create_image(5, 5, anchor=NW, image=im)
 
 
-            self.luubaikt(self.baithi, self.msv)
+            luubaikt(baithi, msv)
             f = open("D:/questionBank/CODE_CHAM_BAI/CODE_CHAM_BAI/Luubangdiem/result.txt", "a")
             f.write(
-                str(self.msv) + "         " + str(self.diem) + "          " + str(self.date.strftime("%Y%m%d %H:%M:%S") + "\n"))
+                str(msv) + "         " + str(diem) + "          " + str(date.strftime("%Y%m%d %H:%M:%S") + "\n"))
             f.close()
-            self.done = Label(self.root, text="Done!").place(x=20, y=405)
+            done = Label(root, text="Done!").place(x=20, y=405)
