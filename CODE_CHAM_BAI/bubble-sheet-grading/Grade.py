@@ -102,13 +102,23 @@ class App():
             n = bubbled0[1] + 1
         return n
     def luubaikt(self,fileluuu, tenluuu):
+        print (fileluuu)
+        print   (tenluuu)
         self.baiin = cv2.cvtColor(fileluuu, cv2.COLOR_BGR2RGB)
-        self.tenbailuu = str(tenluuu)+"-"+str(self.date.strftime("%Y%m%d-%H:%M:%S"))
-        cv2.imwrite("../Ketqua/2.jpg".format(self.tenbailuu), self.baiin)
-        print  (cv2.imwrite("../Ketqua/2.jpg".format(self.tenbailuu), self.baiin))
+        self.tenbailuu = str(tenluuu)+"-"+str(self.date.strftime("%Y%m%d-%H-%M-%S"))
+        print ('../Ketqua/{0}.jpg'.format(self.tenbailuu))
+        cv2.imwrite('../Ketqua/{0}.jpg'.format(self.tenbailuu), self.baiin)
+        print  (cv2.imwrite('../Ketqua/{0}.jpg'.format(self.tenbailuu), self.baiin))
+    def chamnhieu(self):
+        self.file1 =[]
+        self.dsddd="./img/"
+        for f in os.listdir(self.dsddd):
+            self.file1.append(self.dsddd+"/"+f)
+        # print (self.file1)
+        self.img1 = cv2.imread(self.file1[len(self.file1) - 1])
+        self.img1 = cv2.cvtColor(self.img1, cv2.COLOR_BGR2RGB)
+        self.img1 = imutils.resize(self.img1, height=800)
     def chambai(self):
-        self.file1=['./img/img2.jpg']
-        print (self.file1)
         for i in range(len(self.file1)):
             self.anh = self.file1[i]
             print (self.anh)
@@ -366,8 +376,7 @@ class App():
             f.write(
                 str(self.msv) + "         " + str(self.diem) + "          " + str(self.date.strftime("%Y%m%d %H:%M:%S") + "\n"))
             f.close()
-    def Run(self):
-        self.nhapdapan()
-        self.chambai()
-
-App().Run()
+app=App()
+app.chamnhieu()
+app.nhapdapan()
+app.chambai()
