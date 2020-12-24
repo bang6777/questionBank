@@ -1026,3 +1026,14 @@ h1.ck-placeholder {
 .ck.ck-content.ck-editor__editable.ck-rounded-corners.ck-editor__editable_inline.ck-blurred h1 {
   display: none !important;
 }
+.clock-start {
+  position: fixed;
+  top: 60px;
+  right: 100px;
+  height: 65px;
+  width: 266px;
+  font-size: 29px;
+  display: grid;
+  text-align: center;
+  color: red;
+}

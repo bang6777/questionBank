@@ -316,13 +316,11 @@ class App():
                     self.baithi = cv2.warpAffine(self.baithi, self.r, (self.row, self.col))
 
             #NHAN DANG SO CAU HOI
-
             self.nhandang = self.baithi[1:self.row/20, 0:self.col]
             self.khungdang = self.chuyendoi(self.nhandang)
             self.khungnhandang = self.timkhung(self.khungdang)
             self.nhandang = four_point_transform(self.nhandang, self.khungnhandang.reshape(4,2))
             self.nhandang = self.nhandang[6:self.nhandang.shape[0]-6,6:self.nhandang.shape[1]-6]
-
             self.phunhandang = cv2.cvtColor(self.nhandang, cv2.COLOR_BGR2GRAY)
             self.thresh0 = cv2.threshold(self.phunhandang,0,255,cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
             self.tlkhung0 = cv2.findContours(self.thresh0.copy(),cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)

@@ -43,7 +43,8 @@ export default class AnsewerQuestion extends Component{
           let c1=<label><input class="answer" type="radio"name={item2}  value={item[2].id} id={item[2].id}  /> C. {item[2].Content}</label>;
           let d1=<label><input class="answer" type="radio"  name={item2}  value={item[3].id}  id={item[3].id} />D. {item[3].Content}</label>;
           if(Id_answer.length>0){
-            Id_answer.map(id=>{
+            console.log(Id_answer);
+                        Id_answer.map(id=>{
               if(Number(id)===Number(item[0].id)){
                 a1=<label> <input class="answer" type="radio" name={item2} value={item[0].id} id={item[0].id} checked /> A. {item[0].Content}</label>;
               

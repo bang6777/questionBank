@@ -1,5 +1,6 @@
 var db=require('../models');
 var db_chamdiem=db.Quesstion;
+var db_examdetail_question=db.ExamDetails_Quesstion;
 exports.get_Grade_Exam=function(req,res){
     var data=req.body.question;
     var Arr=[];
@@ -52,6 +53,10 @@ exports.get_Grade_Exam=function(req,res){
                 result_kq=lenIndex*diem
             }
         }
+        console.log(req.body.Exam)
+        // db_examdetail_question.findAll({
+        //     where: {Id_examdetails : }
+        // })
         res.status(200).json({
             data:result_kq
         })

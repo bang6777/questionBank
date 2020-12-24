@@ -104,9 +104,10 @@ class App():
     def luubaikt(self,fileluuu, tenluuu):
         self.baiin = cv2.cvtColor(fileluuu, cv2.COLOR_BGR2RGB)
         self.tenbailuu = str(tenluuu)+"-"+str(self.date.strftime("%Y%m%d-%H:%M:%S"))
-        cv2.imwrite(r'{0}.jpg'.format(self.tenbailuu), self.baiin)
+        cv2.imwrite("../Ketqua/2.jpg".format(self.tenbailuu), self.baiin)
+        print  (cv2.imwrite("../Ketqua/2.jpg".format(self.tenbailuu), self.baiin))
     def chambai(self):
-        self.file1=['./img/02.jpg']
+        self.file1=['./img/img2.jpg']
         print (self.file1)
         for i in range(len(self.file1)):
             self.anh = self.file1[i]
@@ -142,7 +143,7 @@ class App():
             # print self.dem1
             if self.dem1 < 1000:
                 self.dem2 = 0
-                self.benphai = self.baithi[0: self.baithi.shape[0], 0: self.baithi.shape[1]/34]
+                self.benphai = self.baithi[0: int(self.baithi.shape[0]), 0:int(self.baithi.shape[1]/34)]
                 for i in range(self.benphai.shape[0]):
                     for j in range(self.benphai.shape[1]):
                         if self.benphai[i, j, 0] < 150:
@@ -150,7 +151,7 @@ class App():
                 # print self.dem2
                 if self.dem2 < 1000:
                     self.dem3 = 0
-                    self.bentrai = self.baithi[0:self.baithi.shape[0], self.baithi.shape[1]-self.baithi.shape[1]/34: self.baithi.shape[1]]
+                    self.bentrai = self.baithi[0:int(self.baithi.shape[0]), self.baithi.shape[1]-int(self.baithi.shape[1]/34): int(self.baithi.shape[1])]
                     for i in range(self.bentrai.shape[0]):
                         for j in range(self.bentrai.shape[1]):
                             if self.bentrai[i, j, 0] < 50:
@@ -298,7 +299,6 @@ class App():
                 if k == bubbled2[1]:
                     color = (0, 255, 0)
                     dung += 1
-
                 cv2.drawContours(self.o2, [cautraloisx2[k]], -1, color, 3)
 
             self.baithi[self.toado2[1]+5:self.toado2[1]+self.o2.shape[0]+5, self.toado2[0]+5:self.toado2[0]+self.o2.shape[1]+5] = self.o2

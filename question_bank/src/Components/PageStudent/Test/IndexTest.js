@@ -3,7 +3,7 @@ import {Link,Redirect} from 'react-router-dom';
 import StudentHeader from '../StudentHeader';
 import Menu from '../Menu';
 import CallApi from '../../../utils/apiCaller';
-
+import moment from 'moment';
 class IndexTest extends Component{
     constructor(props){
         super(props);
@@ -17,30 +17,62 @@ class IndexTest extends Component{
             Id_test: ""
         }
     }
-    componentDidMount(){
-        // CallApi("/v1/exam/load/exam","GET",null).then(res=>{
-        //    if(res!== undefined){
-        //     this.setState({
-        //         data: res.details
-        //     })
-        //    }
-        // })
-    }
     handleChange=(e)=>{
         this.setState({
             [e.target.name]: e.target.value
         })
     }
     handleSubmit=(e)=>{
-
         e.preventDefault();
         CallApi("v1/exam/create/post","POST",this.state).then(res=>{
-            console.log(res);
             if(res !== undefined ){
+               if(res.data.code ===undefined){
+                if(localStorage.getItem('time_start')!==null && localStorage.getItem('time_process')!==null){
+                    let time_process=JSON.parse(localStorage.getItem('time_process'));
+                    let time_start={
+                        time_start: moment().format('lll'),
+                        timedt: moment().unix()
+                    }
+                    let obj_process=time_process.timedt-time_start.timedt;
+                    console.log(obj_process);
+                    console.log(time_process);
+                    console.log(time_start.timedt);
+                    if(obj_process>=localStorage.getItem('time_end')){
+                        this.setState({
+                            redirect: 0
+                        })
+                    }
+                    else{
+                        localStorage.setItem("time_end",JSON.stringify(obj_process));
+                    }
+                }
+                else{
+                    let obj={
+                        time_start: moment().format('lll'),
+                        timedt: moment().unix()
+                    }
+                    let obj_after={
+                        time_end: moment().add(1, 'hours').format('llll'),
+                        timedt: moment().add(1, 'hours').unix()
+                    }
+                    let obj_process=obj_after.timedt-obj.timedt;
+                    console.log(obj);
+                    console.log(obj_after);
+                    console.log(obj_process);
+                    console.log(obj_after.timedt);
+                    localStorage.setItem("time_start",JSON.stringify(obj));
+                    localStorage.setItem("time_process",JSON.stringify(obj_after));
+                    localStorage.setItem("time_end",obj_process);
+                }
                 this.setState({
                     redirect: 1,
                     Id_test: res.data.user.id
                 })
+               }else{
+                this.setState({
+                    message: "Đề thi chỉ được thực hiện một lần... "
+                })
+               }
             }
             else{
                 this.setState({
@@ -50,7 +82,7 @@ class IndexTest extends Component{
         })
     }
     render(){
-        
+        console.log(this.state);
         if(this.state.redirect!==0){
             return <Redirect
             to={{

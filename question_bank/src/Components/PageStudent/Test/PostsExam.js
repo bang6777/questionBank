@@ -1,7 +1,8 @@
 import React,{Component,useState,useEffect} from 'react';
 import CallApi from '../../../utils/apiCaller';
 import AnsewerQuestion from './AnsewerQuestion';
-
+import {Redirect} from 'react-router-dom';
+import Countdown from 'react-countdown';
 class PostsExam extends Component{
     constructor(props){
         super(props);
@@ -10,27 +11,74 @@ class PostsExam extends Component{
             Data: [],
             Id_answer: [],
             grade_exam:[],
-           
+            Id_student: localStorage.getItem('user'),
+            redirect: 0,
+            time: {},
+            seconds: localStorage.getItem('time_end'),
+        }
+        this.timer = 0;
+        this.startTimer = this.startTimer.bind(this);
+        this.countDown = this.countDown.bind(this);
+    }
+    secondsToTime(secs){
+        let hours = Math.floor(secs / (60 * 60));
+        let divisor_for_minutes = secs % (60 * 60);
+        let minutes = Math.floor(divisor_for_minutes / 60);
+        let divisor_for_seconds = divisor_for_minutes % 60;
+        let seconds = Math.ceil(divisor_for_seconds);
+        let obj = {
+          "h": hours,
+          "m": minutes,
+          "s": seconds
+        };
+        return obj;
+    }
+    startTimer() {
+        if (this.timer == 0 && this.state.seconds > 0) {
+            this.timer = setInterval(this.countDown, 1000);
         }
     }
+    countDown() {
+        let seconds = this.state.seconds - 1;
 
-    handleSubmit=(e)=>{
+        this.setState({
+            time: this.secondsToTime(seconds),
+            seconds: seconds,
+        });
+        localStorage.setItem("time_end",seconds);
+        if (seconds == 0) { 
+            clearInterval(this.timer);
+            this.setState({ redirect: 1 });
+            this.handleSubmit()
+        }
+    }
+    componentDidMount(){
+        if(localStorage.getItem('question')!==null){
+            this.setState({
+                Id_answer: JSON.parse(localStorage.getItem('question'))
+            })
+        }
+        let timeLeftVar = this.secondsToTime(this.state.seconds);
+        this.setState({ time: timeLeftVar });
+        this.startTimer()
+    }
+    handleSubmit=()=>{
         let data=this.handleSave();
         console.log(data);
         let obj={
             len: this.props.len,
-            question: data
+            question: data,
+            Exam: this.props.exam,
+            Id_student: this.state.Id_student
         }
-        console.log(obj);
         CallApi("v1/grade_exam","POST",obj).then(res=>{
             if(res!==undefined){
+                localStorage.removeItem("question");
                alert("Điểm của bạn là:" +res.data.data);
             }
         })
-        // Map id answer 
-        e.preventDefault();
     }
-    handleSave=()=>{
+    handleSave=(e)=>{
         // //fillter trung
         function uniqByKeepLast(question, key) {
             return [
@@ -47,6 +95,7 @@ class PostsExam extends Component{
         this.setState({
             Id_answer: dataN,
         });
+        localStorage.setItem('question', JSON.stringify(dataN));
         return data;
     }
     handleInputChange=(e)=>{
@@ -71,14 +120,21 @@ class PostsExam extends Component{
             Id_answer: dataN,
         });
     }
+    
     render(){
+        if(this.state.redirect===1){
+            return <Redirect to="/student" />;
+           }
+          
         let {posts,currentPage,index,len,ch}=this.props;
         let {Id_answer}=this.state;
         return (
             <ul className="list-group mb-4">
-                <form onSubmit={this.handleSubmit}  onClick={this.handleInputChange} >
+                <div className="fas fa-clock clock-start">
+                    {this.state.time.m}:Phút {this.state.time.s}: Giây
+                </div>
+                <form onSubmit={this.handleSubmit}  onClick={this.handleInputChange} id="formSubmit"  method="POST">
                    {posts ? posts.map((post,index)=>{
-                       console.log(post)
                        var item=post.Id_Quesstion;
                         var item2=post.id;
                        return(
@@ -88,24 +144,22 @@ class PostsExam extends Component{
                         </tbody>
                     );
                    }): <h2>Loading.....</h2>}   
-                   <button className="btn btn-primary" onClick={this.handleSubmit}>Nộp Bài</button>
-                   <button className="btn btn-primary" onClick={this.handleSave}>Lưu Bài</button>
+                   <button className="btn btn-primary" type="submit" onClick={this.handleSubmit}>Nộp Bài</button>
+                   <p className="btn btn-primary" onClick={this.handleSave}>Lưu Bài</p>
                    </form>
-                  
                 </ul>
             );  
         }
-        showIndex(index,currentPage){
+    showIndex(index,currentPage){
             var result=null;
             if(currentPage===1){
-               result=index+1*currentPage;
+                result=index+1*currentPage;
             }
             else{
                 result=index+1+(currentPage-1)*10;
             }
         return result;
     }
-
-    }
-   
+}
+  
 export default PostsExam;

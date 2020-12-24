@@ -205,7 +205,6 @@ exports.LoadExamDetails=function(req,res){
       }
     })
 }
-
 exports.show_Exam=function(req,res){
     db_exam.findOne({
         where: {id: req.body.Id_exam}   
@@ -222,8 +221,9 @@ exports.show_Exam=function(req,res){
                 // let isCorrectPassWord=bcrypt.compareSync(req.body.Password,item.Password);
                 // console.log(isCorrectPassWord);
                 if(req.body.password===item.Pass){
+
                     db_examdetails.findOne({
-                        where: {Id_exam: req.body.Id_exam}
+                        where: {Id_exam: req.body.Id_exam,Stt_exam:req.body.Stt_exam}
                     }).then(data=>{
                         if(!data){
                             res.status(500).json({
@@ -231,8 +231,19 @@ exports.show_Exam=function(req,res){
                             })
                         }
                         else if(data){
+                            console.log("ok");
+                            console.log(data.Stt_exam)
+                            console.log(req.body.Stt_exam);
+                            console.log("ok");
                               if(Number(req.body.Stt_exam)===Number(data.Stt_exam)){
-                                res.json({ user: data, jwt: `${data.id}` }); 
+                                    if(Number(data.Content)===0){
+                                        res.json({ user: data, jwt: `${data.id}` });
+                                    }else{
+                                        res.status(200).json({
+                                            code:   '500',
+                                            details:    "Đề thi chỉ đăng nhập 1 lần..."
+                                        })
+                                      }
                               }
                               else{
                                 res.status(500).json({
