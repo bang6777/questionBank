@@ -21,7 +21,7 @@ class  Sidebar extends Component {
                             <li><a href="# ">Sửa Câu Hỏi</a></li>
                         </ul>
                     </li>
-                    <li className="menu-tp"><Link><i className="fas fa-user-graduate"></i>Quản Lý Điểm Sinh Viên</Link> </li>
+                    <li className="menu-tp"><Link to="/admin/point-manage"><i className="fas fa-user-graduate"></i>Quản Lý Điểm Sinh Viên</Link> </li>
                     <li className="menu-tp"><Link to="/admin/list-student" ><i className="fas fa-user-graduate"></i> Học Sinh</Link>
                        
                     </li>
@@ -30,8 +30,7 @@ class  Sidebar extends Component {
                   
                     <li className="menu-tp"><a href="# "> <i className="fas fa-wrench"></i> Setting<span className="caret"> </span></a>
                     </li>
-                    <li className="menu-tp"><a href="# "> <i className="fas fa-file-export"></i> Export<span className="caret"> </span></a>
-                    </li>
+                    <li className="menu-tp"><Link to="/admin/exports-pdf" ><i className="fas fa-address-card"></i> Export </Link></li>
                 </ul>
             </div>
       

@@ -14,8 +14,11 @@ class IndexTest extends Component{
             redirect: 0,
             Stt_exam: 0,
             message: "", 
-            Id_test: ""
+            Id_test: "",
+            Time: 0,
+            time_pr: 0
         }
+        
     }
     handleChange=(e)=>{
         this.setState({
@@ -26,49 +29,56 @@ class IndexTest extends Component{
         e.preventDefault();
         CallApi("v1/exam/create/post","POST",this.state).then(res=>{
             if(res !== undefined ){
+                this.setState({
+                    Time: res.data.Time,
+                    time_pr: res.data.Time,
+                })
                if(res.data.code ===undefined){
                 if(localStorage.getItem('time_start')!==null && localStorage.getItem('time_process')!==null){
+                    localStorage.setItem("time_pr",this.state.time_pr);
                     let time_process=JSON.parse(localStorage.getItem('time_process'));
                     let time_start={
-                        time_start: moment().format('lll'),
-                        timedt: moment().unix()
+                        time_start: moment().lang('vi').format('YYYY-MM-DD HH:mm:ss'),
+                        timedt: moment().lang('vi').unix()
                     }
                     let obj_process=time_process.timedt-time_start.timedt;
-                    console.log(obj_process);
-                    console.log(time_process);
-                    console.log(time_start.timedt);
-                    if(obj_process>=localStorage.getItem('time_end')){
+                    if(obj_process<0){
                         this.setState({
-                            redirect: 0
+                            redirect: 0,
+                            message: "Đề thi chỉ được thực hiện một lần... "
                         })
                     }
                     else{
+                        localStorage.setItem("time_pr",this.state.time_pr);
                         localStorage.setItem("time_end",JSON.stringify(obj_process));
+                        this.setState({
+                            redirect: 1,
+                            Id_test: res.data.user.id
+                        })
                     }
                 }
                 else{
+                    localStorage.setItem("time_pr",this.state.time_pr);
                     let obj={
-                        time_start: moment().format('lll'),
-                        timedt: moment().unix()
+                        time_start: moment().lang('vi').format('YYYY-MM-DD HH:mm:ss'),
+                        timedt: moment().lang('vi').unix()
                     }
                     let obj_after={
-                        time_end: moment().add(1, 'hours').format('llll'),
-                        timedt: moment().add(1, 'hours').unix()
+                        time_end: moment().lang('vi').add(this.state.Time, 'minute').format('YYYY-MM-DD HH:mm:ss'),
+                        timedt: moment().lang('vi').add(this.state.Time, 'minute').unix()
                     }
                     let obj_process=obj_after.timedt-obj.timedt;
-                    console.log(obj);
-                    console.log(obj_after);
-                    console.log(obj_process);
-                    console.log(obj_after.timedt);
                     localStorage.setItem("time_start",JSON.stringify(obj));
                     localStorage.setItem("time_process",JSON.stringify(obj_after));
                     localStorage.setItem("time_end",obj_process);
+                    this.setState({
+                        redirect: 1,
+                        Id_test: res.data.user.id
+                    })
                 }
-                this.setState({
-                    redirect: 1,
-                    Id_test: res.data.user.id
-                })
-               }else{
+               
+               }
+               else{
                 this.setState({
                     message: "Đề thi chỉ được thực hiện một lần... "
                 })
@@ -82,14 +92,15 @@ class IndexTest extends Component{
         })
     }
     render(){
-        console.log(this.state);
         if(this.state.redirect!==0){
+            localStorage.setItem('Id_exam',this.state.Id_exam);
             return <Redirect
             to={{
               pathname: "/student/test-start",
               state: { Id_user: localStorage.getItem('user'),
                         Id_exam: this.state.Id_exam,
-                        Id_test: this.state.Id_test
+                        Id_test: this.state.Id_test,
+                        Time: this.state.Time
             }
             }}
            />;

@@ -17,8 +17,10 @@ module.exports = (sequelize, DataTypes) => {
     Id_exam: DataTypes.INTEGER,
     Id_student: DataTypes.INTEGER,
     Id_question: DataTypes.INTEGER,
-    Id_answer: DataTypes.INTEGER,
-    Point: DataTypes.FLOAT
+    Point: DataTypes.FLOAT,
+    Id_Examdetails: DataTypes.INTEGER,
+    Time_start: DataTypes.STRING,
+    Time_end: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Test',

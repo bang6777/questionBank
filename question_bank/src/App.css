@@ -1037,3 +1037,34 @@ h1.ck-placeholder {
   text-align: center;
   color: red;
 }
+.crollweb .link1 {
+  overflow: auto;
+  white-space: nowrap;
+}
+.color-success{
+  color:blue;
+}
+.color-danger{
+  color:red;
+}
+td.color-danger span {
+  background-color: #f2dede;
+}
+td.color-success span {
+  background-color: #b5f19c;
+}
+#data {
+  display: none;
+} 
+.form-ai form {
+  margin: 8px 57px;
+}
+.form-ai {
+  margin: 2px 70px;
+  width: 257px;
+  border: 1px solid #ddd;
+}
+.form-ai form div {
+  margin: 14px 3px;
+  text-align: center;
+}

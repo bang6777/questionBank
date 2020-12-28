@@ -1,6 +1,9 @@
 var db=require('../models');
 var db_chamdiem=db.Quesstion;
 var db_examdetail_question=db.ExamDetails_Quesstion;
+var db_test=db.Test;
+var db_exam_question=db.Exam_Question;
+var db_examdetails=db.ExamDetails;
 exports.get_Grade_Exam=function(req,res){
     var data=req.body.question;
     var Arr=[];
@@ -53,10 +56,69 @@ exports.get_Grade_Exam=function(req,res){
                 result_kq=lenIndex*diem
             }
         }
-        console.log(req.body.Exam)
-        // db_examdetail_question.findAll({
-        //     where: {Id_examdetails : }
-        // })
+        console.log(req.body);
+        db_examdetail_question.findAll({
+            where: {Id_examdetails : req.body.Exam}
+        }).then(data=>{
+                var array_question=[];
+                data.forEach(dt=>{
+                    array_question.push(dt.Id_quesstion);
+                })
+                db.Quesstion.findAll({
+                    include: [{
+                        model: db.Answer, as: "Id_Quesstion"
+                    }],
+                    where: {id:array_question}
+                }).then(data=>{
+                    var Aray=[];
+                    var Aray_Df=[];
+                    data.forEach(dt=>{
+                        dt.Id_Quesstion.forEach(qs=>{
+                            if(Number(qs.Diem)===1){
+                                Aray_Df.push({question:qs.Id_quesstion,answer:"",core:0})
+                                Aray.push({question:qs.Id_quesstion,answer:qs.id,core:1})
+                            }
+                        })
+                    })
+                    var Aray2=Aray_Df.concat(req.body.question);
+                    let result_Aray2=uniqByKeepLast(Aray2, it => it.question);
+                    var result_Aray3=[]
+                    result_Aray2.forEach(qs=>{
+                        Aray.forEach(qss=>{
+                            if(qss.question===qs.question){
+                                if(qs.answer===qss.answer){
+                                    result_Aray3.push(qss)
+                                    }
+                                else{
+                                    result_Aray3.push(qs)
+                                }
+                            }
+                        })
+                    })
+                    var time_start=[]
+                    time_start={
+                        times:req.body.time_start,
+                        time:req.body.time_start1
+                    };
+                    var time_end=[];
+                    time_end={
+                        times:req.body.time_end,
+                        time:req.body.time_end1
+                    };
+                    console.log(time_start);
+                    console.log(req.body.time_start);
+                    db_test.create({
+                        Id_exam:req.body.Id_exam,
+                        Id_student:req.body.Id_student,
+                        Id_question:JSON.stringify(result_Aray3),
+                        Id_Examdetails:req.body.Exam,
+                        Point:  result_kq,
+                        Time_start:JSON.stringify(time_start),
+                        Time_end:JSON.stringify(time_end)
+                    })
+                   
+                })
+        })
         res.status(200).json({
             data:result_kq
         })
@@ -68,4 +130,37 @@ function uniqByKeepLast(answer, key) {
             answer.map(x => [key(x), x])
         ).values()
     ]
+}
+exports.show_Grade_Exam=function(req,res){
+    db_test.findAll({
+        where: {Id_exam: req.body.id}
+    }).then(tests=>{
+        var tests=tests;
+        db_exam_question
+        .findAll({
+            where: {Id_exam: req.body.id}
+        })
+        .then(exam=> {
+            var rs=[];
+            exam.forEach(ex=>{
+                rs.push(ex.Id_quesstion);
+            })
+            var data=[];
+            data.push({exam:rs,test:tests});
+            res.status(200).json({
+                data: data
+            })
+        })
+    }).catch(err => {
+        console.log(err );
+    });
+}
+exports.get_examdetails=function(req,res){
+    db_examdetails.findAll({
+        where:{Id_exam: req.body.id}
+    }).then(details=>{
+        res.status(200).json({
+            details: details
+        })
+    })
 }

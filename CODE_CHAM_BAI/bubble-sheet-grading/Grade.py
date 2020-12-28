@@ -376,7 +376,10 @@ class App():
             f.write(
                 str(self.msv) + "         " + str(self.diem) + "          " + str(self.date.strftime("%Y%m%d %H:%M:%S") + "\n"))
             f.close()
-app=App()
-app.chamnhieu()
-app.nhapdapan()
-app.chambai()
+def Run(self):
+        self.root.mainloop()
+App().Run()
+# app=App()
+# app.chamnhieu()
+# app.nhapdapan()
+# app.chambai()

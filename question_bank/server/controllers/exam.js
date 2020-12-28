@@ -4,6 +4,7 @@ var db_exam=db.Exam;
 var db_exam_quesstion=db.Exam_Question;
 var db_examdetails=db.ExamDetails;
 var db_edq=db.ExamDetails_Quesstion;
+var db_quesstion = db.Quesstion;
 // var db_class=db.Class;
 //get list
 exports.get_List_Exam= function (req, res) {
@@ -209,7 +210,7 @@ exports.show_Exam=function(req,res){
     db_exam.findOne({
         where: {id: req.body.Id_exam}   
     }).then(item=>{
-        
+            var time=item.Time;
             if(!item){
                 res.status(500).json({
                     message: "Error ID"
@@ -237,7 +238,11 @@ exports.show_Exam=function(req,res){
                             console.log("ok");
                               if(Number(req.body.Stt_exam)===Number(data.Stt_exam)){
                                     if(Number(data.Content)===0){
-                                        res.json({ user: data, jwt: `${data.id}` });
+                                        console.log("123")
+                                        res.json({ 
+                                            user: data,
+                                            Time :time,
+                                             jwt: `${data.id}` });
                                     }else{
                                         res.status(200).json({
                                             code:   '500',
@@ -268,5 +273,26 @@ exports.show_Exam=function(req,res){
         })
     })
 }
-
+exports.show_PDF=(req,res)=>{
+    db_edq.findAll({
+        where: {Id_examdetails: req.body.id}
+    }).then(data=>{
+        var code=data[0].Stt_answer;
+        var aray=[];
+        data.forEach(dt=>{
+            aray.push(dt.Id_quesstion);
+        })
+        db_quesstion.findAll({
+            include: [{
+                model: db.Answer, as: "Id_Quesstion"
+            }],
+            where :{id: aray}
+        }).then(details => {
+            res.status(200).json({
+                success: code,
+                details: details
+            })
+        });
+    })
+}
 

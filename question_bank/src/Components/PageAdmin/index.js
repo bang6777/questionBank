@@ -20,7 +20,14 @@ import GardeQuesstion from './Quesstion/GradeQuesstion';
 import FormQuestion from './Quesstion/FormQuestion';
 // import QuestionShow from './Quesstion/QuestionShow';
 import ShowExam from './ExamTest/ShowExam';
-import MarkExam from './ExamTest/MarkExam';
+import MarkExam from './GradeAI/MarkExam';
+import Manage from './PointManage/Manage';
+import ManageShowExam from './PointManage/ManageShowExam';
+import ManageDetails from './PointManage/ManageDetails';
+import Example from './PDFForlder/Example';
+import ShowExamPDF from './PDFForlder/ShowExamPDF';
+import ListExamPDF from './PDFForlder/ListExamPDF';
+import ListPDF from './PDFForlder/ListPDF';
 
 class PageAdmin extends Component{
     render(){
@@ -44,6 +51,15 @@ class PageAdmin extends Component{
                 <AdminRoute  path='/admin/list-exam' component={ListExam} />
                 <AdminRoute  path='/admin/import-question' component={FormQuestion} />
                 <AdminRoute  path='/admin/mark-exam' component={MarkExam} />
+                <AdminRoute  path='/admin/point-manage' component={ManageShowExam} />
+                <AdminRoute  path='/admin/list-point-manage' component={Manage} />
+                <AdminRoute  path='/admin/manage-details' component={ManageDetails} />
+                <AdminRoute  path='/admin/exports-pdf' component={ShowExamPDF} />
+                <AdminRoute  path='/admin/exports-list' component={ListExamPDF} />
+                <AdminRoute  path='/admin/list-pdf' component={ListPDF} />
+                <AdminRoute  path='/admin/list-pdf-details' component={Example} />
+         
+                
                 
                 </div>
                 <div className="clearfix"></div>

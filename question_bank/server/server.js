@@ -30,6 +30,8 @@ let	pagination  =require('./routes/pagination');
 let	exam_question =require('./routes/exam_question');
 let	grade_exam =require('./routes/grade_exam');
 app.use("/v1/grade_exam",grade_exam);
+let	examdetails =require('./routes/examdetails');
+app.use("/v1/examdetails",examdetails);
 app.use("/v1/test",test);
 app.use("/v1/exam_subject",exam_subject);
 app.use("/v1/pagination",pagination );

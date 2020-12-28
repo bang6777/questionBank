@@ -3,10 +3,13 @@ import CallApi from '../../../utils/apiCaller';
 import AnsewerQuestion from './AnsewerQuestion';
 import {Redirect} from 'react-router-dom';
 import Countdown from 'react-countdown';
+import { useLocation } from 'react-router-dom';
+import moment from 'moment';
 class PostsExam extends Component{
     constructor(props){
         super(props);
         this.state={
+            Id_exam: localStorage.getItem('Id_exam'),
             questions:  [],
             Data: [],
             Id_answer: [],
@@ -15,6 +18,7 @@ class PostsExam extends Component{
             redirect: 0,
             time: {},
             seconds: localStorage.getItem('time_end'),
+            time_pr: localStorage.getItem('time_pr')
         }
         this.timer = 0;
         this.startTimer = this.startTimer.bind(this);
@@ -50,6 +54,7 @@ class PostsExam extends Component{
             clearInterval(this.timer);
             this.setState({ redirect: 1 });
             this.handleSubmit()
+            localStorage.removeItem("time_end");
         }
     }
     componentDidMount(){
@@ -64,19 +69,33 @@ class PostsExam extends Component{
     }
     handleSubmit=()=>{
         let data=this.handleSave();
-        console.log(data);
+        var time_starts=JSON.parse(localStorage.getItem('time_start'));
         let obj={
             len: this.props.len,
             question: data,
             Exam: this.props.exam,
-            Id_student: this.state.Id_student
+            Id_student: this.state.Id_student,
+            Id_exam: this.state.Id_exam,
+            time_start: time_starts.time_start,
+            time_start1: this.state.time_pr,
+            time_end: moment().lang('vi').format('YYYY-MM-DD HH:mm:ss'),
+            time_end1:this.state.seconds,
         }
+        console.log(obj.question.length);
         CallApi("v1/grade_exam","POST",obj).then(res=>{
             if(res!==undefined){
                 localStorage.removeItem("question");
-               alert("Điểm của bạn là:" +res.data.data);
+                alert("Điểm là:"+res.data.data);
             }
         })
+        this.setState({
+            redirect:1
+        })
+        localStorage.removeItem("time_process");
+        localStorage.removeItem("time_start");
+        
+        localStorage.removeItem("Id_exam");
+
     }
     handleSave=(e)=>{
         // //fillter trung
@@ -87,6 +106,7 @@ class PostsExam extends Component{
                 ).values()
             ]
         }
+        console.log(this.state.questions.length)
         let data=uniqByKeepLast(this.state.questions, it => it.question);
         let dataN=[];
         data.map(dt=>{
@@ -101,7 +121,7 @@ class PostsExam extends Component{
     handleInputChange=(e)=>{
         if(e.target.checked !==undefined){
         this.setState({
-            questions: this.state.questions.concat({ question: Number(e.target.name), answer: Number(e.target.value) })
+            questions: this.state.questions.concat({ question: Number(e.target.name), answer: Number(e.target.value),core: 0 })
         })
     }
      function uniqByKeepLast(question, key) {

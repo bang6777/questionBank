@@ -18,6 +18,7 @@ function App() {
                 <Route exact path="/login" component={Formlogin} />
                 <AdminRoute  path="/admin" component={PageAdmin} />
                 <Route path="/student"  component={PageStudent} />
+                
                 {/* <StudentRouter exact path="/student"  component={PageStudent} /> */}
             </Switch>
            

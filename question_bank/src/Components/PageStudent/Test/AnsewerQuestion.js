@@ -22,11 +22,6 @@ export default class AnsewerQuestion extends Component{
          if(ch===2){
           item.sort((a, b) => (a.id > b.id) ? 1 : -1)
          }
-         if(ch===4){
-
-         }
-
-         
           var result=null;
           if(currentPage===1){
             result=index*currentPage;
@@ -43,7 +38,6 @@ export default class AnsewerQuestion extends Component{
           let c1=<label><input class="answer" type="radio"name={item2}  value={item[2].id} id={item[2].id}  /> C. {item[2].Content}</label>;
           let d1=<label><input class="answer" type="radio"  name={item2}  value={item[3].id}  id={item[3].id} />D. {item[3].Content}</label>;
           if(Id_answer.length>0){
-            console.log(Id_answer);
                         Id_answer.map(id=>{
               if(Number(id)===Number(item[0].id)){
                 a1=<label> <input class="answer" type="radio" name={item2} value={item[0].id} id={item[0].id} checked /> A. {item[0].Content}</label>;
