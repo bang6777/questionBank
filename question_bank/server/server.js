@@ -52,9 +52,14 @@ app.use("/v1/answer",answer);
 app.use("/v1/test",test);
 app.use("/v1/exam",exam);
 app.use("/v1/user",user);
+
 global.__basedir = __dirname;
 const initRoutes = require("./routes/tutorial.routes");
 app.use("/v1/excel",initRoutes);
+const imgRoutes = require("./routes/img.routes");
+app.use("/v1/img",imgRoutes);
+const imgOneRoutes = require("./routes/tutorial.routesImg");
+app.use("/v1/imgimg",imgOneRoutes);
 db.sequelize.sync().then (() => {
     app.listen(PORT, ()=> {
         console.log('listening on: http://localhost:'+PORT);
