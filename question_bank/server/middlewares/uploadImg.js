@@ -20,10 +20,10 @@ var storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     // console.log(file.originalname);
-    var name=moment().format('YYYY-MM-DD')+"-"+file.originalname
+    var name=moment().format('YYYY-MM-DD-h-mm-ss-a')+"-"+file.originalname
     cb(null, name);
   },
 });
 
-var uploadFile = multer({ storage: storage, ImgFilter: ImgFilter });
+var uploadFile = multer({ storage: storage, fileFilter: ImgFilter });
 module.exports = uploadFile;

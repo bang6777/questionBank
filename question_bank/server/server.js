@@ -60,6 +60,8 @@ const imgRoutes = require("./routes/img.routes");
 app.use("/v1/img",imgRoutes);
 const imgOneRoutes = require("./routes/tutorial.routesImg");
 app.use("/v1/imgimg",imgOneRoutes);
+const textRoutes = require("./routes/text.routes");
+app.use("/v1/text",textRoutes);
 db.sequelize.sync().then (() => {
     app.listen(PORT, ()=> {
         console.log('listening on: http://localhost:'+PORT);

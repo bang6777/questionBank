@@ -4,14 +4,12 @@ const upload = function (req, res) {
     try {
       console.log(req.file)
     if (req.file=== undefined) {
-      return res.status(400).send("plase upload file img");
+      return res.status(400).send("plase upload file text");
     }
     else{
-      let path ="C:\\Users\\hieu\\Documents\\questionBank\\question_bank\\public\\uploads\\"+moment().format('YYYY-MM-DD-h-mm-ss-a')+"-"+req.file.originalname;
-      
-      res.status(200).json({
-          path: path
-      })
+      var path=[];
+      path.push("C:\\Users\\hieu\\Documents\\questionBank\\question_bank\\public\\uploads\\answer\\"+moment().format('YYYY-MM-DD-h-mm-ss-a')+"-"+req.file.originalname);
+      res.status(200).json(path)
     }
   } catch (error) {
     console.log(error);

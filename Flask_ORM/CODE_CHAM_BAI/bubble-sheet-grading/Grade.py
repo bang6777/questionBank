@@ -14,6 +14,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 
+
 class Grade():
     def __init__(self):
         self.file1 = []
@@ -22,7 +23,7 @@ class Grade():
         self.date.strftime("%Y%m%d %H:%M:%S")
     def nhapdapan(self,file_name):
         # self.dapan="C:/Users/hieu/Documents/questionBank/CODE_CHAM_BAI/bubble-sheet-grading/answers.txt"
-        self.dapan=file_name
+        self.dapan=file_name[0]
         self.ANSWER_KEY = {0:0,1:0}
         j=0
         f = open(self.dapan, "r")
@@ -102,16 +103,14 @@ class Grade():
                     bubbled0 = (tong0, j)
             n = bubbled0[1] + 1
         return n
-    def luubaikt(self,fileluuu, tenluuu):
-        print (fileluuu)
-        print   (tenluuu)
+    def luubaikt(self,fileluuu, tenluuu,ks):
         self.baiin = cv2.cvtColor(fileluuu, cv2.COLOR_BGR2RGB)
-        self.tenbailuu = str(tenluuu)+"-"+str(self.date.strftime("%Y%m%d-%H-%M-%S"))
-        print ('C:\\Users\\hieu\\Documents\\questionBank\\question_bank\\public\\Ketqua\\{0}.jpg'.format(self.tenbailuu))
+        self.tenbailuu = str(tenluuu)+"-"+str(self.date.strftime("%Y%m%d-%H-%M-%S"))+'-'+ks
         cv2.imwrite('C:\\Users\\hieu\\Documents\\questionBank\\question_bank\\public\\Ketqua\\{0}.jpg'.format(self.tenbailuu), self.baiin)
-        print  (cv2.imwrite('C:\\Users\\hieu\\Documents\\questionBank\\question_bank\\public\\Ketqua\\.jpg'.format(self.tenbailuu), self.baiin))
-        return self.tenbailuu 
-    def chambai(self):
+        return  'C:\\Users\\hieu\\Documents\\questionBank\\question_bank\\public\\Ketqua\\{0}.jpg'.format(self.tenbailuu)
+    def chambai(self,str_random):
+        self.ks=str_random
+        self.Array=[]
         for i in range(len(self.file1)):
             self.anh = self.file1[i]
             print (self.anh)
@@ -123,7 +122,7 @@ class Grade():
             self.khungbt = imutils.grab_contours(self.khungbt)
             self.khung = None
             self.khung = self.timkhung(self.khungbt)
-#xoay anh. ngang doc 
+            #xoay anh. ngang doc 
             self.baithi = four_point_transform(self.mn, self.khung.reshape(4, 2))
             #------
             self.khungtln = self.timkhungcham(self.baithi)
@@ -135,7 +134,7 @@ class Grade():
             #XOAY BAI THI
             self.phantren = self.baithi[0:int(self.baithi.shape[0]/34), 0:self.baithi.shape[1]]
             self.row, self.col, self.cha = self.baithi.shape
-#show hinh cat
+            #show hinh cat
             # cv2.imshow('img',self.phantren)
             cv2.waitKey(0)
             self.dem1 = 0
@@ -363,12 +362,13 @@ class Grade():
             self.o2 = imutils.resize(self.o2, height=800)
             # self.im = PIL.ImageTk.PhotoImage(image=PIL.Image.fromarray(self.baithi))
             # self.can1.create_image(5, 5, anchor=NW, image=self.im)
-            self.luubaikt(self.baithi, self.msv)
+            # self.luubaikt(self.baithi, self.msv,self.ks)
+            self.Array.append(self.luubaikt(self.baithi, self.msv,self.ks))
             f = open("C:/Users/hieu/Documents/questionBank/CODE_CHAM_BAI/Ketqua/result.txt", "a")
             f.write(
                 str(self.msv) + "         " + str(self.diem) + "          " + str(self.date.strftime("%Y%m%d %H:%M:%S") + "\n"))
             f.close()
-            
+        return self.Array
     # def openfile(self,file_name):
     #     self.file1 = []
     #     self.file1.append(file_name)
