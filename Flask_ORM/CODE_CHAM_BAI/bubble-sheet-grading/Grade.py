@@ -104,16 +104,17 @@ class Grade():
             n = bubbled0[1] + 1
         return n
     def luubaikt(self,fileluuu, tenluuu,ks):
-        self.baiin = cv2.cvtColor(fileluuu, cv2.COLOR_BGR2RGB)
+        baiin = cv2.cvtColor(fileluuu, cv2.COLOR_BGR2RGB)
         self.tenbailuu = str(tenluuu)+"-"+str(self.date.strftime("%Y%m%d-%H-%M-%S"))+'-'+ks
-        cv2.imwrite('C:\\Users\\hieu\\Documents\\questionBank\\question_bank\\public\\Ketqua\\{0}.jpg'.format(self.tenbailuu), self.baiin)
+        path = "C:/Users/hieu/Documents/questionBank/question_bank/public/Ketqua"
+        a='{0}.jpg'.format(self.tenbailuu)
+        cv2.imwrite(str(path)+a,baiin)
         return  'C:\\Users\\hieu\\Documents\\questionBank\\question_bank\\public\\Ketqua\\{0}.jpg'.format(self.tenbailuu)
     def chambai(self,str_random):
         self.ks=str_random
         self.Array=[]
         for i in range(len(self.file1)):
             self.anh = self.file1[i]
-            print (self.anh)
             self.mn = cv2.imread(self.anh)
             self.hx = cv2.cvtColor(self.mn, cv2.COLOR_BGR2GRAY)
             self.hm = cv2.GaussianBlur(self.hx, (5,5),0)
@@ -359,7 +360,7 @@ class Grade():
 
             self.nhandang = imutils.resize(self.nhandang, height=50)
             self.baithi = imutils.resize(self.baithi, height=800)
-            self.o2 = imutils.resize(self.o2, height=800)
+            # self.o2 = imutils.resize(self.o2, height=800)
             # self.im = PIL.ImageTk.PhotoImage(image=PIL.Image.fromarray(self.baithi))
             # self.can1.create_image(5, 5, anchor=NW, image=self.im)
             # self.luubaikt(self.baithi, self.msv,self.ks)
@@ -381,10 +382,3 @@ class Grade():
         # self.img1 = cv2.imread(self.file1[len(self.file1) - 1])
         # self.img1 = cv2.cvtColor(self.img1, cv2.COLOR_BGR2RGB)
         # self.img1 = imutils.resize(self.img1, height=800)
-      
-# app=App()
-# file_name="./img/02.jpg"
-# app.openfile(file_name)
-# # app.chamnhieu()
-# app.nhapdapan()
-# app.chambai()
