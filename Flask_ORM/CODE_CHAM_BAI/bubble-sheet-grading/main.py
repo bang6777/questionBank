@@ -5,13 +5,7 @@ from flask import json
 from flask import  request
 from flask_cors import CORS
 import random 
-from functools import wraps
 a=Grade()
-def async_action(f):
-    @wraps(f)
-    def wrapped(*args, **kwargs):
-        return asyncio.run(f(*args, **kwargs))
-    return wrapped
 app = Flask(__name__)
 
 @app.route('/choose-folder', methods=['POST']) 
@@ -38,19 +32,11 @@ def chosseanswer():
     return jsonify(data)
 @app.route('/grade', methods=['GET']) 
 def Grade():
-    try:
-        str_random=str(random.randint(1000, 10000))
-        arr=a.chambai(str_random)
-        arr1="123"
-        if arr1!="":
-            print("erre")
-            return jsonify(arr)
-        else:
-            print("ok")
-            return jsonify({"mess": "errre"})
-    except Exception as err:
-        print(err)
-        return jsonify({"massage": "lỗi không thực hiện được"}), 500
+    str_random=str(random.randint(1000, 10000))
+    print(str_random)
+    arr=a.chambai(str_random)
+    print(arr)
+    return jsonify({"arr":arr,"mess":"0000000000"})
 if __name__ == '__main__':
     app.debug = True
     app.run(host='127.0.0.1', port=5000)

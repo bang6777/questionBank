@@ -19,8 +19,7 @@ const ItemExam = () => {
     const handleShowForms = () => setcreateExams(true);
     const handleCancel = () => setcreateExam(false);
     const [selectedImage, setSelectedImage] = useState([]);
-    const [loading,setLoading]=useState(false);
-    async function postData() {
+    async function fetchData() {
         try{
             const formData = new FormData();
             const formanswer = new FormData();
@@ -28,44 +27,30 @@ const ItemExam = () => {
             for (const i of Object.keys(imgs)) {
                 formData.append('files', imgs[i])
             }
-             const res1 = await   CallApi("v1/img/upload/img","POST", formData);
-             const res2 = await callAPI("choose-folder-muitiple","POST",res1.data);
-             const res3 = await CallApi("v1/text/upload","POST",formanswer);
-             console.log(res3.data);
-             const res4 =await callAPI("answer","POST",res3.data);
-             console.log(res4.data)
-             setLoading(false);
-                const res5= await callAPI("grade","GET",null)
-                setLoading(false);
-                alert("chạy được nha. mà không biết có dừng không");
-                console.log("chạy được nha. mà không biết có dừng không")
-                console.log(res5);
+            await   CallApi("v1/img/upload/img","POST", formData).then(async(res1)=>{
+                await     callAPI("choose-folder-muitiple","POST",res1.data).then(async(res2)=>{
+                            console.log(res2);
+                            await     CallApi("v1/text/upload","POST",formanswer).then(async(res3)=>{
+                                            console.log(res3);
+                                await       callAPI("answer","POST",res3.data).then(async(res4)=>{
+                                    console.log(res4);
+                                    await   callAPI("grade","GET",null).then(res=>{
+                                                alert("chạy được nha. mà không biết có dừng không");
+                                                console.log("chạy được nha. mà không biết có dừng không")
+                                                console.log(res.data);
+                                    })
+                                })
+                            })
+                        })
+                    })
+                    
         }catch(e){
             console.log(e);
         }
     }
-
-    // const fetchData = async () => {
-    //     const res5= await callAPI("grade","GET",null)
-    //     alert("chạy được nha. mà không biết có dừng không");
-    //     console.log("chạy được nha. mà không biết có dừng không")
-    //     console.log(res5);
-    // }
-     useEffect(() => {
-          if(imgs.length>0){
-            const fetchData = async () => {
-                setLoading(false);
-                const res5= await callAPI("grade","GET",null)
-                setLoading(false);
-                alert("chạy được nha. mà không biết có dừng không");
-                console.log("chạy được nha. mà không biết có dừng không")
-                console.log(res5);
-            }
-         
-            fetchData();
-          }
-       
-    }, []);
+    // useEffect(() => {
+    //         fetchData()
+    // }, [fetchData]);
     const answerChange = (e) => {
         setanswerError(0);
         setAnswer(e.target.files);
@@ -119,65 +104,58 @@ const ItemExam = () => {
         console.log(answer.length);
         console.log(imgs.length);
         if(imgs.length >0 && answer.length>0){
-          await  postData();
-          
+          await  fetchData();
         }else{
             alert("loi roi nha");
         }
          
     }
-    if(loading){
-        return <h2>Loading.....</h2>
-    }else{
-        return (
-
-            <div className="col-md-19 menu-right col-sm-9">
-                <div className="main-contents">
-                    <div className="title-subjects">
-                        <div className="title-class">
-                            <div className="title-content">
-                                Chấm
-                                       <div className="icon" />
-                            </div>
-                            <button className="btn btn-primary" onClick={handleShowForm}>Chọn file chấm bài</button>
-                            <div >
-                                {createExam ?
-                                    <div className="form-ai">
-                                        <form enctype="multipart/form-data" className="form-controll">
-                                            <p>Chọn File</p>
-                                            <input type="file" id="file" multiple name="files" onChange={imgHandleChange} />
-                                            {fileError===1? <small className="text-danger">Lỗi định dạng file</small>: fileError===2? <small className="text-success">Chọn file thành công</small>:null
-                                            }
-                                            <br />
-                                            <p className="form-group">Nhập đáp án</p>
-                                            <input type="file" id="file"  name="file_answer" onChange={answerChange} />
-                                            {answerError===1? <small className="text-danger">Lỗi định dạng file</small>: answerError===2? <small className="text-success">Chọn file thành công</small>:null
-                                            }
-                                            <div className="btn btn-danger" onClick={handleSubmit}>Tạo</div>
-                                            <div className="btn btn-warning" onClick={handleCancel}>Hủy</div>
-                                        </form>
-                                    </div> : null}
-                            </div>
+    return (
+        <div className="col-md-19 menu-right col-sm-9">
+            <div className="main-contents">
+                <div className="title-subjects">
+                    <div className="title-class">
+                        <div className="title-content">
+                            Chấm
+                                   <div className="icon" />
                         </div>
-                        <div className="">  
-                            <div className="slide-container">
-    
-                            </div>
-                            <div className="row">
-                                <div className="img-size">
-                                    {(selectedImage.length > 0 && fileError!==1) ?
-                                        <Fade>
-                                            {renderPhotos(selectedImage)}
-                                        </Fade> : null}
-                                </div>
+                        <button className="btn btn-primary" onClick={handleShowForm}>Chọn file chấm bài</button>
+                        <div >
+                            {createExam ?
+                                <div className="form-ai">
+                                    <form enctype="multipart/form-data" className="form-controll">
+                                        <p>Chọn File</p>
+                                        <input type="file" id="file" multiple name="files" onChange={imgHandleChange} />
+                                        {fileError===1? <small className="text-danger">Lỗi định dạng file</small>: fileError===2? <small className="text-success">Chọn file thành công</small>:null
+                                        }
+                                        <br />
+                                        <p className="form-group">Nhập đáp án</p>
+                                        <input type="file" id="file"  name="file_answer" onChange={answerChange} />
+                                        {answerError===1? <small className="text-danger">Lỗi định dạng file</small>: answerError===2? <small className="text-success">Chọn file thành công</small>:null
+                                        }
+                                        <div className="btn btn-danger" onClick={handleSubmit}>Tạo</div>
+                                        <div className="btn btn-warning" onClick={handleCancel}>Hủy</div>
+                                    </form>
+                                </div> : null}
+                        </div>
+                    </div>
+                    <div className="">  
+                        <div className="slide-container">
+
+                        </div>
+                        <div className="row">
+                            <div className="img-size">
+                                {(selectedImage.length > 0 && fileError!==1) ?
+                                    <Fade>
+                                        {renderPhotos(selectedImage)}
+                                    </Fade> : null}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        )
-    }
-    
+        </div>
+    )
 }
 export default ItemExam;
 

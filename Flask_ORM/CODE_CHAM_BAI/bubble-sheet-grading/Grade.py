@@ -13,7 +13,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
-
+import random 
 
 class Grade():
     def __init__(self):
@@ -103,13 +103,17 @@ class Grade():
                     bubbled0 = (tong0, j)
             n = bubbled0[1] + 1
         return n
+        
     def luubaikt(self,fileluuu, tenluuu,ks):
         baiin = cv2.cvtColor(fileluuu, cv2.COLOR_BGR2RGB)
         self.tenbailuu = str(tenluuu)+"-"+str(self.date.strftime("%Y%m%d-%H-%M-%S"))+'-'+ks
         path = "C:/Users/hieu/Documents/questionBank/question_bank/public/Ketqua"
-        a='{0}.jpg'.format(self.tenbailuu)
+        # a='{0}.jpg'.format(self.tenbailuu)
+        ab=str(random.randint(1000, 10000))
+        a='{0}.jpg'.format(ab)
         cv2.imwrite(str(path)+a,baiin)
-        return  'C:\\Users\\hieu\\Documents\\questionBank\\question_bank\\public\\Ketqua\\{0}.jpg'.format(self.tenbailuu)
+        # return  'C:\\Users\\hieu\\Documents\\questionBank\\question_bank\\public\\Ketqua\\{0}.jpg'.format(self.tenbailuu)
+       
     def chambai(self,str_random):
         self.ks=str_random
         self.Array=[]
