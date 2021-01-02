@@ -44,8 +44,7 @@ export default class ItemExam extends Component{
                     </td>
                     <td>{this.showTeacher(exams.Id_teacher)}</td>
                     <td>{this.formatter.format(Date.parse(exams.createdAt))}</td>
-                   <td className="text-center">
-                   </td>
+                
                 </tr>
         )
     };
