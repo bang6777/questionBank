@@ -19,8 +19,8 @@ export default class AddNewQuesstion extends Component{
             dt3: "",
             Name_quesstion:"",
             Id_es: "",
-            Id_topic:"",
-            Id_level: "",
+            Id_topic:0,
+            Id_level: 0,
             massage: "",
 
         }
@@ -88,15 +88,24 @@ export default class AddNewQuesstion extends Component{
         })
     }
     handleSubmit=(e)=>{
+        console.log(this.state);
         e.preventDefault();
-        CallApi("quesstion/question_answer","POST",this.state).then(res=>{
-            if(res!==undefined){
-                this.setState({
-                    massage: res.data.massage
-                })
-                alert("ok...!");
-            }
-        })
+        if(this.Id_level==="" || this.state.answer ==="" || this.state.dt1==="" ||  this.state.dt2==="" ||  this.state.dt3==="" ||  this.state.Name_quesstion==="" ||  this.state.Id_es==="" || this.state.Id_topic===""   ){
+            this.setState({
+                massage: "Không được để trống"
+            })
+            alert("không dduoc để trống")
+        }
+        else{
+            CallApi("v1/quesstion/question_answer","POST",this.state).then(res=>{
+                if(res!==undefined){
+                    this.setState({
+                        massage: res.data.massega
+                    })
+                    alert("Thêm thành công!");
+                }
+            })
+        }
     }
     render(){
         let obj=this.props.location.state.id;
@@ -125,10 +134,10 @@ export default class AddNewQuesstion extends Component{
                     </div>
                     <div className="form-group">
                         Cấp độ
-                        <select  name="Id_level"  value={this.state.Id_level} className="form-control" >
-                            <option value=""></option>
+                        <select  name="Id_level"  value={this.state.Id_level} className="form-control" onChange={this.handleOnchange} >
+                        <option value={0}></option>
                         {levels.map(level=>(
-                             <option value={level.id}>{level.content}</option>
+                             <option value={level.Id}>{level.content}</option>
                            ))}
                         </select>
                     </div>
@@ -136,9 +145,9 @@ export default class AddNewQuesstion extends Component{
                         <label >Chọn Chương</label>
                        
                         <select className="form-control" name="Id_topic" value={this.state.Id_topic}>
-                        <option value=""></option>
+                        <option value={0}></option>
                            {topics.map(topic=>(
-                             <option value={topic.id}>{topic.Name_topic}: {topic.Content_topic}</option>
+                             <option value={topic.Id}>{topic.Name_topic}: {topic.Content_topic}</option>
                            ))}
                         </select>
                     </div>

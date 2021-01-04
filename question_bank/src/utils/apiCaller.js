@@ -1,5 +1,4 @@
 import api from './axios';
-import api1 from './axiospy';
 export default function CallApi(endpoint,method,data){
     return api({
         method: method,

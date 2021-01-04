@@ -15,19 +15,52 @@ exports.get_List_Quesstion = function (req, res) {
         })
     });
 };
+// exports.get_Quesstion_ById = function (req, res) {
+//   var details=[];
+//   req.body.Id_quesstion.forEach(dt=>{
+//       db_quesstion.findOne({
+//         include: [{
+//             model: db.Answer, as: "Id_Quesstion"
+//         }],
+//         where: { id:  dt}
+//       }).then(data=>{
+//         details.push(data.id);
+//       })
+//     console.log(details);
+//   })
+//   res.status(200).json({
+//     success: 'true',
+//     details
+// })
+//     // db_quesstion.findOne({
+//     //     include: [{
+//     //         model: db.Answer, as: "Id_Quesstion"
+//     //     }],
+        
+//     //     where: { id:  req.body.Id_quesstion}
+//     // }).then(details => {
+//     //   console.log(details.id);
+//     //     res.status(200).json({
+//     //         success: 'true',
+//     //         details
+//     //     })
+//     // });
+// };
 exports.get_Quesstion_ById = function (req, res) {
     
-    db_quesstion.findAll({
-        include: [{
-            model: db.Answer, as: "Id_Quesstion"
-        }],
-        where: { id:  req.body.Id_quesstion}
-    }).then(details => {
-        res.status(200).json({
-            success: 'true',
-            details
-        })
-    });
+  db_quesstion.findAll({
+      include: [{
+          model: db.Answer, as: "Id_Quesstion"
+      }],
+    
+      where: { id:  req.body.Id_quesstion}
+  }).then(details => {
+    console.log(details.id);
+      res.status(200).json({
+          success: 'true',
+          details
+      })
+  });
 };
 exports.add_Quesstion=function(req,res){
     var data=req.body;
@@ -46,6 +79,8 @@ exports.add_Quesstion=function(req,res){
     })
 }
 exports.add_Question_Answer=function(req,res){
+
+  console.log(req.data);
     var data=req.body;
         db_quesstion.create({
             Id_topic:   data.Id_topic,

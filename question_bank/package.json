@@ -23,6 +23,8 @@
     "mysql2": "^2.2.5",
     "react": "^16.13.1",
     "react-bar-chart": "^0.1.2",
+    "react-bootstrap-table-next": "^4.0.3",
+    "react-bootstrap-table2-overlay": "^2.0.0",
     "react-countdown": "^2.3.1",
     "react-dom": "^16.13.1",
     "react-draft-wysiwyg": "^1.14.5",

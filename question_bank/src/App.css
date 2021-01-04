@@ -1130,3 +1130,6 @@ td.color-success span {
   margin: 14px 3px;
   text-align: center;
 }
+.wrapper .footer {
+  margin-top: 240px;
+}

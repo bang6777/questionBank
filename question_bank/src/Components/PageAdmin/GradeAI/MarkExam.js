@@ -49,7 +49,7 @@ const ItemExam = () => {
         }
     }
     // useEffect(() => {
-    //         fetchData()
+    //         fetchData()  
     // }, [fetchData]);
     const answerChange = (e) => {
         setanswerError(0);

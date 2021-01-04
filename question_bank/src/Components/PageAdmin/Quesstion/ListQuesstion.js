@@ -26,15 +26,17 @@ const ListQuesstion=(props)=>{
               Id_exam_subject: res.data.details.Id_exam_subject
             }
               CallApi("v1/teacher/listtc/1","POST",ob).then(res1=>{
+                    if(res1!==undefined){
                       let obt={
                         id: res1.data.details,
                         Id_grade: props.location.state.id
                       }
-                  CallApi("v1/pagination?collection=question&limit=10","POST",obt).then(res=>{
-                      setPosts(res.data.post);
-                      setPage(res.data.page);
-                      setLoading(false);
-                  });
+                      CallApi("v1/pagination?collection=question&limit=10","POST",obt).then(res=>{
+                          setPosts(res.data.post);
+                          setPage(res.data.page);
+                          setLoading(false);
+                      });
+                    }
               })
       });
       
@@ -52,12 +54,8 @@ const ListQuesstion=(props)=>{
         NGÂN HÀNG CÂU HỎI
       </span>
       <Link to="add-question" className="add-new">Thêm Mới</Link>
-        <Link to="/admin/import-question" className="add-new">
-        Import
-      </Link>
     </div>
-    <div className="back-link" style={{backgroundColor: '#ffff', margin: 0}}><i className="fas fa-home"> </i> <a href="#">Trang chủ/ </a><a href="#">Địa lý/ </a> <a href="#">Lớp 10/ </a> <a href="#">Chương 1</a></div>
-    <div className="link1">
+     <div className="link1">
       <table className="table">
         <thead>
           <tr>

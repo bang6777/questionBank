@@ -127,6 +127,7 @@ class Grade():
             self.khungbt = imutils.grab_contours(self.khungbt)
             self.khung = None
             self.khung = self.timkhung(self.khungbt)
+            cv2.imshow("img",self.hx)
             #xoay anh. ngang doc 
             self.baithi = four_point_transform(self.mn, self.khung.reshape(4, 2))
             #------

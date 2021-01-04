@@ -22,6 +22,7 @@ const Test=(props)=>{
       let obj={
         id: currentPath.Id_test
       }
+      console.log(obj)
       setLoading(true);
       await CallApi("v1/exam_question/add-examdetails/question","POST",obj).then(res=>{
               if(res!==undefined){
@@ -35,7 +36,9 @@ const Test=(props)=>{
                     obj.Id_quesstion.push(id.Id_quesstion);
                 })
               }
+              console.log(obj);
               CallApi("v1/quesstion/id","POST",obj).then(ress=>{
+                console.log(ress.data.details);
                 setLen(ress.data.details.length);
                 setPosts(ress.data.details);
                })

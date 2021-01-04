@@ -5,7 +5,7 @@ var db_exam_quesstion=db.Exam_Question;
 var db_examdetails=db.ExamDetails;
 var db_edq=db.ExamDetails_Quesstion;
 var db_quesstion = db.Quesstion;
-// var db_class=db.Class;
+var db_class=db.Class;
 //get list
 exports.get_List_Exam= function (req, res) {
     db_exam.findAll({
@@ -146,12 +146,16 @@ exports.Create_Exam=function(req,res){
                     Content: 0,
                     Stt_exam: i
                 }).then(res1=>{
+                    console.log(res1.id);
                         var id=res1.id;
                         var ar=ranDomExam(arrData);
+                        var i=Math.floor(Math.random() * 4);
+                        console.log(i);
                         ar.forEach(ix=>{{
                             db_edq.create({
                                 Id_examdetails: id,
-                                Id_quesstion : ix
+                                Id_quesstion : ix,
+                                Stt_answer: i
                             }).then(details=>{
                                 res.status(200).json({
                                     code: "200",
@@ -244,6 +248,7 @@ exports.show_Exam=function(req,res){
                                             Time :time,
                                              jwt: `${data.id}` });
                                     }else{
+                                        print(123);
                                         res.status(200).json({
                                             code:   '500',
                                             details:    "Đề thi chỉ đăng nhập 1 lần..."
@@ -280,6 +285,7 @@ exports.show_PDF=(req,res)=>{
         var code=data[0].Stt_answer;
         var aray=[];
         data.forEach(dt=>{
+           
             aray.push(dt.Id_quesstion);
         })
         db_quesstion.findAll({

@@ -1,7 +1,28 @@
 import React, { Component } from 'react';
 import { Link} from 'react-router-dom';
+import CallApi from '../../utils/apiCaller';
 
 class  Sidebar extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            quyen:  0,
+            id_teacher: localStorage.getItem("admin"),
+        }
+        
+    }
+    componentDidMount(){
+        let obj={
+            id: localStorage.getItem("admin"),
+        }
+        CallApi("v1/teacher/1","POST",obj).then(res=>{
+             if(res!==undefined){
+                 this.setState({
+                     quyen:res.data.details.role
+                 })
+             }
+        })
+    }
     render() {
         return (
             <div className="col-md-3 menu-left col-sm-12 col-lg-3 ">    
@@ -18,7 +39,7 @@ class  Sidebar extends Component {
                         <ul className="sub-menu">
                             <li><Link to ="/admin/list-question">Danh Sách Câu Hỏi<span className="caret"> </span>   </Link></li>
                             <li><Link to="/admin/add-question" >Thêm Câu Hỏi</Link></li>
-                            <li><a href="# ">Sửa Câu Hỏi</a></li>
+                          
                         </ul>
                     </li>
                     <li className="menu-tp"><Link to="/admin/point-manage"><i className="fas fa-user-graduate"></i>Quản Lý Điểm Sinh Viên</Link> </li>

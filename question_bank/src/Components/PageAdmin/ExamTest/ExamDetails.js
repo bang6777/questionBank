@@ -5,6 +5,8 @@ import { useLocation } from 'react-router-dom';
 import CallApi from '../../../utils/apiCaller';
 import PostsExam from './PostsExam';
 
+
+
 const ExamDetails=()=>{
   const location = useLocation();
   const [createExam,setCreateExam]=useState(false);
@@ -99,6 +101,7 @@ const ExamDetails=()=>{
                </div> : null}
             </tr>
           </thead>
+
            <PostsExam posts={currentPosts} loading={loading} currentPage={currentPage}/>
            <Paginations page={page} paginate={paginate}/>
       

@@ -9,6 +9,8 @@ class Formlogin extends Component  {
       username:  "",
       password:  "",
       message: "",
+      messageuser: "",
+      messagepass: "",
       student:  false,
       redirect:  0
     };
@@ -21,51 +23,87 @@ class Formlogin extends Component  {
       [name]: value,
     })
   }
-  handleSubmit=(e)=>{
+  handleSubmit=async (e)=>{
     console.log(this.state);
     e.preventDefault();
-    if(this.state.student===true){
-      CallApi('v1/user/login','Post',this.state).then(res=>{
-        
-        if(res!== undefined){
-          localStorage.setItem("user", res.data.jwt);
-          this.setState({
-            redirect: 2
-          })
-          alert("Đăng Nhập Thành Công");
-        }
-        else{
-          this.setState({
-            message:  "Sai tên đăng nhập hoặc mật khẩu"
-          })
-        }
+    if(this.state.username==="" && this.state.password!==""){
+      this.setState({
+        messageuser:  "Tên đăng nhập không được để trống",
+        messagepass:  ""
       })
     }
-    else{
-      CallApi('v1/user/login/teacher','Post',this.state).then(res=>{
-        console.log(res);
-        if(res !== undefined){
-          localStorage.setItem("admin", res.data.jwt);
-          this.setState({
-            redirect: 1
-          })
-          alert("Đăng Nhập Thành Công");
-        }
-        else{
-          this.setState({
-            message:  "Sai tên đăng nhập hoặc mật khẩu"
-          })
-        }
+    if(this.state.username!=="" && this.state.password===""){
+      this.setState({
+        messageuser:  "",
+        messagepass:  "Mật khẩu không được để trống"
       })
     }
+    if(!this.state.password && !this.state.username){
+      this.setState({
+        messageuser:  "Tên đăng nhập không được để trống",
+        messagepass:  "Mật khẩu không được để trống"
+      })
+    }else{
+      this.setState({
+        messageuser:  "",
+        messagepass:  ""
+      })
+    }
+    if(this.state.password && this.state.username){
+      if(this.state.student===true){
+
+       await CallApi('v1/user/login','Post',this.state).then(res=>{
+          
+          if(res!== undefined){
+            localStorage.setItem("user", res.data.jwt);
+            this.setState({
+              redirect: 2
+            })
+            alert("Đăng Nhập Thành Công");
+          }
+          else{
+            this.setState({
+              message:  "Sai tên đăng nhập hoặc mật khẩu",
+            })
+          }
+        })
+      }
+      else{
+        CallApi('v1/user/login/teacher','Post',this.state).then(res=>{
+          console.log(res);
+          if(res !== undefined){
+            localStorage.setItem("admin", res.data.jwt);
+            this.setState({
+              redirect: 1
+            })
+            alert("Đăng Nhập Thành Công");
+          }
+          else{
+            this.setState({
+              message:  "Sai tên đăng nhập hoặc mật khẩu",
+              messageuser:  "",
+              messagepass:  ""
+            })
+          }
+        })
+      }
+    }
+  }
+  handleCancel=()=>{
+    this.setState({
+      redirect: 3
+    })
   }
  render(){
    if(this.state.redirect===1){
     return <Redirect to="/admin" />;
    }
-   else if(this.state.redirect===2){
+    if(this.state.redirect===2){
    return <Redirect to="/student" />;
    }
+   if(this.state.redirect===3){
+    return <Redirect to="/" />;
+    }
   
   return (
     <div className="form-login">
@@ -81,14 +119,22 @@ class Formlogin extends Component  {
               </div>
                   <form onSubmit={this.handleSubmit}>
                   <div className="form-group">
-                    <input
-                        type="text"
-                        className="form-control form-control-md"
-                        placeholder="Nhập tên đăng nhập"
-                        required
-                        name="username"
-                        onChange={this.handleInputChange}
-                      />
+                    <div>
+                        <div className="d-flex col-sm-12 mb-3">
+                          {this.state.messageuser!==""? <small className="text-danger">{this.state.messageuser}</small>: null}
+                          </div>
+                        <input
+                          type="text"
+                          className="form-control form-control-md"
+                          placeholder="Nhập tên đăng nhập"
+                          required
+                          name="username"
+                          onChange={this.handleInputChange}
+                        />
+                        </div>
+                        <div className="d-flex col-sm-12 mb-3">
+                        {this.state.messagepass!==""? <small className="text-danger">{this.state.messagepass}</small>: null}
+                      </div>
                       <input
                         type="password"
                         className="form-control form-control-md"
@@ -97,6 +143,7 @@ class Formlogin extends Component  {
                         name="password"
                         onChange={this.handleInputChange}
                       />
+                       
                        <div className="form-group form-sdt">
                        <input
                         className="sd"
@@ -116,7 +163,7 @@ class Formlogin extends Component  {
                     <button onClick={this.handleSubmit} type="submit" className="btn btn-primary">
                       Đăng Nhập
                     </button>
-                    <button type="submit" className="btn btn-warning">
+                    <button type="submit" className="btn btn-warning" onClick={this.handleCancel}>
                     Hủy
                     </button>
                   </div>

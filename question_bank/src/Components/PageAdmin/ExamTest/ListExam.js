@@ -37,7 +37,7 @@ componentDidMount(){
 render(){
   var {exams,id_exam_subject}=this.state;
 
-  console.log(this.state.id_exam_subject);
+  console.log(this.state.exams);
     return(
       <div className="col-md-9 menu-right col-sm-12 col-lg-9">
       <div className="top-title">
@@ -62,7 +62,6 @@ render(){
         Import
       </Link>
       </div>
-      <div className="back-link" style={{backgroundColor: '#ffff', margin: 0}}><i className="fas fa-home"> </i> <a href="#">Trang chủ/ </a><a href="#">Địa lý/ </a><a href="#">Đề Thi</a></div>
       <div className="link1">
         <table className="table">
           <thead>

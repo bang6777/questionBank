@@ -13,7 +13,9 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
-class App():
+import random 
+
+class Grade():
     def __init__(self):
         self.file1 = []
         self.dsmail = []
@@ -21,6 +23,7 @@ class App():
         self.date.strftime("%Y%m%d %H:%M:%S")
     def nhapdapan(self):
         self.dapan="C:/Users/hieu/Documents/questionBank/CODE_CHAM_BAI/bubble-sheet-grading/answers.txt"
+        print (self.dapan)
         self.ANSWER_KEY = {0:0,1:0}
         j=0
         f = open(self.dapan, "r")
@@ -100,35 +103,24 @@ class App():
                     bubbled0 = (tong0, j)
             n = bubbled0[1] + 1
         return n
+        
     def luubaikt(self,fileluuu, tenluuu):
-        print (fileluuu)
-        print   (tenluuu)
-        self.baiin = cv2.cvtColor(fileluuu, cv2.COLOR_BGR2RGB)
-        self.tenbailuu = str(tenluuu)+"-"+str(self.date.strftime("%Y%m%d-%H-%M-%S"))
-        print ('../Ketqua/{0}.jpg'.format(self.tenbailuu))
-        cv2.imwrite('../Ketqua/{0}.jpg'.format(self.tenbailuu), self.baiin)
-        print  (cv2.imwrite('../Ketqua/{0}.jpg'.format(self.tenbailuu), self.baiin))
-    def chamnhieu(self):
-        self.file1 =[]
-        self.dsddd="./img/"
-        for f in os.listdir(self.dsddd):
-            self.file1.append(self.dsddd+"/"+f)
-        # print (self.file1)
-        self.img1 = cv2.imread(self.file1[len(self.file1) - 1])
-        self.img1 = cv2.cvtColor(self.img1, cv2.COLOR_BGR2RGB)
-        self.img1 = imutils.resize(self.img1, height=800)
+        baiin = cv2.cvtColor(fileluuu, cv2.COLOR_BGR2RGB)
+        # self.tenbailuu = str(tenluuu)+"-"+str(self.date.strftime("%Y%m%d-%H-%M-%S"))+'-'+ks
+        path = "C:/Users/hieu/Documents/questionBank/question_bank/public/Ketqua"
+        # a='{0}.jpg'.format(self.tenbailuu)
+        ab=str(random.randint(1000, 10000))
+        a='{0}.jpg'.format(ab)
+        cv2.imwrite(str(path)+a,baiin)
+        # return  'C:\\Users\\hieu\\Documents\\questionBank\\question_bank\\public\\Ketqua\\{0}.jpg'.format(self.tenbailuu)
+       
     def chambai(self):
         for i in range(len(self.file1)):
             self.anh = self.file1[i]
-            print (self.anh)
             self.mn = cv2.imread(self.anh)
             self.hx = cv2.cvtColor(self.mn, cv2.COLOR_BGR2GRAY)
             self.hm = cv2.GaussianBlur(self.hx, (5,5),0)
             self.hc = cv2.Canny(self.hm, 75, 200)
-            # cv2.imwrite('./{0}.jpg', self.hx)
-            # cv2.imwrite('./{1}.jpg', self.hm)
-            # cv2.imwrite('./{2}.jpg', self.hc)
-            # cv2.imshow("img",self.hc)
             self.khungbt = cv2.findContours(self.hc.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             self.khungbt = imutils.grab_contours(self.khungbt)
             self.khung = None
@@ -139,9 +131,6 @@ class App():
             self.khungtln = self.timkhungcham(self.baithi)
             self.khung1n = self.timo1(self.khungtln, 0)
             self.baithi = four_point_transform(self.baithi, self.khung1n.reshape(4, 2))
-            #chuyen doi phoi canh   
-            # cv2.imwrite('./{3}.jpg', self.baithi)
-            # cv2.waitKey(0)
             #---
             self.baithi = self.baithi[20:self.baithi.shape[0] - 20, 20:self.baithi.shape[1] - 20]
 
@@ -189,7 +178,6 @@ class App():
             self.khungdang = self.chuyendoi(self.nhandang)
             self.khungnhandang = self.timkhung(self.khungdang)
             self.nhandang = four_point_transform(self.nhandang, self.khungnhandang.reshape(4,2))
-            print(self.nhandang);
             self.nhandang = self.nhandang[6:self.nhandang.shape[0]-6,6:self.nhandang.shape[1]-6]
 
             self.phunhandang = cv2.cvtColor(self.nhandang, cv2.COLOR_BGR2GRAY)
@@ -197,6 +185,7 @@ class App():
             self.tlkhung0 = cv2.findContours(self.thresh0.copy(),cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             self.tlkhung0 = imutils.grab_contours(self.tlkhung0)
             self.n = self.tam(self.tlkhung0,self.thresh0)
+
             p=0
             if self.n == 1:
                 p = 10
@@ -217,7 +206,7 @@ class App():
             #self.o1 = four_point_transform(self.baithi, self.khung1.reshape(4, 2))
             self.toado1 = self.khung1[0][0]
             self.d1 = (self.toado1[0] + self.toado1[1]) / 2
-            print(self.toado1)
+
             for o in range(4):
                 if ((self.khung1[o][0][0] + self.khung1[o][0][1]) / 2 < self.d1):
                     self.toado1 = self.khung1[o][0]
@@ -239,15 +228,9 @@ class App():
                 self.tamp2 = self.khung1
 
             self.o1 = four_point_transform(self.baithi, self.tamp2.reshape(4,2))
-            # cv2.imshow('img',self.o1)
-            # cv2.imwrite('./{4o1}.jpg', self.o1)
-            # cv2.waitKey(0)
             self.o1 = self.o1[5:self.o1.shape[0] - 5, 5:self.o1.shape[1] - 5]
             self.phukhung1 = cv2.cvtColor(self.o1, cv2.COLOR_BGR2GRAY)
             self.thresh1 = cv2.threshold(self.phukhung1, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
-            cv2.imshow('img', self.thresh1 )
-            cv2.imwrite('./{tuongphan}.jpg', self.thresh1 )
-            cv2.waitKey(0)
             self.tlkhung1 = cv2.findContours(self.thresh1.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             self.tlkhung1 = imutils.grab_contours(self.tlkhung1)
 
@@ -264,36 +247,35 @@ class App():
             for (q, i) in enumerate(np.arange(0, len(cautraloi1), 4)):
                 cautraloisx1 = contours.sort_contours(cautraloi1[i:i + 4])[0]
                 bubbled1 = None
+
                 for (j, c) in enumerate(cautraloisx1):
                     matna1 = np.zeros(self.thresh1.shape, dtype="uint8")
                     cv2.drawContours(matna1, [c], -1, 255, -1)
-                    #Nhan dang tung o
+
                     matna1 = cv2.bitwise_and(self.thresh1, self.thresh1, mask=matna1)
-                    # cv2.imshow('img',matna1)
-                    # cv2.waitKey(0)
                     tong1 = cv2.countNonZero(matna1)
+
                     if bubbled1 is None or tong1 > bubbled1[0]:
                         bubbled1 = (tong1, j)
-                color = (255, 0,0)
+                color = (255, 0, 0)
                 k = self.ANSWER_KEY[q]
+
                 if k == bubbled1[1]:
                     color = (0, 255, 0)
                     dung += 1
-                #ve Khoanh dáp án
+
                 cv2.drawContours(self.o1, [cautraloisx1[k]], -1, color, 3)
-            # cv2.imshow('img',self.o1)
-            # cv2.imwrite('./{4o1_rs}.jpg', self.o1)
-            # cv2.waitKey(0)
+
             self.baithi[self.toado1[1]+5:self.toado1[1]+self.o1.shape[0]+5, self.toado1[0]+5:self.toado1[0]+self.o1.shape[1]+5] = self.o1
+
+
             self.o2 = four_point_transform(self.baithi, self.tamp1.reshape(4,2))
             self.o2 = self.o2[5:self.o2.shape[0] - 5, 5:self.o2.shape[1] - 5]
             self.phukhung2 = cv2.cvtColor(self.o2, cv2.COLOR_BGR2GRAY)
             self.thresh2 = cv2.threshold(self.phukhung2, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
             self.tlkhung2 = cv2.findContours(self.thresh2.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
             self.tlkhung2 = imutils.grab_contours(self.tlkhung2)
-            # cv2.imshow('img',self.o2)
-            # cv2.imwrite('./{4o2}.jpg', self.o2)
-            # cv2.waitKey(0)
+
             cautraloi2 = []
             for f in self.tlkhung2:
                 (x, y, w, h) = cv2.boundingRect(f)
@@ -316,15 +298,14 @@ class App():
 
                     if bubbled2 is None or tong2 > bubbled2[0]:
                         bubbled2 = (tong2, j)
-                color = (255, 0,0)
+                color = (255, 0, 0)
                 k = self.ANSWER_KEY[p+q]
 
                 if k == bubbled2[1]:
                     color = (0, 255, 0)
                     dung += 1
                 cv2.drawContours(self.o2, [cautraloisx2[k]], -1, color, 3)
-            cv2.imwrite('./{4o2_rs}.jpg', self.o2)
-            cv2.waitKey(0)
+
             self.baithi[self.toado2[1]+5:self.toado2[1]+self.o2.shape[0]+5, self.toado2[0]+5:self.toado2[0]+self.o2.shape[1]+5] = self.o2
 
             #print dung
@@ -381,19 +362,28 @@ class App():
 
             self.nhandang = imutils.resize(self.nhandang, height=50)
             self.baithi = imutils.resize(self.baithi, height=800)
-            self.o2 = imutils.resize(self.o2, height=800)
+            # self.o2 = imutils.resize(self.o2, height=800)
             # self.im = PIL.ImageTk.PhotoImage(image=PIL.Image.fromarray(self.baithi))
             # self.can1.create_image(5, 5, anchor=NW, image=self.im)
-            print(self.baithi)
-            self.luubaikt(self.baithi, self.msv)    
+            # self.luubaikt(self.baithi, self.msv,self.ks)
+            self.Array.append(self.luubaikt(self.baithi, self.msv))
             f = open("C:/Users/hieu/Documents/questionBank/CODE_CHAM_BAI/Ketqua/result.txt", "a")
             f.write(
                 str(self.msv) + "         " + str(self.diem) + "          " + str(self.date.strftime("%Y%m%d %H:%M:%S") + "\n"))
             f.close()
-# def Run(self):
-#         self.root.mainloop()
-# App().Run()
-app=App()
-app.chamnhieu()
+        return self.Array
+    def openfile(self):
+        self.file1 = "./img/02.jpg"
+        print(self.file1)
+    def chamnhieu(self,array):
+        self.file1 =[]
+        for f in array:
+            self.file1.append(f)
+        # print (self.file1)
+        # self.img1 = cv2.imread(self.file1[len(self.file1) - 1])
+        # self.img1 = cv2.cvtColor(self.img1, cv2.COLOR_BGR2RGB)
+        # self.img1 = imutils.resize(self.img1, height=800)
+app=Grade()
+app.openfile()
 app.nhapdapan()
 app.chambai()
