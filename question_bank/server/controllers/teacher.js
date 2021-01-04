@@ -78,7 +78,8 @@ exports.add_Teacher= function(req,res){
     });
 }
 exports.update_Teacher_ById= function(req,res){
-    var pass=bcrypt.hashSync(req.body.Password, salt);
+    var pass=req.body.Password
+    pass=bcrypt.hashSync(req.body.Password, salt);
     console.log(req.body.id);
             db_teacher.update({Password: pass},{
                 where: {

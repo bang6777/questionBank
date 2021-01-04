@@ -47,6 +47,8 @@ exports.add_Exam= function (req, res){
         Time	:       req.body.Time,
         Pass	:       req.body.Pass,
         Note	:       req.body.Note,
+        Id_exam_subject: 	req.body.Id_exam_subject,
+        Id_grade: 	Number(req.body.Id_grade)
     }).then(details=>{
         id_exam=details.id;
         data.forEach(dt=>{
@@ -71,7 +73,8 @@ exports.add_Exam= function (req, res){
                         db_exam_quesstion.create({
                             Id_exam:    id_exam,
                             Id_quesstion:   idx
-                        }).then(result=>{
+                        }).then(details=>{
+                            console.log(details);
                             res.json(details);
                         })
                     })

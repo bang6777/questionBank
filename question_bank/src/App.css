@@ -1133,3 +1133,8 @@ td.color-success span {
 .wrapper .footer {
   margin-top: 240px;
 }
+.each-fade img {
+  height: 400px;
+  width: 336px;
+  margin: 0 auto;
+}

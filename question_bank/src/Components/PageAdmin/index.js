@@ -59,7 +59,7 @@ class PageAdmin extends Component{
                 <AdminRoute  path='/admin/list-pdf' component={ListPDF} />
                 <AdminRoute  path='/admin/list-pdf-details' component={Example} />
          
-                
+                <AdminRoute  path='/admin/show_garde' component={Grade} />
                 
                 </div>
                 <div className="clearfix"></div>

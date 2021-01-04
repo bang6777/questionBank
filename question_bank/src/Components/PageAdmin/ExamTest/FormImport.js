@@ -15,7 +15,9 @@ export default class FormImport extends React.Component {
     Note: "",
     Id_exam: [{Id_topic: "",de: "",tb: "",kho: ""}],
     topic: [],
-    redirect: false
+    redirect: false,
+    Id_exam_subject:this.props.location.state.Id_es,
+    Id_grade:this.props.location.state.Id_grade
 
   }
   
@@ -37,14 +39,21 @@ deleteRow=(index)=>{
     Id_exam: this.state.Id_exam.filter((s,sindex)=>index !== sindex),
   });
 }
-handleSubmit=e=>{
+handleSubmit=async(e)=>{
   let data=this.state;
   e.preventDefault();
  console.log(data);
-  CallApi("v1/exam","POST",data).then(res=>{
+  await CallApi("v1/exam","POST",data).then(res=>{
+    if(res!==undefined){
+      console.log(res.data);
+      alert("123")
       this.setState({
         redirect: true
       })
+      alert("Thêm thành công")
+    }else{
+      alert("loi");
+    }
   })
 }
 clickOnDelete(record) {
@@ -69,7 +78,7 @@ clickOnDelete(record) {
   
       console.log(Id_exam);
       if(this.state.redirect){
-        return <Redirect to="/admin/list-exam" />;
+        return <Redirect to="/admin/list" />;
       }
       return(
         <div className="col-md-9 menu-right col-sm-12 col-lg-9">

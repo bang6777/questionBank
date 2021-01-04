@@ -1,11 +1,33 @@
 import React,{Component} from 'react';
-
-import ShowGrade from './ShowGrade';
 class Grade_Edit extends Component{
+  constructor(props){
+    super(props);
+    this.state={
+      name:""
+    }
+  }
+ 
+  handleSubmit=(e)=>{
+    e.preventDefault();
+    if(this.state.name===""){
+      alert("không được để trống");
+    }
+    else{
+      console.log("olk");
+    }
+  }
+  handleChange=(e)=>{
+    this.setState({
+      [e.target.name]:[e.target.value]
+    })
+  }
+ 
     render(){
+      let {item}=this.props;
+      console.log(item)
         return(
             <div className="col-md-6">
-              <div>
+              <form onSubmit={this.handleSubmit}>
                  
                 <div className="modal fade" id="modalLoginForm" tabIndex={-1} role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <div className="modal-dialog" role="document">
@@ -19,17 +41,17 @@ class Grade_Edit extends Component{
                       <div className="modal-body mx-3">
                         <div className="md-form mb-5">
                           <label data-error="wrong" data-success="right" htmlFor="defaultForm-email">Tên</label>
-                          <input type="email" id="defaultForm-grade" className="form-control validate" />
+                          <input type="name" id="defaultForm-grade" name="name" className="form-control validate" value={item.name}  onchange={this.handleChange}/>
                         </div>
                       </div>
                       <div className="modal-footer d-flex justify-content-center">
-                        <button className="btn btn-danger">Sửa</button>
-                        <button className="btn btn-warning">Cancel</button>
+                        <button className="btn btn-danger" onClick={this.handleSubmit}>Sửa</button>
+                        <button className="btn btn-warning" data-dismiss="modal" aria-hidden="true">Cancel</button>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </form>
           </div>
         )
     };  

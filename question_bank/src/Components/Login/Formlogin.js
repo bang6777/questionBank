@@ -31,14 +31,12 @@ class Formlogin extends Component  {
         messageuser:  "Tên đăng nhập không được để trống",
         messagepass:  ""
       })
-    }
-    if(this.state.username!=="" && this.state.password===""){
+    }else if(this.state.username!=="" && this.state.password===""){
       this.setState({
         messageuser:  "",
         messagepass:  "Mật khẩu không được để trống"
       })
-    }
-    if(!this.state.password && !this.state.username){
+    }else if(this.state.password==="" && this.state.username===""){
       this.setState({
         messageuser:  "Tên đăng nhập không được để trống",
         messagepass:  "Mật khẩu không được để trống"

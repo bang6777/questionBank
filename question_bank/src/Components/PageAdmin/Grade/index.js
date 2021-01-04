@@ -7,9 +7,17 @@ class Grade extends Component{
     constructor(props){
       super(props);
       this.state={
-          isShowForm: false,
+          item: "",
           grades:  []
       };
+    }
+    handleEdit=(item)=>{
+      console.log(item)
+        CallApi(`v1/grade/${item.Id_grade}`,"GET",null).then(res=>{
+          this.setState({
+            item: res.data.grade
+          })
+        })
     }
     componentDidMount(){
         CallApi('v1/grade','GET',null).then(res=>{
@@ -19,7 +27,8 @@ class Grade extends Component{
         })
     }
     render(){
-        var {grades,isShowForm}=this.state;
+        var {grades,item}=this.state;
+        console.log(item)
         return(
             <div className="col-md-9 menu-right col-sm-12 col-lg-9">
             <div className="top-title">
@@ -44,23 +53,21 @@ class Grade extends Component{
                               <th>Tên</th>
                               </tr>
                           </thead>
-                          {this.ShowGrades(grades,isShowForm)}
+                          {this.ShowGrades(grades)}
                       </table>
                   </div>
               </div>
             </div>
-            <Grade_Edit />
-
+            <Grade_Edit  item={item}/>
           </div>
         )
     };  
-    ShowGrades(grades,isShowForm){
-    console.log(grades.length);
+    ShowGrades(grades){
       var result=null;
       if(grades.length > 0){
         result=grades.map((grade,index)=>{    
             return(
-                  <ShowGrade grades={grade} key={index} index={index} isShowForm={isShowForm} />
+                  <ShowGrade grades={grade} key={index} index={index} handleEdit={this.handleEdit} />
                 )
             });
       }

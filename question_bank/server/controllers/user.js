@@ -15,11 +15,11 @@ exports.get_UserByid=function(req,res){
         }
         else if (item){
             console.log(req.body.password);
-            let isCorrectPassWord=bcrypt.compareSync(
-                req.body.Password,
-                item.Password);
-            console.log(isCorrectPassWord);
-            if(isCorrectPassWord){
+            // let isCorrectPassWord=bcrypt.compareSync(
+            //     req.body.Password,
+            //     item.Password);
+            // console.log(isCorrectPassWord);
+            if(req.body.password===item.Password){
                 res.json({ user: item, jwt: `${item.id}` });        
             }
             else{
@@ -46,9 +46,9 @@ exports.get_TeacherByid=function(req,res){
         }
         else if (item){
             console.log(req.body.password);
-            let isCorrectPassWord=bcrypt.compareSync(req.body.Password,item.Password);
+            // let isCorrectPassWord=bcrypt.compareSync(req.body.Password,item.Password);
             // console.log(isCorrectPassWord);
-            if(isCorrectPassWord){
+            if(req.body.password===item.Password){
                 res.json({ user: item, jwt: `${item.id}` });        
             }
             else{

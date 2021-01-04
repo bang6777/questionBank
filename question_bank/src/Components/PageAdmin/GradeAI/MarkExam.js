@@ -35,8 +35,7 @@ const ItemExam = () => {
                                 await       callAPI("answer","POST",res3.data).then(async(res4)=>{
                                     console.log(res4);
                                     await   callAPI("grade","GET",null).then(res=>{
-                                                alert("chạy được nha. mà không biết có dừng không");
-                                                console.log("chạy được nha. mà không biết có dừng không")
+                                                alert("Chấm điểm thành công");
                                                 console.log(res.data);
                                     })
                                 })
@@ -48,9 +47,6 @@ const ItemExam = () => {
             console.log(e);
         }
     }
-    // useEffect(() => {
-    //         fetchData()  
-    // }, [fetchData]);
     const answerChange = (e) => {
         setanswerError(0);
         setAnswer(e.target.files);
@@ -98,7 +94,6 @@ const ItemExam = () => {
             })
         }
     }
-    
     const handleSubmit =async (e) => {
         e.preventDefault();
         console.log(answer.length);
@@ -126,13 +121,13 @@ const ItemExam = () => {
                                     <form enctype="multipart/form-data" className="form-controll">
                                         <p>Chọn File</p>
                                         <input type="file" id="file" multiple name="files" onChange={imgHandleChange} />
-                                        {fileError===1? <small className="text-danger">Lỗi định dạng file</small>: fileError===2? <small className="text-success">Chọn file thành công</small>:null
+                                        {fileError===1? <small className="text-danger">Lỗi định dạng file chỉ hỗ trọ (jpg,png)</small>: fileError===2? <small className="text-success">Chọn file thành công</small>:null
                                         }
                                         <br />
                                         <p className="form-group">Nhập đáp án</p>
                                         <input type="file" id="file"  name="file_answer" onChange={answerChange} />
-                                        {answerError===1? <small className="text-danger">Lỗi định dạng file</small>: answerError===2? <small className="text-success">Chọn file thành công</small>:null
-                                        }
+                                        {answerError===1? <small className="text-danger">Lỗi định dạng file chỉ hỗ trợ file dang txt</small>: answerError===2? <small className="text-success">Chọn file thành công</small>:null
+                                        }<br />
                                         <div className="btn btn-danger" onClick={handleSubmit}>Tạo</div>
                                         <div className="btn btn-warning" onClick={handleCancel}>Hủy</div>
                                     </form>

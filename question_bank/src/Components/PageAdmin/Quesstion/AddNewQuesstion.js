@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import CKEditor from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@blowstack/ckeditor5-full-free-build';
-import { useLocation } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import Parser from 'react-html-parser';
 import MathJax from 'react-mathjax-preview';
 import CallApi from '../../../utils/apiCaller';
@@ -22,7 +22,7 @@ export default class AddNewQuesstion extends Component{
             Id_topic:0,
             Id_level: 0,
             massage: "",
-
+            redirect:false
         }
     }
     handleCkeditorName=(e,editor)=>{
@@ -75,7 +75,8 @@ export default class AddNewQuesstion extends Component{
                 CallApi("v1/topic/1","POST",obj).then(res=>{
                     console.log( res.data.details);
                     this.setState({
-                            topics: res.data.details
+                            topics: res.data.details,
+                            
                     })
                 })
             }
@@ -92,15 +93,17 @@ export default class AddNewQuesstion extends Component{
         e.preventDefault();
         if(this.Id_level==="" || this.state.answer ==="" || this.state.dt1==="" ||  this.state.dt2==="" ||  this.state.dt3==="" ||  this.state.Name_quesstion==="" ||  this.state.Id_es==="" || this.state.Id_topic===""   ){
             this.setState({
-                massage: "Không được để trống"
+                massage: "Không được để trống",
+               
             })
-            alert("không dduoc để trống")
+            alert("không được để trống")
         }
         else{
             CallApi("v1/quesstion/question_answer","POST",this.state).then(res=>{
                 if(res!==undefined){
                     this.setState({
-                        massage: res.data.massega
+                        massage: res.data.massega,
+                        redirect: true
                     })
                     alert("Thêm thành công!");
                 }
@@ -110,7 +113,9 @@ export default class AddNewQuesstion extends Component{
     render(){
         let obj=this.props.location.state.id;
         let {topics,levels}=this.state;
-       
+       if(this.state.redirect){
+        return <Redirect to="/admin/add-question" />
+       }
         return(
          
             <div className="col-md-19 menu-right col-sm-9">

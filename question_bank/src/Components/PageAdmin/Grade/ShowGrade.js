@@ -5,9 +5,9 @@ import Grade_Edit from './GradeEdit';
 
 class showGrade extends Component{
     render(){
-       var {grades,index,isShowForm}=this.props;
+       var {grades,index}=this.props;
         return(
-           <GradeDetails  grades={grades} index={index} isShowForm={isShowForm}/>
+           <GradeDetails  grades={grades} index={index} handleEdit={this.props.handleEdit}/>
         )
     };  
 }
