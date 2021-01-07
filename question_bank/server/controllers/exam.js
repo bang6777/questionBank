@@ -304,9 +304,20 @@ exports.show_PDF=(req,res)=>{
             }],
             where :{id: aray}
         }).then(details => {
+            arayy2=[];
+            aray.forEach(ar=>{
+                details.forEach(it=>{
+                    console.log(it.id)
+                    if(Number(ar)===Number(it.id)){
+                        arayy2.push(it);
+                    }
+                })
+            })
+           
             res.status(200).json({
                 success: code,
-                details: details
+                details: arayy2,
+               
             })
         });
     })

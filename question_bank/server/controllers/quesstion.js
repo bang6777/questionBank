@@ -47,7 +47,7 @@ exports.get_List_Quesstion = function (req, res) {
 //     // });
 // };
 exports.get_Quesstion_ById = function (req, res) {
-    
+    var aray=req.body.Id_quesstion;
   db_quesstion.findAll({
       include: [{
           model: db.Answer, as: "Id_Quesstion"
@@ -55,10 +55,20 @@ exports.get_Quesstion_ById = function (req, res) {
     
       where: { id:  req.body.Id_quesstion}
   }).then(details => {
+    arayy2=[];
+    aray.forEach(ar=>{
+        details.forEach(it=>{
+            console.log(it.id)
+            if(Number(ar)===Number(it.id)){
+                arayy2.push(it);
+            }
+        })
+    })
+   
     console.log(details.id);
       res.status(200).json({
           success: 'true',
-          details
+          details: arayy2
       })
   });
 };
@@ -188,3 +198,19 @@ exports.add_Question_Answer=function(req,res){
             console.log(err );
         });
 }
+
+exports.find_Quesstion_ById = function (req, res) {
+  db_quesstion.findAll({
+      include: [{
+          model: db.Answer, as: "Id_Quesstion"
+      }],
+      where: {Name_quesstion: {
+      $like: req.body.name
+    }}
+  }).then(details => {
+      res.status(200).json({
+          success: 'true',
+          details
+      })
+  });
+};

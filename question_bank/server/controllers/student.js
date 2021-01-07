@@ -50,3 +50,14 @@ exports.add_Student= async function(req,res){
        })
     
 }
+exports.add_student_ById= function(req,res){
+    db_student.findOne({
+        where: {id: req.body.id}
+    }).then(details=>{
+        
+        res.status(200).json({
+            Code:   '200',
+            details:    details
+        });
+    })
+}

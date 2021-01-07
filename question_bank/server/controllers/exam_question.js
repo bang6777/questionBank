@@ -33,11 +33,21 @@ exports.get_Exam_Question=(req,res)=>{
 };
 exports.add_examdetails_question=(req,res)=>{
     console.log(req.body);
+    var aray=req.body.id
     db_examdetails_question
     .findAll({
         where: { Id_examdetails :  req.body.id}
       })
     .then(examdetails_question=> {
+        // arayy2=[];
+        // aray.forEach(ar=>{
+        //     examdetails_question.forEach(it=>{
+        //         console.log(it.id)
+        //         if(Number(ar)===Number(it.id)){
+        //             arayy2.push(it);
+        //         }
+        //     })
+        // })
         res.status(200).json({
             sucess: 'true',
             examdetails_question: examdetails_question

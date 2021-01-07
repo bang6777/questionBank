@@ -14,6 +14,7 @@ const ListQuesstion=(props)=>{
   const [collection,setCollection]=useState("question");
   const [limit,setLimit]=useState(10);
   const [sortlevel,SetSort]=useState("");
+  const [tim,setTim]=useState("");
   useEffect(()=>{
     fetchPosts();
   },[]);
@@ -97,6 +98,19 @@ const ListQuesstion=(props)=>{
       SetSort(name);
       fetchPosts1(name);
   }
+  
+  const handleTim=(e)=>{
+    e.preventDefault();
+    
+    if(tim!==""){
+      let obj={
+        name: tim
+      }
+        CallApi("v1/quesstion/tim/1","POST",obj).then(res=>{
+          console.log(res)
+        })
+    }
+  }
   const last=currentPage*postsPerPage;
   const first=last-postsPerPage;
   const currentPosts=posts.slice(first,last);
@@ -111,10 +125,11 @@ const ListQuesstion=(props)=>{
       <Link to="add-question" className="add-new">Thêm Mới</Link>
     </div>
     <div className="text-right form-group">
-      <form>
-        <input></input>
+      <form onSubmit={handleTim}>
+        <input type="text" name="cauhoi" onChange={e=>setTim(e.target.value)}></input>
+        <button className="btn btn-primary" onClick={handleTim}>Tìm</button>
       </form>
-    Sắp xếp theo cấp độ
+      Sắp xếp theo cấp độ
       <select className="form-controll" name="sortlevel" value={sortlevel} onChange={handleSort}> 
       <option value={0}>
         </option>
@@ -137,6 +152,13 @@ const ListQuesstion=(props)=>{
             <th>Cấp độ</th>
           </tr>
         </thead>
+        <tbody>
+        {tim!==""?
+        tim.map(t=>{
+
+        })     
+        :null}
+           </tbody>
         <ItemQuesstion posts={currentPosts} loading={loading} currentPage={currentPage}/>
       </table>
       <Paginations page={page} paginate={paginate}/>

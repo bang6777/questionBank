@@ -25,6 +25,7 @@ const Test=(props)=>{
       console.log(obj)
       setLoading(true);
       await CallApi("v1/exam_question/add-examdetails/question","POST",obj).then(res=>{
+        console.log(obj)
               if(res!==undefined){
                 var str="";
               obj={

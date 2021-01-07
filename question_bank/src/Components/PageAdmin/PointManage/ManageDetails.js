@@ -6,6 +6,7 @@ import moment from 'moment';
 import Details from './Detials';
 import ArtCharts from './ArtCharts';
 import DetailsResult from './DetailsResult';
+import Showstudent from './Showstudent';
 class ManageDetails extends Component{
     constructor(props){
         super(props);
@@ -84,7 +85,7 @@ class ManageDetails extends Component{
     showQuestionCore(exams,core){
         let result=null;
         if(exams.length>0){
-            var core=10/exams.length;
+            var core=10/exams[0].length;
             result=exams[0].map((ex,index)=>{
                 return(
                     <th key={index}> Q.{index+1}<br />/ {core}</th>
@@ -104,7 +105,7 @@ class ManageDetails extends Component{
                 return(
                     <tr key={index}>
                         <td>{index+1}</td>
-                        <td>{test.Id_student}</td>
+                       <Showstudent Id_student={test.Id_student} />
                         <td>{b.times}</td>
                         <td>{a.times}</td>
                         <td>{time_rs.m} phút {time_rs.s} giây</td>

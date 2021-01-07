@@ -11,9 +11,10 @@ const Example = () => {
   });
   return (
     <div>
+        <button onClick={handlePrint}>Print this out!</button>
       <Default />
       <ComponentToPrint ref={componentRef} />
-      <button onClick={handlePrint}>Print this out!</button>
+    
     </div>
   );
 };
