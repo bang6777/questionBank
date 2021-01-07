@@ -35,7 +35,7 @@ export default class Item extends Component{
           kq4=<label style={{color: 'red'}}>D. { <MathJax math={item[3].Content} />}</label>;
         }
         else{
-          kq4=<label>A. { <MathJax math={item[3].Content} />}</label>;
+          kq4=<label>A.{<MathJax math={item[3].Content} />}</label>;
         }
        }
      }

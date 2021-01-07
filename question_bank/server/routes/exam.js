@@ -9,4 +9,7 @@ router.post("/create/xam",db.Create_Exam);
 router.get("/load/exam",db.LoadExamDetails);
 router.post("/create/post",db.show_Exam);
 router.post("/export/pdf",db.show_PDF);
+router.post("/update/stt/id",db.update_stt_ById);
+
+
 module.exports = router;    

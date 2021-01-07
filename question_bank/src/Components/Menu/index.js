@@ -48,10 +48,19 @@ class  Sidebar extends Component {
                     </li>
                     <li className="menu-tp"><Link to="/admin/mark-exam" ><i className="fas fa-address-card"></i> Chấm Điểm</Link>
                     </li>
-                  
-                    <li className="menu-tp"><a href="# "> <i className="fas fa-wrench"></i> Setting<span className="caret"> </span></a>
-                    </li>
+                 
+                      <li className="menu-tp"><Link to="/admin/show-view" ><i className="fas fa-chalkboard-teacher"></i> Xem đề thi đã chấm </Link></li>
+                    
                     <li className="menu-tp"><Link to="/admin/exports-pdf" ><i className="fas fa-address-card"></i> Export </Link></li>
+                    {this.state.quyen===1?
+                     <li className="menu-tp"><span  ><i className="fas fa-chalkboard-teacher"></i>Giáo Viên </span></li>
+                     : null
+                    }
+                     {this.state.quyen===1?
+                      <li className="menu-tp"><Link to="/admin/show_garde" ><i className="fas fa-chalkboard-teacher"></i> Khối </Link></li>
+                     : null
+                    }
+                   
                 </ul>
             </div>
       

@@ -18,17 +18,17 @@ const TaskList = (props) =>{
                         </select>
                     </td>
                     <td>
-                        <input type="number" name="de" data-id={idx} id={de} className="form-control " />
+                        <input type="number" name="de" data-id={idx} id={de} min="1" max="40" className="form-control " />
                     </td>
                     <td>
-                        <input type="number" name="tb" id={tb} data-id={idx} className="form-control " />
+                        <input type="number" name="tb" id={tb} data-id={idx} min="1" max="40" className="form-control " />
                     </td>
                     <td>
-                        <input type="number" name="kho" id={kho} data-id={idx} className="form-control" />
+                        <input type="number" name="kho" id={kho} data-id={idx} min="1" max="40" className="form-control" />
                     </td>
                    
                     <td>
-                       <button onClick={()=>props.add()} type="button" className="btn btn-primary text-center">+</button>
+                       <button onClick={()=>props.add()} type="button" max="40" min="1" className="btn btn-primary text-center">+</button>
                     </td>
                     </tr >
                 )

@@ -1,6 +1,5 @@
 import React, { Component, useState, useEffect } from 'react';
 import { Redirect } from "react-router-dom";
-import { Link } from 'react-router-dom';
 import CallApi from '../../../utils/apiCaller';
 import callAPI from '../../../utils/apiCallerpython';
 import { Fade } from "react-slideshow-image";
@@ -19,6 +18,9 @@ const ItemExam = () => {
     const handleShowForms = () => setcreateExams(true);
     const handleCancel = () => setcreateExam(false);
     const [selectedImage, setSelectedImage] = useState([]);
+
+    const [made,Setmade]=useState("")
+    const [redirect,SetRedirect]=useState(0)
     async function fetchData() {
         try{
             const formData = new FormData();
@@ -36,7 +38,15 @@ const ItemExam = () => {
                                     console.log(res4);
                                     await   callAPI("grade","GET",null).then(res=>{
                                                 alert("Chấm điểm thành công");
-                                                console.log(res.data);
+                                               let obj={
+                                                   made:1,
+                                                   Id_student: res.data.arr
+                                               }
+                                               CallApi("v1/grade_exam/hienthi/luu","POST",obj).then(res=>{
+                                                    if(res!==undefined){
+                                                        SetRedirect(1)
+                                                    }
+                                                })
                                     })
                                 })
                             })
@@ -98,12 +108,19 @@ const ItemExam = () => {
         e.preventDefault();
         console.log(answer.length);
         console.log(imgs.length);
-        if(imgs.length >0 && answer.length>0){
+        if(imgs.length >0 && answer.length>0 && made!==""){
           await  fetchData();
         }else{
-            alert("loi roi nha");
+            alert("lỗi");
         }
          
+    }
+    if(redirect===1){
+        return <Redirect
+        to={{
+          pathname: "/admin/show-view",
+        }}
+       />;
     }
     return (
         <div className="col-md-19 menu-right col-sm-9">
@@ -119,6 +136,7 @@ const ItemExam = () => {
                             {createExam ?
                                 <div className="form-ai">
                                     <form enctype="multipart/form-data" className="form-controll">
+                                    <input type="text" name="made" onChange={e => Setmade(e.target.value)} />
                                         <p>Chọn File</p>
                                         <input type="file" id="file" multiple name="files" onChange={imgHandleChange} />
                                         {fileError===1? <small className="text-danger">Lỗi định dạng file chỉ hỗ trọ (jpg,png)</small>: fileError===2? <small className="text-success">Chọn file thành công</small>:null

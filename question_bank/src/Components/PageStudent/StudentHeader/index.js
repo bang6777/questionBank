@@ -39,7 +39,7 @@ class StudentHeader extends Component{
                   <li><Link to="/" onClick={this.logOut}>
                   <i className="fas fa-sign-in-alt"></i> Log Out
                   </Link></li>
-                  <li><a href="# "> <i className="fas fa-user-circle"></i> Profile</a></li>
+                 
                 </ul>
               </li>
             </ul>

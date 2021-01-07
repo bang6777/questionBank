@@ -4,6 +4,8 @@ var db_examdetail_question=db.ExamDetails_Quesstion;
 var db_test=db.Test;
 var db_exam_question=db.Exam_Question;
 var db_examdetails=db.ExamDetails;
+var db_exam=db.Exam;
+var hienthi=db.Grade_exam;
 exports.get_Grade_Exam=function(req,res){
     var data=req.body.question;
     var Arr=[];
@@ -107,6 +109,7 @@ exports.get_Grade_Exam=function(req,res){
                     };
                     console.log(time_start);
                     console.log(req.body.time_start);
+                    console.log(result_Aray3);
                     db_test.create({
                         Id_exam:req.body.Id_exam,
                         Id_student:req.body.Id_student,
@@ -115,6 +118,23 @@ exports.get_Grade_Exam=function(req,res){
                         Point:  result_kq,
                         Time_start:JSON.stringify(time_start),
                         Time_end:JSON.stringify(time_end)
+                    }).then(res=>{
+                        if(res!==undefined){
+                            console.log(req.body.stt);
+                            db.ExamDetails.findOne({
+                                where: {
+                                    Id_exam:req.body.Id_exam,
+                                    Stt_exam: req.body.stt
+                                }                                
+                            }).then(data=>{
+                                console.log(data);
+                                db.ExamDetails.update({Content: 1},{
+                                    where: {
+                                        id:data.id
+                                    }                                
+                                })
+                            })
+                        }
                     })
                    
                 })
@@ -132,6 +152,7 @@ function uniqByKeepLast(answer, key) {
     ]
 }
 exports.show_Grade_Exam=function(req,res){
+    console.log(req.body)
     db_test.findAll({
         where: {Id_exam: req.body.id}
     }).then(tests=>{
@@ -163,4 +184,52 @@ exports.get_examdetails=function(req,res){
             details: details
         })
     })
+}
+exports.hienthibaithi=function(req,res){
+    hienthi.findAll({
+        where:{made: req.body.id}
+    }).then(details=>{
+        res.status(200).json({
+            details: details
+        })
+    })
+}
+exports.hienthibaithitoanbo=function(req,res){
+    hienthi.findAll({
+        group: ['made'],
+         distinct: true
+    }).then(details=>{
+        res.status(200).json({
+            details: details
+        })
+    })
+}
+exports.thembaithi=function(req,res){
+    // var items=[{made:5,
+    //     thongtin:[{diem: 2.3333333333333335, mssv: 264575, url: "264575-20210107-15-16-42-5338.jpg"},
+    //     {diem: 2.3333333333333335, mssv: 264575, url: "264575-20210107-15-16-42-5338.jpg"}]}]
+    //         // var items=req.body.thongtin
+    // var made=items.made;
+    // console.log(items.length);
+   
+    console.log(req.body)
+    var items=req.body.Id_student;
+    var made=req.body.made;
+    if(items.length>0){
+        items.forEach(item1=>{
+            console.log(item1)
+            item1.forEach(item=>{
+                hienthi.create({
+                    Id_student: item.mssv,
+                    diem: item.diem,
+                    url: item.url,
+                    made: made
+                }).then(details=>{
+                    res.status(200).json({
+                        details: details
+                    })
+                })
+            })
+        })
+    }
 }

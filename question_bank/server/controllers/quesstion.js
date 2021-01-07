@@ -62,6 +62,38 @@ exports.get_Quesstion_ById = function (req, res) {
       })
   });
 };
+// exports.get_Quesstion_ById = function (req, res) {
+//     var ar=[];
+//       ar=req.body.Id_quesstion.map( async (idx)=>{
+      
+//             const a= await db_quesstion.findOne({
+//                 include: [{
+//                     model: db.Answer, as: "Id_Quesstion"
+//                 }],
+              
+//                 where: { id:  Number(idx)}
+//             })
+//          return a
+//       })
+//   console.log(ar)
+//   res.json({
+//               success: 'true',
+//               ar
+//           })
+  // console.log(data)
+  //   db_quesstion.findAll({
+  //       include: [{
+  //           model: db.Answer, as: "Id_Quesstion"
+  //       }],
+      
+  //       where: { id:  }
+  //   }).then(details => {
+  //     console.log(details.id);
+  //       res.status(200).json({
+  //           success: 'true',
+  //           details
+  //       })
+
 exports.add_Quesstion=function(req,res){
     var data=req.body;
     data.forEach(dt=>{

@@ -24,9 +24,12 @@ export default class Form extends Component{
         this.setState({ file: event.target.files[0] });
           let fileObj=event.target.files[0];
       }
-      handleSubmit=e=>{
+      handleSubmit= async (e)=>{
       
         e.preventDefault();
+       if(this.state.file==="" || this.state.Time==="" ||  this.state.Note===""  ||this.state.Pass===""){
+            alert("không được để trống")
+       }else{
         const formData = new FormData();
         formData.append('file', this.state.file);
         formData.append('Id_teacher', this.state.Id_teacher);
@@ -35,11 +38,18 @@ export default class Form extends Component{
         formData.append('Note', this.state.Note);
         formData.append('Id_exam_subject', this.state.Id_exam_subject);
         formData.append('Id_grade', this.state.Id_grade);
-        CallApi("v1/excel/upload","POST",formData).then(res=>{
-            this.setState({
-                redirect: true
-            })
+       await CallApi("v1/excel/upload","POST",formData).then(res=>{
+            if(res===undefined){
+                alert("thêm lỗi")
+            }
+            else{
+                alert("thêm thành công");
+                this.setState({
+                    redirect: true
+                })
+            }
         })     
+       }
       }
       componentDidMount(){
         var x = localStorage.getItem("admin");

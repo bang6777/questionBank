@@ -18,7 +18,8 @@ class PostsExam extends Component{
             redirect: 0,
             time: {},
             seconds: localStorage.getItem('time_end'),
-            time_pr: localStorage.getItem('time_pr')
+            time_pr: localStorage.getItem('time_pr'),
+            stt: localStorage.getItem('stt'),
         }
         this.timer = 0;
         this.startTimer = this.startTimer.bind(this);
@@ -80,6 +81,7 @@ class PostsExam extends Component{
             time_start1: this.state.time_pr,
             time_end: moment().lang('vi').format('YYYY-MM-DD HH:mm:ss'),
             time_end1:this.state.seconds,
+            stt:this.state.stt
         }
         console.log(obj.question.length);
         CallApi("v1/grade_exam","POST",obj).then(res=>{

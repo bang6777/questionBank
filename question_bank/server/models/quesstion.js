@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     // Quesstion.belongsTo(models.Image_Quesstion,{as: 'Id_Level', foreignKey :  'Id_level'});
     // Quesstion.belongsTo(models.Teacher,{as: 'Id_Teacher', foreignKey :  'Id_teacher'});
     // Quesstion.hasMany(models.Image_Quesstion,{as: 'Id_Quesstion', foreignKey :  'Id_Quesstion'});
-      Quesstion.hasMany(models.Answer,{as: 'Id_Quesstion', foreignKey :  'Id_quesstion',  onDelete: 'cascade' });
+      Quesstion.hasMany(models.Answer,{as: 'Id_Quesstion', foreignKey :  'Id_quesstion',  onDelete: 'cascade', onUpdate:'cascade' });
 
   }
   return Quesstion;

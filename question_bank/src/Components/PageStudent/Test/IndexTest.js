@@ -29,6 +29,7 @@ class IndexTest extends Component{
         e.preventDefault();
         CallApi("v1/exam/create/post","POST",this.state).then(res=>{
             if(res !== undefined ){
+                 localStorage.setItem("stt",res.data.stt);
                 this.setState({
                     Time: res.data.Time,
                     time_pr: res.data.Time,

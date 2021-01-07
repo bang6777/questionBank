@@ -13,39 +13,94 @@ const ListQuesstion=(props)=>{
   const [page,setPage]=useState(0);
   const [collection,setCollection]=useState("question");
   const [limit,setLimit]=useState(10);
+  const [sortlevel,SetSort]=useState("");
   useEffect(()=>{
-    const fetchPosts= async()=>{
-      setLoading(true);
-      var x = localStorage.getItem("admin");
-      let obj={
-            id: x,
-          }
-      await CallApi("v1/teacher/id","POST",obj).then(res=>{
-        
-            let ob={
-              Id_exam_subject: res.data.details.Id_exam_subject
-            }
-              CallApi("v1/teacher/listtc/1","POST",ob).then(res1=>{
-                    if(res1!==undefined){
-                      let obt={
-                        id: res1.data.details,
-                        Id_grade: props.location.state.id
-                      }
-                      CallApi("v1/pagination?collection=question&limit=10","POST",obt).then(res=>{
-                          setPosts(res.data.post);
-                          setPage(res.data.page);
-                          setLoading(false);
-                      });
-                    }
-              })
-      });
-      
-    }
     fetchPosts();
   },[]);
+  const fetchPosts= async()=>{
+    setLoading(true);
+    var x = localStorage.getItem("admin");
+    let obj={
+          id: x,
+        }
+    await CallApi("v1/teacher/id","POST",obj).then(res=>{
+      
+          let ob={
+            Id_exam_subject: res.data.details.Id_exam_subject
+          }
+          if(props.location.state.id!==undefined){
+            CallApi("v1/teacher/listtc/1","POST",ob).then(res1=>{
+              if(res1!==undefined){
+                let obt={
+                  id: res1.data.details,
+                  Id_grade: props.location.state.id
+                }
+                CallApi("v1/pagination?collection=question&limit=10","POST",obt).then(res=>{
+                  // let a= res.data.post.sort(function (a, b) {
+                  //   return a.Id_level -b.Id_level
+                  // })
+                    setPosts(res.data.post);
+                    setPage(res.data.page);
+                    setLoading(false);
+                });
+              }
+        })
+          }
+           
+    });
+    
+  }
+  const fetchPosts1= async(name)=>{
+    setLoading(true);
+    var x = localStorage.getItem("admin");
+    let obj={
+          id: x,
+        }
+    await CallApi("v1/teacher/id","POST",obj).then(res=>{
+      
+          let ob={
+            Id_exam_subject: res.data.details.Id_exam_subject
+          }
+          if(props.location.state.id!==undefined){
+            CallApi("v1/teacher/listtc/1","POST",ob).then(res1=>{
+              if(res1!==undefined){
+                let obt={
+                  id: res1.data.details,
+                  Id_grade: props.location.state.id
+                }
+                CallApi("v1/pagination?collection=question&limit=10","POST",obt).then(res=>{
+                  console.log("AAAAA"+name);
+                  let a="";
+                    if(Number(name)===1){
+                      a= res.data.post.sort(function (a, b) {
+                        return a.Id_level - b.Id_level
+                      })
+                    }else if(Number(name)===2){
+                        a= res.data.post.sort(function (a, b) {
+                          return b.Id_level-a.Id_level
+                        })
+                    }
+                    setPosts(a);
+                    setPage(res.data.page);
+                    setLoading(false);
+                });
+              }
+        })
+          }
+           
+    });
+    
+  }
+  const handleSort=e=>{
+    var name=e.target.value
+    console.log(name)
+      SetSort(name);
+      fetchPosts1(name);
+  }
   const last=currentPage*postsPerPage;
   const first=last-postsPerPage;
   const currentPosts=posts.slice(first,last);
+ 
   const paginate= pageNumber => setCurrentPage(pageNumber);
   return (
     <div className="col-md-9 menu-right col-sm-12 col-lg-9">
@@ -55,10 +110,26 @@ const ListQuesstion=(props)=>{
       </span>
       <Link to="add-question" className="add-new">Thêm Mới</Link>
     </div>
+    <div className="text-right form-group">
+      <form>
+        <input></input>
+      </form>
+    Sắp xếp theo cấp độ
+      <select className="form-controll" name="sortlevel" value={sortlevel} onChange={handleSort}> 
+      <option value={0}>
+        </option>
+        <option value={1}>
+          Dể - Khó
+        </option>
+        <option value={2}>
+          Khó - Dể
+        </option>
+      </select>
+    </div>
      <div className="link1">
       <table className="table">
         <thead>
-          <tr>
+          <tr className="title-exam">
             <th>STT</th>
             <th>Câu hỏi</th>
             <th>Giáo Viên</th>

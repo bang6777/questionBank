@@ -21,8 +21,8 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Image_Quesstion',
   });
   Image_Quesstion.associate=function(models){
-    Image_Quesstion.belongsTo(models.Image,{as: 'Id_Image', foreignKey :  'Id_image'});
-    Image_Quesstion.belongsTo(models.Quesstion,{as: 'Id_Quesstion', foreignKey :  'Id_quesstion'});
+    Image_Quesstion.belongsTo(models.Image,{as: 'Id_Image', foreignKey :  'Id_image',onDelete: 'cascade', onUpdate:'cascade'});
+    Image_Quesstion.belongsTo(models.Quesstion,{as: 'Id_Quesstion', foreignKey :  'Id_quesstion',onDelete: 'cascade', onUpdate:'cascade'});
     
 };
   return Image_Quesstion;

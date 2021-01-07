@@ -44,10 +44,10 @@ exports.add_Teacher= function(req,res){
     var Id_teacher="";
     var Name="";
     var dt=req.body;
+    console.log(dt)
     var value=100000;
-    var pass=bcrypt.hashSync(dt.Password, salt)
+    var pass=bcrypt.hashSync(dt.password,salt)
     db_teacher.findAll().then(data=>{
-
         var key =data.length;
         if(key>0){
             Id_sd=data[key-1].id+value;
@@ -77,9 +77,9 @@ exports.add_Teacher= function(req,res){
         })
     });
 }
-exports.update_Teacher_ById= function(req,res){
-    var pass=req.body.Password
-    pass=bcrypt.hashSync(req.body.Password, salt);
+exports.update_Teacher_ById= async function(req,res){
+    const pass= await bcrypt.hashSync (req.body.Password,10);
+    console.log(pass);
     console.log(req.body.id);
             db_teacher.update({Password: pass},{
                 where: {

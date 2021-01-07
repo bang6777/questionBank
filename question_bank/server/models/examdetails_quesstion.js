@@ -23,8 +23,8 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'ExamDetails_Quesstion',
   });
   ExamDetails_Quesstion.associate=function(models){
-    ExamDetails_Quesstion.belongsTo(models.Quesstion,{as: 'Id_Quesstion', foreignKey :  'Id_quesstion',  onDelete: 'cascade' });
-    ExamDetails_Quesstion.belongsTo(models.ExamDetails,{as: 'Id_Examdetails', foreignKey :  'Id_examdetails',  onDelete: 'cascade' });
+    ExamDetails_Quesstion.belongsTo(models.Quesstion,{as: 'Id_Quesstion', foreignKey :  'Id_quesstion', onDelete: 'cascade', onUpdate:'cascade'});
+    ExamDetails_Quesstion.belongsTo(models.ExamDetails,{as: 'Id_Examdetails', foreignKey :  'Id_examdetails',  onDelete: 'cascade', onUpdate:'cascade'});
     
 };
   return ExamDetails_Quesstion;

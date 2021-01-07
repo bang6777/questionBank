@@ -42,19 +42,24 @@ deleteRow=(index)=>{
 handleSubmit=async(e)=>{
   let data=this.state;
   e.preventDefault();
- console.log(data);
-  await CallApi("v1/exam","POST",data).then(res=>{
-    if(res!==undefined){
-      console.log(res.data);
-      alert("123")
-      this.setState({
-        redirect: true
-      })
-      alert("Thêm thành công")
-    }else{
-      alert("loi");
-    }
-  })
+  console.log(data);
+  if(this.state.Time===""){
+    alert("không được để trống")
+  }
+  else{
+    await CallApi("v1/exam","POST",data).then(res=>{
+      if(res!==undefined){
+        console.log(res.data);
+        alert("123")
+        this.setState({
+          redirect: true
+        })
+        alert("Thêm thành công")
+      }else{
+        alert("loi");
+      }
+    })
+  }
 }
 clickOnDelete(record) {
     this.setState({

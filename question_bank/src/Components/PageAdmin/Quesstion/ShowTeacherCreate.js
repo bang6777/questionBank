@@ -20,9 +20,9 @@ export default class ShowTeacherCreate extends Component{
     render(){
       var {Id_teacher}=this.props;
         return(
-               <div>
+              <td className="content-cover">
                     {this.state.teachers}
-               </div>
+               </td>
         )
     };
     

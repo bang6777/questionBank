@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     Id_grade: DataTypes.INTEGER,
     Time: DataTypes.INTEGER,
     Pass: DataTypes.STRING,
-    Note: DataTypes.STRING
+    Note: DataTypes.STRING,
+    stt: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Exam',

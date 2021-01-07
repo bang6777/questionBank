@@ -36,8 +36,6 @@ componentDidMount(){
 }
 render(){
   var {exams,id_exam_subject}=this.state;
-
-  console.log(this.state.exams);
     return(
       <div className="col-md-9 menu-right col-sm-12 col-lg-9">
       <div className="top-title">
@@ -69,8 +67,10 @@ render(){
               <th>STT</th>
               <th>Mã Đề</th>
               <th>Người Tạo</th>
+              <th>Thời Gian</th>
+              <th>Ghi chú</th>
               <th>Ngày Tạo</th>
-           
+              <th>Trạng thái</th>
             </tr>
           </thead>
           <tbody>

@@ -7,7 +7,7 @@ class showGrade extends Component{
     render(){
        var {grades,index}=this.props;
         return(
-           <GradeDetails  grades={grades} index={index} handleEdit={this.props.handleEdit}/>
+           <GradeDetails  grades={grades} index={index} />
         )
     };  
 }

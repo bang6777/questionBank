@@ -4,13 +4,16 @@ var db_quesstion = db.Quesstion;
 var db_exam_quesstion = db.Exam_Question;
 var db_answer = db.Answer;
 const readXlsxFile = require("read-excel-file/node");
-const upload = function (req, res) {
+const bcrypt = require("bcrypt");
+const salt = bcrypt.genSaltSync();
+const  upload = function async (req, res) {
     try {
     if (req.file === undefined) {
       return res.status(400).send("Please upload an excel file!");
     }
     let path =
       __basedir + "/upload/" + req.file.filename;
+      var pass= bcrypt.hashSync(req.body.Pass,salt)
     readXlsxFile(path).then((rows) => {
       rows.shift();
       db_exam.create({
@@ -18,8 +21,9 @@ const upload = function (req, res) {
         Id_exam_subject: req.body.Id_exam_subject,
         Id_grade: req.body.Id_grade,
         Time: req.body.Time,
-        Pass: req.body.Pass,
+        Pass:  pass,
         Note: req.body.Note,
+        stt: 0
         
       }).then(exam => {
         id_exam = exam.id;
@@ -28,8 +32,8 @@ const upload = function (req, res) {
             Id_grade: req.body.Id_grade,
             Name_quesstion: row[1],
             Id_teacher: req.body.Id_teacher,
-            Id_topic : row[7],
-            Id_level : row[8],
+            Id_topic : row[8],
+            Id_level : row[7],
         
           }).then(qs => {
             var id_quesstion = qs.id;
@@ -105,7 +109,7 @@ const upload = function (req, res) {
       });
     })
   } catch (error) {
-    console.log(error);
+
     res.status(500).send({
       message: "Could not upload the file: " + req.file.originalname,
     });

@@ -9,9 +9,10 @@ class DetailsResult extends Component{
         )
     }
     show(tests,exams){
+        console.log(tests)
         var result=null;
         if(exams.length>0){
-            result=exams.map((ex,index)=>{
+            result=exams[0].map((ex,index)=>{
                 console.log(ex);
                 var item =  tests.filter(function(it) {
                     return it.question == ex

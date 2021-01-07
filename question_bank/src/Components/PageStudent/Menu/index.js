@@ -12,7 +12,7 @@ class  Sidebar extends Component {
         return (
             <div className="col-md-3 menu-left col-sm-12 col-lg-3 ">    
                 <ul className="main-menu main-class-menu">
-                    <li className="menu-tp active"><Link to ="/student/test-start"> <i className="fas fa-book-open"></i>Đề Thi<span className="caret"> </span>   </Link>
+                    <li className="menu-tp active"><Link> <i className="fas fa-book-open"></i>Đề Thi<span className="caret"> </span>   </Link>
                     </li>
                 </ul>
             </div>

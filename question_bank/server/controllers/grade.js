@@ -30,96 +30,105 @@ exports.get_Grade_ById = (req, res) => {
 };
 // insert data One or Multilple
 exports.add_Grade = (req, res) => {
-    let items = req.body;
-    var obj=['Name','Id_Grade'];
-    
-    if(checkErrorByName(items,obj)){
-        db_grade.bulkCreate(
-            items,
-            { returning: true 
-        }) 
-        .then(function(response){
-              res.json({
-                success:    'true',
-                details: response
-            });
-        })
-        .catch(function(error){
+    db_grade.create({
+        Name:req.body.Name
+    }).then(data=>{
+       if(data!==undefined){
+        db_grade.findAll().then(details=>{
             res.json({
-                success:    'false',
-                details: "Body param error"
-            });
-    }) 
-    }
-    else{
-        res.json({
-            success:    'false',
-            code:   500,
-            details: "Body param error"
-        });
-    }
+                detials: details
+            })
+        })
+       }
+    })
+    // let items = req.body;
+    // var obj=['Name','Id_Grade'];
+    
+    // if(checkErrorByName(items,obj)){
+    //     db_grade.bulkCreate(
+    //         items,
+    //         { returning: true 
+    //     }) 
+    //     .then(function(response){
+    //           res.json({
+    //             success:    'true',
+    //             details: response
+    //         });
+    //     })
+    //     .catch(function(error){
+    //         res.json({
+    //             success:    'false',
+    //             details: "Body param error"
+    //         });
+    // }) 
+    // }
+    // else{
+    //     res.json({
+    //         success:    'false',
+    //         code:   500,
+    //         details: "Body param error"
+    //     });
+    // }
 };
 //update grade
 exports.update_Grade = (req, res) => {
-    let items = req.body;
-    if (items.length >= 1) {
-        items.forEach(item => {
-            db_grade.update({
-                Name: item.Name
-            },
-                {
+    console.log(req.body)
+                db_grade.update({Name: req.body.name},{
                     where: {
-                        Id_grade: item.Id_grade
+                        Id_grade: Number(req.body.id)
                     }
-                }).then((stt) => {
-                    if (stt >= 1) {
-                        res.status(201).json({
-                            success: 'true',
-                            details: items
-                        })
-                    }
-                    else {
-                        res.status(400).json({
-                            success: 'False',
-                            code: 400,
-                            details: "Body parse error"
-                        })
-                    }
-                },
-                    function (err) {
-                        console.log("aaa");
-                    });
-        })
+                }).then(data=>{
+                    console.log(data);
+                    res.status(200).json({
+                          data: data
+                    })
+                })
     }
-
-};
 
 exports.delete_Grade = function (req, res) {
     let items = req.body;
-    items.Id_grade.forEach(item=>{
-        db_grade.destroy({
-            where: {
-                Id_grade: item //this will be your id that you want to delete
-            }
-        }).then(function (rowDeleted) { // rowDeleted will return number of rows deleted
-            if (rowDeleted === 1) {
-                console.log('Deleted successfully');
-                res.status(201).json({
-                    success: 'true',
-                    details: items.Id_grade
-                })
-            }
-            else {
-                res.status(400).json({
-                    success: 'false',
-                    code: 400,
-                    details: "Body parse error"
-                })
-            }
-        }, function (err) {
-            console.log(err);
+    db_grade.destroy({
+        where: {
+            Id_grade: items.Id_grade//this will be your id that you want to delete
+        }
+    }).then(data=>{
+       if(data!==undefined){
+            db_grade.findAll({
+            include: [{
+                model: db.Class, as: "Id_Grade"
+            }]
+        }).then(details => {
+            res.json({
+                success: 'true',
+                details
+            })
         });
-    });
+       }
+    })
+    // items.Id_grade.forEach(item=>{
+    //     db_grade.destroy({
+    //         where: {
+    //             Id_grade: item //this will be your id that you want to delete
+    //         }
+    //     }).then(function (rowDeleted) { // rowDeleted will return number of rows deleted
+    //         if (rowDeleted === 1) {
+    //             console.log('Deleted successfully');
+    //             res.status(201).json({
+    //                 success: 'true',
+    //                 details: items.Id_grade
+    //             })
+    //         }
+    //         else {
+    //             res.status(400).json({
+    //                 success: 'false',
+    //                 code: 400,
+    //                 details: "Body parse error"
+    //             })
+    //         }
+    //     }, function (err) {
+    //         console.log(err);
+    //     });
+    // });
     
 }
 

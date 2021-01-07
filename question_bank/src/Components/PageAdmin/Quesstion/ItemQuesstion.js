@@ -3,12 +3,33 @@ import CallApi from '../../../utils/apiCaller';
 import Item from './Item';
 import ShowTeacherCreate from './ShowTeacherCreate';
 import MathJax from 'react-mathjax-preview';
+import {Redirect} from 'react-router-dom';
 const ItemQuesstion=({posts,loading,currentPage})=>{
     const [teacher,setTeacher]=useState('');
+    const [editQS,SeteditQS]=useState("");
+    const [redrt,Setredrt]=useState(false);
+
     if(loading){
         return (<div><h2>Loading.....</h2></div>);
     }
+   const handleEditQS=(id,Id_grade)=>{
+       let obj={
+           id_qs:id,
+           Id_grade:Id_grade
+       }
+            console.log(obj)
+            SeteditQS(obj);
+            Setredrt(true)
+    }
+    if(redrt){
+        console.log(editQS)
+        return <Redirect  to={{ pathname:"edit-question",
+        state: { id: editQS}
+            }}
+        />
+    }
     return (
+        
         <tbody>
            {posts.map((post,index)=>{
                var item=post.Id_Quesstion;
@@ -18,7 +39,7 @@ const ItemQuesstion=({posts,loading,currentPage})=>{
                     <td className="content-cover">
                         <span>{ <MathJax math={post.Name_quesstion} />}</span>
                         <div className="content-action">
-                            <a href>Edit</a> | <a href className="color-red">Delete</a> | <a href="#">View</a>
+                            <span onClick={()=>handleEditQS(post.id,post.Id_grade)}>Edit</span> | <span href className="color-red">Delete</span>
                         </div>
                     </td>
                     {showTeacher(post.Id_teacher)}

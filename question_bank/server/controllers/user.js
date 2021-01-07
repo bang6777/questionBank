@@ -14,12 +14,9 @@ exports.get_UserByid=function(req,res){
             })
         }
         else if (item){
-            console.log(req.body.password);
-            // let isCorrectPassWord=bcrypt.compareSync(
-            //     req.body.Password,
-            //     item.Password);
-            // console.log(isCorrectPassWord);
-            if(req.body.password===item.Password){
+            let isCorrectPassWord=bcrypt.compareSync(req.body.password,item.Password);
+            console.log(isCorrectPassWord);
+            if(isCorrectPassWord){
                 res.json({ user: item, jwt: `${item.id}` });        
             }
             else{
@@ -33,7 +30,7 @@ exports.get_UserByid=function(req,res){
         console.log(err);
     })
 }
-exports.get_TeacherByid=function(req,res){
+exports.get_TeacherByid= async function(req,res){
     db_teacher.
     findOne({   
         where: {idteacher: req.body.username} 
@@ -45,10 +42,11 @@ exports.get_TeacherByid=function(req,res){
             })
         }
         else if (item){
-            console.log(req.body.password);
-            // let isCorrectPassWord=bcrypt.compareSync(req.body.Password,item.Password);
-            // console.log(isCorrectPassWord);
-            if(req.body.password===item.Password){
+            console.log(item);
+            console.log(item.Password);
+            let isCorrectPassWord= bcrypt.compareSync(req.body.password,item.Password);
+            console.log(isCorrectPassWord);
+            if(isCorrectPassWord){
                 res.json({ user: item, jwt: `${item.id}` });        
             }
             else{

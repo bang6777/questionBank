@@ -10,14 +10,14 @@ render(){
                        <div className="col-md-12">
                        <div className="col-md-6">
                         <h4>WEBSITE</h4>
-                        <a href="#">Trang chủ</a>
-                        <a href="#">Thông báo</a>
+                        <span>Trang chủ</span>
+                        <span  >Thông báo</span>
                         </div>
                        
                         <div className="col-md-6">
                         <h4>ĐỊA CHỈ</h4>
                         <p>Khu II, đường 3/2, P. Xuân Khánh, Q. Ninh Kiều, TP. Cần Thơ</p>
-                        <a href>Điện thoại: (84-292) 3832663</a>
+                        <a >Điện thoại: (84-292) 3832663</a>
                         </div>
                        </div>
                     </div>

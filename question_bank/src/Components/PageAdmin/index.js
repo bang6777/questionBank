@@ -21,6 +21,7 @@ import FormQuestion from './Quesstion/FormQuestion';
 // import QuestionShow from './Quesstion/QuestionShow';
 import ShowExam from './ExamTest/ShowExam';
 import MarkExam from './GradeAI/MarkExam';
+import ShowView from './GradeAI/ShowView';
 import Manage from './PointManage/Manage';
 import ManageShowExam from './PointManage/ManageShowExam';
 import ManageDetails from './PointManage/ManageDetails';
@@ -28,6 +29,7 @@ import Example from './PDFForlder/Example';
 import ShowExamPDF from './PDFForlder/ShowExamPDF';
 import ListExamPDF from './PDFForlder/ListExamPDF';
 import ListPDF from './PDFForlder/ListPDF';
+import EditQuesstion from './Quesstion/EditQuesstion';
 
 class PageAdmin extends Component{
     render(){
@@ -58,9 +60,11 @@ class PageAdmin extends Component{
                 <AdminRoute  path='/admin/exports-list' component={ListExamPDF} />
                 <AdminRoute  path='/admin/list-pdf' component={ListPDF} />
                 <AdminRoute  path='/admin/list-pdf-details' component={Example} />
-         
                 <AdminRoute  path='/admin/show_garde' component={Grade} />
-                
+                {/* edit */}
+                <AdminRoute  path='/admin/edit-question' component={EditQuesstion} />
+                <AdminRoute  path='/admin/show-view' component={ShowView} />
+
                 </div>
                 <div className="clearfix"></div>
                 <Footer />

@@ -36,7 +36,7 @@ def Grade():
     print(str_random)
     arr=a.chambai(str_random)
     print(arr)
-    return jsonify({"arr":arr,"mess":"0000000000"})
+    return jsonify({"arr":arr,"mess":"ok"})
 if __name__ == '__main__':
     app.debug = True
     app.run(host='127.0.0.1', port=5000)

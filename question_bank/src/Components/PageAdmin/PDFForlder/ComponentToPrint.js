@@ -17,6 +17,7 @@ export class ComponentToPrint extends React.PureComponent {
       CallApi("v1/exam/export/pdf","POST",obj).then(res=>{
         console.log(res.data);
         if(res!==undefined){
+          console.log(res.datas)
           this.setState({
             datas: res.data.details,
             key: res.data.success
@@ -28,11 +29,23 @@ export class ComponentToPrint extends React.PureComponent {
       let {datas,key}=this.state;
       return (
         <table className="format-pdf">
+          <div className="text-center">
+          <div className="col-md-6">
+              <p>Đề Kiểm Tra</p>
+              <p>Môn thi</p>
+              <p>Thời gian làm bài</p>
+              </div>
+              <div className="col-md-6">
+              <p>Đề Kiểm Tra</p>
+              <p>Môn thi</p>
+              <p>Thời gian làm bài</p>
+              </div>
+          </div>
           {datas.map((post,index)=>{
             console.log(post.Id_Quesstion)
                var item=post.Id_Quesstion;
                return(
-                <tbody>
+                <tbody className="export-pdf">
                     <div className="question" key={index}> Câu{index+1}: {post.Name_quesstion}</div>
                     <AnsewerPDF item={item} key={index} index={index} code={key}/>
                 </tbody>

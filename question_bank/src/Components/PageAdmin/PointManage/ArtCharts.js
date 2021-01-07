@@ -16,7 +16,7 @@ export default class  ArtCharts extends PureComponent {
             var name2=(i+1)*5;
             var name_kq=name+"-"+name2;
            var diem= this.statusCounter(Array_ts,i/2,(i+1)/2);
-            data.push({name:name_kq,diem:diem})
+            data.push({name:name_kq,Sinhvien:diem})
         }
     return (
       <BarChart ylabel='Sinh Viên'
@@ -33,7 +33,7 @@ export default class  ArtCharts extends PureComponent {
         <Tooltip />
         <Legend />
        
-        <Bar dataKey="diem" fill="#82ca9d" />
+        <Bar dataKey="Sinhvien" fill="#82ca9d" />
       </BarChart>
     );
   }

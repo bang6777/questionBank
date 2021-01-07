@@ -16,32 +16,35 @@ class ManageDetails extends Component{
             Array_ts:""
         }
     }
-    componentDidMount(){
+    componentDidMount (){
         let obj={
             id: this.props.location.state.id
         }
         CallApi("v1/grade_exam/show","POST",obj).then(res=>{
             // console.log(res.data)
-            // console.log(res.data.data.test)
+            console.log(res.data)
             if(res!==undefined){
                 var Ar=[];
+                var arr2=[]
+                var arr3=[];
                 res.data.data.map(dt=>{
                     dt.test.map(ts=>{
                         Ar.push(ts.Point);
                     })
-                    this.setState({
-                        tests:dt.test,
-                        exams: dt.exam,
-                        Array_ts: Ar
-                     })
+                    arr2.push(dt.test);
+                    arr3.push(dt.exam);
                 })
+                this.setState({
+                    tests: res.data.data[0].test,
+                    exams:  arr3,
+                    Array_ts: Ar
+                 })
             }
         })
     }
 
     render(){
         let {exams,tests,reCharts,Array_ts}=this.state;
-        console.log(this.state);
         let artChart=null;
         if(reCharts){
             artChart= <ArtCharts  Array_ts={Array_ts} />
@@ -82,7 +85,7 @@ class ManageDetails extends Component{
         let result=null;
         if(exams.length>0){
             var core=10/exams.length;
-            result=exams.map((ex,index)=>{
+            result=exams[0].map((ex,index)=>{
                 return(
                     <th key={index}> Q.{index+1}<br />/ {core}</th>
                 )
@@ -114,10 +117,11 @@ class ManageDetails extends Component{
         return result;
     }
     showTestExam1(tests,exams){
+        console.log(tests)
         var Array=[];
         var Array2=[]
         if(tests.length>0 && exams.length> 0){
-            tests.map((test,index)=>{
+            tests.map((test)=>{
                 var test1=JSON.parse(test.Id_question);
                 test1.map(t=>{
                     Array2.push(t);
@@ -141,7 +145,6 @@ class ManageDetails extends Component{
             result=Id_question.map((ex,index)=>{
                 var Array1=[];
                 return(
-
                     <Details key={index} tests={ex} exams={exams} />
                 )
             })

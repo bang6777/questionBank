@@ -53,6 +53,7 @@ app.use("/v1/test",test);
 app.use("/v1/exam",exam);
 app.use("/v1/user",user);
 
+app.use(cors({origin: 'http://localhost:3000'}));
 global.__basedir = __dirname;
 const initRoutes = require("./routes/tutorial.routes");
 app.use("/v1/excel",initRoutes);
@@ -63,6 +64,7 @@ app.use("/v1/imgimg",imgOneRoutes);
 const textRoutes = require("./routes/text.routes");
 app.use("/v1/text",textRoutes);
 db.sequelize.sync().then (() => {
+  
     app.listen(PORT, ()=> {
         console.log('listening on: http://localhost:'+PORT);
     });

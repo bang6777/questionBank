@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Level',
   });
   Level.associate=function(models){
-    Level.hasMany(models.Quesstion, {as: 'Id_Level',foreignKey : 'Id_level'})
+    Level.hasMany(models.Quesstion, {as: 'Id_Level',foreignKey : 'Id_level',onDelete: 'cascade', onUpdate:'cascade' })
   }
   return Level;
 };

@@ -6,6 +6,8 @@ var db_examdetails=db.ExamDetails;
 var db_edq=db.ExamDetails_Quesstion;
 var db_quesstion = db.Quesstion;
 var db_class=db.Class;
+const bcrypt = require("bcrypt");
+const salt = bcrypt.genSaltSync();
 //get list
 exports.get_List_Exam= function (req, res) {
     db_exam.findAll({
@@ -42,10 +44,11 @@ exports.add_Exam= function (req, res){
     var result=[];
     let ketqua=[];
     var exam=null;
+    var pass= bcrypt.hashSync(req.body.Pass,salt)
     db_exam.create({
         Id_teacher	:   req.body.Id_teacher,
         Time	:       req.body.Time,
-        Pass	:       req.body.Pass,
+        Pass	:       pass,
         Note	:       req.body.Note,
         Id_exam_subject: 	req.body.Id_exam_subject,
         Id_grade: 	Number(req.body.Id_grade)
@@ -217,69 +220,73 @@ exports.show_Exam=function(req,res){
     db_exam.findOne({
         where: {id: req.body.Id_exam}   
     }).then(item=>{
-            var time=item.Time;
+       
             if(!item){
                 res.status(500).json({
                     message: "Error ID"
                 })
             }
             else if(item){
+                var time=item.Time;
                 console.log(req.body.password);
-                console.log(item.Pass);
-                // let isCorrectPassWord=bcrypt.compareSync(req.body.Password,item.Password);
-                // console.log(isCorrectPassWord);
-                if(req.body.password===item.Pass){
-
-                    db_examdetails.findOne({
-                        where: {Id_exam: req.body.Id_exam,Stt_exam:req.body.Stt_exam}
-                    }).then(data=>{
-                        if(!data){
-                            res.status(500).json({
-                                message: "Error ID"
-                            })
-                        }
-                        else if(data){
-                            console.log("ok");
-                            console.log(data.Stt_exam)
-                            console.log(req.body.Stt_exam);
-                            console.log("ok");
-                              if(Number(req.body.Stt_exam)===Number(data.Stt_exam)){
-                                    if(Number(data.Content)===0){
-                                        console.log("123")
-                                        res.json({ 
-                                            user: data,
-                                            Time :time,
-                                             jwt: `${data.id}` });
-                                    }else{
-                                        print(123);
-                                        res.status(200).json({
-                                            code:   '500',
-                                            details:    "Đề thi chỉ đăng nhập 1 lần..."
-                                        })
-                                      }
-                              }
-                              else{
+                let isCorrectPassWord=bcrypt.compareSync(req.body.password,item.Pass);
+                console.log("123")
+                console.log(isCorrectPassWord);
+                if(isCorrectPassWord){
+                    if(Number(item.stt)===0){
+                        db_examdetails.findOne({
+                            where: {Id_exam: req.body.Id_exam,Stt_exam:req.body.Stt_exam}
+                        }).then(data=>{
+                            if(!data){
                                 res.status(500).json({
-                                    code:   '500',
-                                    details:    "Error user..."
+                                    message: "Error ID"
                                 })
-                              }
-                        }
-                    })
+                            }
+                            else if(data){
+                                console.log("ok");
+                                console.log(data.Stt_exam)
+                                console.log(req.body.Stt_exam);
+                                console.log("ok");
+                                  if(Number(req.body.Stt_exam)===Number(data.Stt_exam)){
+                                        if(Number(data.Content)===0){
+                                            console.log("123")
+                                            res.json({ 
+                                                stt:req.body.Stt_exam,
+                                                user: data,
+                                                Time :time,
+                                                 jwt: `${data.id}` });
+                                        }else{
+                                            res.status(200).json({
+                                                code:   '500',
+                                                details:    "Đề thi chỉ đăng nhập 1 lần..."
+                                            })
+                                          }
+                                  }
+                                  else{
+                                    res.status(500).json({
+                                        code:   '500',
+                                        details:    "Error user..."
+                                    })
+                                  }
+                            }
+                        })
+                    }else{
+                        res.json({
+                            code:   '500',
+                            details:    "không được phép truy cập"
+                        })
+                    }
                 }
                 else{
-                    res.status(500).json({
+                    res.json({
                         code:   '500',
                         details:    "Error user..."
                     })
                 }
             }
-    }).catch(res=>{
-        res.status(501).json({
-            code: "501",
-            message: "Error"
-        })
-    })
+    }).catch=(e)=>{
+        console.log(e);
+    }
 }
 exports.show_PDF=(req,res)=>{
     db_edq.findAll({
@@ -305,3 +312,18 @@ exports.show_PDF=(req,res)=>{
     })
 }
 
+exports.update_stt_ById= function(req,res){
+    console.log(req.body.stt);
+    const data=req.body.stt
+            db_exam.update({stt: req.body.stt},{
+                where: {
+                    id:req.body.id
+                }
+            }).then(datas=>{
+                console.log(data);
+                res.status(200).json({
+                
+                    data
+                })
+            })
+}

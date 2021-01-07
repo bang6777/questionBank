@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   Test.init({
     Id_exam: DataTypes.INTEGER,
     Id_student: DataTypes.INTEGER,
-    Id_question: DataTypes.INTEGER,
+    Id_question: DataTypes.STRING,
     Point: DataTypes.FLOAT,
     Id_Examdetails: DataTypes.INTEGER,
     Time_start: DataTypes.STRING,

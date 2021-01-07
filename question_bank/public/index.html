@@ -41,38 +41,8 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
 </body>
-<script type="text/javascript">
-  var slideIndex = 1;
-  showSlides(slideIndex);
 
-  function plusSlides(n) {
-      showSlides(slideIndex += n);
-  }
 
-  function currentSlide(n) {
-      showSlides(slideIndex = n);
-  }
-
-  function showSlides(n) {
-      var i;
-      var slides = document.getElementsByClassName("flex-slide");
-      var dots = document.getElementsByClassName("dot");
-      if (n > slides.length) {
-          slideIndex = 1
-      }
-      if (n < 1) {
-          slideIndex = slides.length
-      }
-      for (i = 0; i < slides.length; i++) {
-          slides[i].style.display = "none";
-      }
-      for (i = 0; i < dots.length; i++) {
-          dots[i].className = dots[i].className.replace(" active", "");
-      }
-      slides[slideIndex - 1].style.display = "block";
-      dots[slideIndex - 1].className += " active";
-  }
-</script>
 <script src="/bootstrap/js/jquery.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
 <script src="//cdn.ckeditor.com/4.15.0/standard/ckeditor.js"></script>

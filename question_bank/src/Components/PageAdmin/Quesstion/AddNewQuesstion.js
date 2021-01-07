@@ -71,9 +71,8 @@ export default class AddNewQuesstion extends Component{
                 this.setState({
                     Id_es: res.data.details.id
                 })
-                console.log(obj);
                 CallApi("v1/topic/1","POST",obj).then(res=>{
-                    console.log( res.data.details);
+                   
                     this.setState({
                             topics: res.data.details,
                             
